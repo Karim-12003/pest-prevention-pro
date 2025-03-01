@@ -13,7 +13,7 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row items-center">
           {/* Hero Text Content */}
           <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
-            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in whitespace-nowrap">
+            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in whitespace-nowrap overflow-visible">
               Professionelle Schädlingsbekämpfung
             </div>
             
