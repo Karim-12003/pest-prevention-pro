@@ -53,7 +53,7 @@ const Services = () => {
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-md">
           <AspectRatio ratio={16/9}>
             <img 
-              src="/photo-1498936178812-4b2e558d2937" 
+              src="/placeholder.svg" 
               alt="Professionelle Schädlingsbekämpfung in Aktion" 
               className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
             />

@@ -49,7 +49,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg">
             <AspectRatio ratio={16/9}>
               <img 
-                src="/photo-1721322800607-8c38375eef04" 
+                src="/placeholder.svg" 
                 alt="Ein sauberes, schädlingsfreies Zuhause" 
                 className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               />
