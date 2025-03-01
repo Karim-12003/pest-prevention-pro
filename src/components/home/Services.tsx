@@ -1,7 +1,7 @@
 
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
-import { Bug, Rat, Sprout, Bed, Spider, Stethoscope } from 'lucide-react';
+import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const services = [
@@ -26,7 +26,7 @@ const services = [
     description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern.",
   },
   {
-    icon: <Spider className="h-10 w-10" />,
+    icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
   },
