@@ -7,37 +7,37 @@ import { cn } from '@/lib/utils';
 const reviews = [
   {
     name: "Markus Schmidt",
-    location: "Hamburg, Eimsbüttel",
+    location: "Eimsbüttel",
     rating: 5,
     text: "Fantastischer Service! Hatte einen Wespenbefall im Gartenhaus, das Team war innerhalb von 24 Stunden vor Ort und hat das Problem professionell gelöst. Sehr freundliches Personal und faire Preise.",
   },
   {
     name: "Sabine Müller",
-    location: "Hamburg, Winterhude",
+    location: "Winterhude",
     rating: 5,
     text: "Nach wochenlangem Kampf gegen Bettwanzen endlich eine Lösung! Die Experten haben eine gründliche Behandlung durchgeführt und mir wertvolle Tipps zur Vorbeugung gegeben. Sehr empfehlenswert!",
   },
   {
     name: "Thomas Weber",
-    location: "Hamburg, Barmbek",
+    location: "Barmbek",
     rating: 5,
     text: "Absolut zuverlässiger Service. Terminvereinbarung war unkompliziert, der Techniker pünktlich und kompetent. Das Mäuseproblem in unserem Keller wurde schnell und effektiv beseitigt. Vielen Dank!",
   },
   {
     name: "Claudia Fischer",
-    location: "Hamburg, Altona",
+    location: "Altona",
     rating: 5,
     text: "Hervorragende Arbeit bei der Bekämpfung von Ameisen in unserem Haus. Besonders beeindruckt hat mich die umweltfreundliche Herangehensweise und die ausführliche Beratung. Ein Jahr später immer noch keine Probleme.",
   },
   {
     name: "Jürgen Hoffmann",
-    location: "Hamburg, St. Pauli",
+    location: "St. Pauli",
     rating: 4,
     text: "Guter und schneller Service bei akutem Schädlingsbefall. Die kostenlose Anfahrt war ein großer Pluspunkt. Einziger kleiner Kritikpunkt: Die Nachkontrolle musste ich selbst anstoßen, sonst top!",
   },
   {
     name: "Monika Becker",
-    location: "Hamburg, Eppendorf",
+    location: "Eppendorf",
     rating: 5,
     text: "Sehr professionelles Unternehmen! Der Kammerjäger hat unser Taubenproblem auf dem Dachboden schnell in den Griff bekommen. Auch die präventiven Maßnahmen funktionieren bis heute einwandfrei. Danke für die tolle Arbeit!",
   },

@@ -52,11 +52,11 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
-                <span>info@kammerjaeger-hamburg.de</span>
+                <span>info@kammerjaeger.de</span>
               </li>
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
-                <span>Musterstraße 123, 20095 Hamburg</span>
+                <span>Musterstraße 123, 20095</span>
               </li>
               <li className="flex items-start">
                 <Clock className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />

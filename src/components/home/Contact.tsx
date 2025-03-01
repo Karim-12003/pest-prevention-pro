@@ -43,8 +43,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Adresse</h4>
-                  <p>Musterstraße 123, 20095 Hamburg</p>
-                  <p className="text-sm text-muted-foreground mt-1">Service im gesamten Hamburger Stadtgebiet</p>
+                  <p>Musterstraße 123, 20095</p>
+                  <p className="text-sm text-muted-foreground mt-1">Service im gesamten Stadtgebiet</p>
                 </div>
               </div>
               
@@ -56,7 +56,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">E-Mail</h4>
-                  <p>info@kammerjaeger-hamburg.de</p>
+                  <p>info@kammerjaeger.de</p>
                   <p className="text-sm text-muted-foreground mt-1">Wir antworten innerhalb von 24 Stunden</p>
                 </div>
               </div>
@@ -80,7 +80,7 @@ const Contact = () => {
               <div className="bg-secondary/50 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2">Unser Servicegebiet</h4>
                 <p className="text-sm">
-                  Wir bieten unsere Dienstleistungen in ganz Hamburg und Umgebung an, inklusive Norderstedt, Pinneberg, Wedel, Reinbek, Bergedorf und weiteren Gemeinden im Umkreis von 50 km.
+                  Wir bieten unsere Dienstleistungen in der gesamten Region und einem Umkreis von 50 km an.
                 </p>
               </div>
             </div>
