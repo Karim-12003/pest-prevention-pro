@@ -3,6 +3,7 @@ import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const services = [
   {
@@ -46,6 +47,20 @@ const Services = () => {
           <p className="section-subheading">
             Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen.
           </p>
+        </div>
+
+        {/* Bild hinzufügen, das in den Service-Bereich integriert ist */}
+        <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-md">
+          <AspectRatio ratio={16/9}>
+            <img 
+              src="/photo-1498936178812-4b2e558d2937" 
+              alt="Professionelle Schädlingsbekämpfung in Aktion" 
+              className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+            />
+          </AspectRatio>
+          <div className="bg-white p-4 text-center text-sm text-muted-foreground">
+            Unsere Experten sorgen für umfassende Schädlingsbekämpfung in Ihrem Zuhause oder Geschäft
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">

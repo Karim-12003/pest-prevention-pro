@@ -8,6 +8,7 @@ import Certifications from '../components/home/Certifications';
 import Reviews from '../components/home/Reviews';
 import Contact from '../components/home/Contact';
 import PhoneButton from '../components/ui/PhoneButton';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const Index = () => {
   useEffect(() => {
@@ -44,6 +45,23 @@ const Index = () => {
       
       <main className="flex-grow">
         <Hero />
+        <div className="container mx-auto py-10">
+          <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg">
+            <AspectRatio ratio={16/9}>
+              <img 
+                src="/photo-1721322800607-8c38375eef04" 
+                alt="Ein sauberes, schädlingsfreies Zuhause" 
+                className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
+              />
+            </AspectRatio>
+            <div className="bg-white p-6 text-center">
+              <h3 className="text-xl font-semibold mb-2">Ihr sicheres Zuhause ist unser Ziel</h3>
+              <p className="text-muted-foreground">
+                Wir sorgen dafür, dass Ihr Wohnraum frei von ungebetenen Gästen bleibt und Sie sich rundum wohlfühlen können.
+              </p>
+            </div>
+          </div>
+        </div>
         <Services />
         <Certifications />
         <Reviews />
