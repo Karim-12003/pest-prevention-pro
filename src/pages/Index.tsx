@@ -40,13 +40,13 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
       <Navbar />
       
       <main className="flex-grow">
         <Hero />
-        <div className="container mx-auto py-10">
-          <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg">
+        <div className="container mx-auto py-16">
+          <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
             <AspectRatio ratio={16/9}>
               <img 
                 src="/placeholder.svg" 
@@ -54,9 +54,9 @@ const Index = () => {
                 className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               />
             </AspectRatio>
-            <div className="bg-white p-6 text-center">
-              <h3 className="text-xl font-semibold mb-2">Ihr sicheres Zuhause ist unser Ziel</h3>
-              <p className="text-muted-foreground">
+            <div className="bg-white p-8 text-center">
+              <h3 className="text-2xl font-semibold mb-3 text-[#1A1F2C]">Ihr sicheres Zuhause ist unser Ziel</h3>
+              <p className="text-muted-foreground text-lg">
                 Wir sorgen dafür, dass Ihr Wohnraum frei von ungebetenen Gästen bleibt und Sie sich rundum wohlfühlen können.
               </p>
             </div>

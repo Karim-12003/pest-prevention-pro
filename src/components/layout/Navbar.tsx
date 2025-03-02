@@ -34,14 +34,14 @@ const Navbar = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3',
-        isScrolled ? 'glass-effect' : 'bg-transparent'
+        isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="text-primary font-bold text-xl md:text-2xl transition-all">
-            Kammerjäger
+            <span className="text-[#9b87f5]">Kammerjäger</span> <span className="font-light">Adalbert</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -51,7 +51,7 @@ const Navbar = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-primary/80 hover:text-accent transition-colors py-2 text-sm font-medium"
+                    className="text-primary/80 hover:text-[#9b87f5] transition-colors py-2 text-sm font-medium"
                   >
                     {link.name}
                   </a>
@@ -79,7 +79,7 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       <div
         className={cn(
-          'md:hidden absolute w-full transition-all duration-300 glass-effect',
+          'md:hidden absolute w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg',
           isMenuOpen ? 'top-full opacity-100' : '-top-[400px] opacity-0'
         )}
       >
@@ -89,7 +89,7 @@ const Navbar = () => {
               <li key={link.name}>
                 <a
                   href={link.href}
-                  className="block text-primary/80 hover:text-accent transition-colors py-2 font-medium"
+                  className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-2 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}
