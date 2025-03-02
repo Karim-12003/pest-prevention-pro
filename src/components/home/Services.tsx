@@ -10,50 +10,50 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Insektenbekämpfung",
     description: "Effektive Bekämpfung von Wespen, Kakerlaken, Ameisen und anderen Insekten mit modernsten Methoden.",
-    image: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?auto=format&fit=crop&q=80",
-    alt: "Nahaufnahme von Insekten"
+    image: "https://images.unsplash.com/photo-1611352729334-7490a943dfe2?auto=format&fit=crop&q=80",
+    alt: "Insektenbekämpfung"
   },
   {
     icon: <Rat className="h-10 w-10" />,
     title: "Nagetierbekämpfung",
     description: "Professionelle Entfernung von Mäusen, Ratten und anderen Nagetieren mit nachhaltigen Lösungen.",
-    image: "https://images.unsplash.com/photo-1590691566903-2a8b3433d0bf?auto=format&fit=crop&q=80",
-    alt: "Nagetier in natürlicher Umgebung"
+    image: "https://images.unsplash.com/photo-1589874186441-bce059b45253?auto=format&fit=crop&q=80",
+    alt: "Nagetierbekämpfung"
   },
   {
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80",
-    alt: "Marder in natürlicher Umgebung"
+    image: "https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&q=80",
+    alt: "Marderbekämpfung"
   },
   {
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://images.unsplash.com/photo-1563213126-a4273aed2016?auto=format&fit=crop&q=80",
-    alt: "Schimmelbefall an einer Wand"
+    image: "https://images.unsplash.com/photo-1590690709341-d70b56c62986?auto=format&fit=crop&q=80",
+    alt: "Schimmelbekämpfung"
   },
   {
     icon: <Bed className="h-10 w-10" />,
     title: "Bettwanzenbekämpfung",
     description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern.",
-    image: "https://images.unsplash.com/photo-1564731070937-59329a21b8d7?auto=format&fit=crop&q=80",
-    alt: "Nahaufnahme eines Bettes für Bettwanzenbekämpfung"
+    image: "https://images.unsplash.com/photo-1583792550578-9361e676a8c6?auto=format&fit=crop&q=80",
+    alt: "Bettwanzenbekämpfung"
   },
   {
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://images.unsplash.com/photo-1556890900-9d5bf99db4f1?auto=format&fit=crop&q=80",
-    alt: "Nahaufnahme einer Spinne in ihrem Netz"
+    image: "https://images.unsplash.com/photo-1634471119370-d722cd172019?auto=format&fit=crop&q=80",
+    alt: "Spinnenbekämpfung"
   },
   {
     icon: <Stethoscope className="h-10 w-10" />,
     title: "Präventionsservice",
     description: "Vorbeugende Maßnahmen und regelmäßige Inspektionen zum Schutz vor Schädlingsbefall.",
-    image: "https://images.unsplash.com/photo-1485833077593-4278bba3f11f?auto=format&fit=crop&q=80",
-    alt: "Präventive Schädlingsbekämpfung"
+    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80",
+    alt: "Präventionsservice"
   },
 ];
 
