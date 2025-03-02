@@ -1,7 +1,7 @@
 
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
-import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Paw } from 'lucide-react';
+import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
@@ -21,7 +21,7 @@ const services = [
     alt: "Nagetier in natürlicher Umgebung"
   },
   {
-    icon: <Paw className="h-10 w-10" />,
+    icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
     image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80",
