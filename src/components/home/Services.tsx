@@ -10,49 +10,49 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Insektenbekämpfung",
     description: "Effektive Bekämpfung von Wespen, Kakerlaken, Ameisen und anderen Insekten mit modernsten Methoden.",
-    image: "https://images.unsplash.com/photo-1611352729334-7490a943dfe2?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1566407528570-addb9920e640?q=80&w=1000",
     alt: "Insektenbekämpfung"
   },
   {
     icon: <Rat className="h-10 w-10" />,
     title: "Nagetierbekämpfung",
     description: "Professionelle Entfernung von Mäusen, Ratten und anderen Nagetieren mit nachhaltigen Lösungen.",
-    image: "https://images.unsplash.com/photo-1589874186441-bce059b45253?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1579213838658-6c07473f2a16?q=80&w=1000",
     alt: "Nagetierbekämpfung"
   },
   {
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1591485112459-4d5464a2ff86?q=80&w=1000",
     alt: "Marderbekämpfung"
   },
   {
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://images.unsplash.com/photo-1590690709341-d70b56c62986?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1606798874341-66f6e63d8f9b?q=80&w=1000",
     alt: "Schimmelbekämpfung"
   },
   {
     icon: <Bed className="h-10 w-10" />,
     title: "Bettwanzenbekämpfung",
     description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern.",
-    image: "https://images.unsplash.com/photo-1583792550578-9361e676a8c6?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1584132905271-512c958d674a?q=80&w=1000",
     alt: "Bettwanzenbekämpfung"
   },
   {
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://images.unsplash.com/photo-1634471119370-d722cd172019?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1575663620136-5ebbfcc2c597?q=80&w=1000",
     alt: "Spinnenbekämpfung"
   },
   {
     icon: <Stethoscope className="h-10 w-10" />,
     title: "Präventionsservice",
     description: "Vorbeugende Maßnahmen und regelmäßige Inspektionen zum Schutz vor Schädlingsbefall.",
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=1000",
     alt: "Präventionsservice"
   },
 ];
