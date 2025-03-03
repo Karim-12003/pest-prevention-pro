@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
+import WhatsAppButton from '../ui/WhatsAppButton';
 
 const PHONE_NUMBER = "040 - 180 46 785";
 
@@ -45,7 +46,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-4">
             <ul className="flex space-x-6">
               {navLinks.map((link) => (
                 <li key={link.name}>
@@ -58,12 +59,14 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <PhoneButton phoneNumber={PHONE_NUMBER} />
+            <PhoneButton phoneNumber={PHONE_NUMBER} size="sm" />
+            <WhatsAppButton phoneNumber={PHONE_NUMBER} size="sm" />
           </nav>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-4" />
+            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-2" />
+            <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-4" />
             <button
               onClick={toggleMenu}
               className="text-primary p-2 rounded-md hover:bg-secondary transition-colors"

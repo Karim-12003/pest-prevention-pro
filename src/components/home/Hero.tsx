@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
+import WhatsAppButton from '../ui/WhatsAppButton';
 
 const PHONE_NUMBER = "040 - 180 46 785";
 
@@ -27,6 +28,7 @@ const Hero = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
               <PhoneButton phoneNumber={PHONE_NUMBER} size="lg" />
+              <WhatsAppButton phoneNumber={PHONE_NUMBER} size="lg" />
               <a 
                 href="#contact" 
                 className="inline-flex items-center justify-center px-6 py-3 rounded-md border border-primary/10 bg-secondary hover:bg-secondary/80 text-primary font-medium transition-colors"

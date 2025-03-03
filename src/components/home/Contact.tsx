@@ -1,8 +1,8 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
+import WhatsAppButton from '../ui/WhatsAppButton';
 
 const PHONE_NUMBER = "040 - 180 46 785";
 
@@ -92,8 +92,11 @@ const Contact = () => {
             <div className="p-6 bg-white rounded-xl shadow-sm border border-primary/10 mb-8">
               <div className="text-center">
                 <h4 className="font-semibold mb-3">Sofortige Beratung?</h4>
-                <p className="mb-4">Rufen Sie uns an für eine kostenlose telefonische Erstberatung</p>
-                <PhoneButton phoneNumber={PHONE_NUMBER} size="lg" className="w-full justify-center" />
+                <p className="mb-4">Kontaktieren Sie uns telefonisch oder per WhatsApp</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <PhoneButton phoneNumber={PHONE_NUMBER} size="default" className="w-full justify-center" />
+                  <WhatsAppButton phoneNumber={PHONE_NUMBER} size="default" className="w-full justify-center" />
+                </div>
               </div>
             </div>
             

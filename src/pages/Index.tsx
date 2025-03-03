@@ -8,6 +8,7 @@ import Certifications from '../components/home/Certifications';
 import Reviews from '../components/home/Reviews';
 import Contact from '../components/home/Contact';
 import PhoneButton from '../components/ui/PhoneButton';
+import WhatsAppButton from '../components/ui/WhatsAppButton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const Index = () => {
@@ -70,8 +71,9 @@ const Index = () => {
       
       <Footer />
       
-      {/* Fixed Phone Button */}
+      {/* Fixed Buttons */}
       <PhoneButton phoneNumber="040 - 180 46 785" variant="fixed" />
+      <WhatsAppButton phoneNumber="040 - 180 46 785" variant="fixed" />
     </div>
   );
 };
