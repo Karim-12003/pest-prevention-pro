@@ -25,11 +25,11 @@ const WhatsAppButton = ({
   const baseStyles = "inline-flex items-center justify-center font-medium transition-all ease-in-out duration-300";
   
   const variantStyles = {
-    default: "bg-green-600 text-white hover:bg-green-700 rounded-md shadow-sm hover:shadow-md transform hover:-translate-y-1",
-    outline: "border border-green-600 text-green-600 hover:bg-green-600/10 rounded-md hover:shadow-md transform hover:-translate-y-1",
-    ghost: "text-green-600 hover:bg-green-600/10 rounded-md transform hover:-translate-y-1",
-    link: "text-green-600 underline-offset-4 hover:underline transform hover:-translate-y-1",
-    fixed: "fixed bottom-24 right-6 z-50 bg-green-600 text-white shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform"
+    default: "bg-green-600 text-white hover:bg-green-700 rounded-md shadow-sm hover:shadow-md transform hover:-translate-y-1 animate-float",
+    outline: "border border-green-600 text-green-600 hover:bg-green-600/10 rounded-md hover:shadow-md transform hover:-translate-y-1 animate-float",
+    ghost: "text-green-600 hover:bg-green-600/10 rounded-md transform hover:-translate-y-1 animate-float",
+    link: "text-green-600 underline-offset-4 hover:underline transform hover:-translate-y-1 animate-float",
+    fixed: "fixed bottom-24 right-6 z-50 bg-green-600 text-white shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform animate-bounce"
   };
   
   const sizeStyles = {
@@ -56,14 +56,14 @@ const WhatsAppButton = ({
       aria-label="WhatsApp Kontakt"
     >
       {variant === 'fixed' ? (
-        <MessageCircle size={24} className="animate-pulse-subtle" />
+        <MessageCircle size={24} className="animate-pulse" />
       ) : (
         <>
           <MessageCircle 
             size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
-            className="animate-pulse-subtle"
+            className="animate-pulse"
           />
-          <span>WhatsApp</span>
+          <span className={variant !== 'default' ? "animate-pulse-subtle" : ""}>WhatsApp</span>
         </>
       )}
     </a>

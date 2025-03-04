@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -100,11 +99,23 @@ export default {
 				},
 				'pulse-subtle': {
 					'0%, 100%': { opacity: '1' },
-					'50%': { opacity: '0.85' }
+					'50%': { opacity: '0.7' }
 				},
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-5px)' }
+				},
+				'vibrate': {
+					'0%, 100%': { transform: 'translate(0)' },
+					'10%': { transform: 'translate(-1px, -1px)' },
+					'20%': { transform: 'translate(1px, -1px)' },
+					'30%': { transform: 'translate(-1px, 1px)' },
+					'40%': { transform: 'translate(1px, 1px)' },
+					'50%': { transform: 'translate(-1px, -1px)' },
+					'60%': { transform: 'translate(1px, -1px)' },
+					'70%': { transform: 'translate(-1px, 1px)' },
+					'80%': { transform: 'translate(-1px, -1px)' },
+					'90%': { transform: 'translate(1px, -1px)' }
 				}
 			},
 			animation: {
@@ -114,8 +125,11 @@ export default {
 				'fade-in-up': 'fade-in-up 0.8s ease-out',
 				'fade-in-down': 'fade-in-down 0.8s ease-out',
 				'scale-in': 'scale-in 0.5s ease-out',
-				'pulse-subtle': 'pulse-subtle 3s infinite ease-in-out',
-				'float': 'float 3s infinite ease-in-out'
+				'pulse-subtle': 'pulse-subtle 2s infinite ease-in-out',
+				'float': 'float 3s infinite ease-in-out',
+				'vibrate': 'vibrate 1.5s infinite ease-in-out',
+				'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'bounce': 'bounce 1s infinite'
 			},
 			transitionProperty: {
 				'height': 'height',
