@@ -116,7 +116,23 @@ export default {
 					'70%': { transform: 'translate(-1px, 1px)' },
 					'80%': { transform: 'translate(-1px, -1px)' },
 					'90%': { transform: 'translate(1px, -1px)' }
-				}
+				},
+				'ping': {
+					'75%, 100%': {
+						transform: 'scale(2)',
+						opacity: '0',
+					},
+				},
+				'delayed-ping': {
+					'0%': {
+						transform: 'scale(0.95)',
+						opacity: '0.8',
+					},
+					'75%, 100%': {
+						transform: 'scale(2)',
+						opacity: '0',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -129,7 +145,9 @@ export default {
 				'float': 'float 3s infinite ease-in-out',
 				'vibrate': 'vibrate 1.5s infinite ease-in-out',
 				'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				'bounce': 'bounce 1s infinite'
+				'bounce': 'bounce 1s infinite',
+				'ping': 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite',
+				'delayed-ping': 'delayed-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite 0.5s',
 			},
 			transitionProperty: {
 				'height': 'height',

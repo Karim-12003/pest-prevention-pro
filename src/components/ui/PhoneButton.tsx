@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Phone, PhoneIncoming } from 'lucide-react';
+import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PhoneButtonProps {
@@ -25,7 +25,7 @@ const PhoneButton = ({
     outline: "border border-accent text-accent hover:bg-accent/10 rounded-md hover:shadow-md",
     ghost: "text-accent hover:bg-accent/10 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform animate-bounce"
+    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform animate-pulse"
   };
   
   const sizeStyles = {
@@ -45,19 +45,25 @@ const PhoneButton = ({
         baseStyles,
         variantStyles[variant],
         variant !== 'fixed' ? sizeStyles[size] : fixedStyles,
-        variant === 'fixed' ? "animate-vibrate" : "",
         className
       )}
       aria-label="Rufen Sie uns an"
     >
       {variant === 'fixed' ? (
-        <PhoneIncoming size={24} className="text-white animate-pulse" />
+        <div className="relative">
+          <PhoneIncoming size={24} className="text-white z-10 relative" />
+          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75"></div>
+          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75 delay-150"></div>
+          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75 delay-300"></div>
+        </div>
       ) : (
         <>
-          <PhoneIncoming 
-            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
-            className="animate-vibrate"
-          />
+          <div className="relative">
+            <PhoneIncoming 
+              size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
+            />
+            <div className="absolute inset-0 rounded-full animate-ping opacity-75 scale-125 bg-accent/50"></div>
+          </div>
           <span className="animate-pulse-subtle">{phoneNumber}</span>
         </>
       )}
