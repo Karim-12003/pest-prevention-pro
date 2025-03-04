@@ -21,11 +21,11 @@ const PhoneButton = ({
   const baseStyles = "inline-flex items-center justify-center font-medium transition-all ease-in-out duration-300";
   
   const variantStyles = {
-    default: "bg-accent text-accent-foreground hover:bg-accent/90 rounded-md shadow-sm",
-    outline: "border border-accent text-accent hover:bg-accent/10 rounded-md",
-    ghost: "text-accent hover:bg-accent/10 rounded-md",
-    link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-105 active:scale-95 transition-transform"
+    default: "bg-accent text-accent-foreground hover:bg-accent/90 rounded-md shadow-sm hover:shadow-md transform hover:-translate-y-1",
+    outline: "border border-accent text-accent hover:bg-accent/10 rounded-md hover:shadow-md transform hover:-translate-y-1",
+    ghost: "text-accent hover:bg-accent/10 rounded-md transform hover:-translate-y-1",
+    link: "text-accent underline-offset-4 hover:underline transform hover:-translate-y-1",
+    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform"
   };
   
   const sizeStyles = {
@@ -53,7 +53,10 @@ const PhoneButton = ({
         <Phone size={24} className="animate-pulse-subtle" />
       ) : (
         <>
-          <Phone size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+          <Phone 
+            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
+            className="animate-pulse-subtle"
+          />
           <span>{phoneNumber}</span>
         </>
       )}
