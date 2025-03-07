@@ -50,7 +50,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
             <AspectRatio ratio={16/9}>
               <img 
-                src="/placeholder.svg" 
+                src="https://media.istockphoto.com/id/1390233984/de/foto/modernes-luxuszimmer.jpg?s=612x612&w=0&k=20&c=bTBGwF6U2SwRTU6oyRq745HDW1kTlQ8A17RCqa-y-Sw=" 
                 alt="Ein sauberes, schädlingsfreies Zuhause" 
                 className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               />
