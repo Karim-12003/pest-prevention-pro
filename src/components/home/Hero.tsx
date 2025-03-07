@@ -57,7 +57,7 @@ const Hero = () => {
                 {
                   icon: <Zap className="w-5 h-5 md:w-6 md:h-6 text-accent" />,
                   title: "Schnelle Reaktionszeit",
-                  description: "Wir sind innerhalb von 24-48 Stunden bei Ihnen vor Ort",
+                  description: "Wir sind innerhalb von 30-60 Minuten bei Ihnen vor Ort",
                   delay: 600,
                 }
               ].map((feature, index) => (
