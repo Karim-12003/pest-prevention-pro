@@ -10,8 +10,11 @@ import Contact from '../components/home/Contact';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { useUserLocation } from '@/hooks/useUserLocation';
 
 const Index = () => {
+  const { city } = useUserLocation();
+  
   useEffect(() => {
     // Smooth scroll to anchor links
     const handleHashChange = () => {
@@ -56,7 +59,9 @@ const Index = () => {
               />
             </AspectRatio>
             <div className="bg-white p-8 text-center">
-              <h3 className="text-2xl font-semibold mb-3 text-[#1A1F2C]">Ihr sicheres Zuhause ist unser Ziel</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-[#1A1F2C]">
+                {city ? `Ihr sicheres Zuhause in ${city} ist unser Ziel` : 'Ihr sicheres Zuhause ist unser Ziel'}
+              </h3>
               <p className="text-muted-foreground text-lg">
                 Wir sorgen dafür, dass Ihr Wohnraum frei von ungebetenen Gästen bleibt und Sie sich rundum wohlfühlen können.
               </p>
