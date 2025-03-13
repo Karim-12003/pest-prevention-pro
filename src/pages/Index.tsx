@@ -52,7 +52,7 @@ const Index = () => {
       
       <main className="flex-grow">
         <Hero />
-        <div className="container mx-auto py-16">
+        <div className="container mx-auto py-12 md:py-16 px-4">
           <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
             <AspectRatio ratio={16/9}>
               <img 
@@ -61,11 +61,11 @@ const Index = () => {
                 className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               />
             </AspectRatio>
-            <div className="bg-white p-8 text-center">
-              <h3 className="text-2xl font-semibold mb-3 text-[#1A1F2C]">
+            <div className="bg-white p-6 md:p-8 text-center">
+              <h3 className="text-xl md:text-2xl font-semibold mb-3 text-[#1A1F2C]">
                 {city ? `Ihr sicheres Zuhause in ${city} ist unser Ziel` : 'Ihr sicheres Zuhause ist unser Ziel'}
               </h3>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-base md:text-lg">
                 Wir sorgen dafür, dass Ihr Wohnraum frei von ungebetenen Gästen bleibt und Sie sich rundum wohlfühlen können.
               </p>
             </div>

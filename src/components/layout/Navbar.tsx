@@ -71,7 +71,7 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-3">
+          <div className="md:hidden flex items-center space-x-4">
             <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent" />
             <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600" />
             <button

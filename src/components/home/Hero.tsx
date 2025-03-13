@@ -33,11 +33,11 @@ const Hero = () => {
             </div>
             
             <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in">
-              <span className="whitespace-normal break-words">Professionelle&nbsp;Schädlingsbekämpfung</span>
+              <span className="break-words">Professionelle Schädlingsbekämpfung</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-              Ihr Experte für <span className="text-accent">effektive</span> <span className="whitespace-normal">Schädlingsbekämpfung</span>
+              Ihr Experte für <span className="text-accent">effektive</span> <span className="block md:inline">Schädlingsbekämpfung</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
