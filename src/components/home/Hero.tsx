@@ -17,7 +17,7 @@ const Hero = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Kammerjäger Adalbert",
+    "name": "Kammerjäger Simon",
     "description": "Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten. 24/7 Notdienst verfügbar.",
     "telephone": PHONE_NUMBER,
     "url": "https://kammerjaeger-adalbert.de",

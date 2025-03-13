@@ -47,7 +47,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Contact Information */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-[#9b87f5]">Kammerjäger Adalbert</h3>
+            <h3 className="text-xl font-bold mb-6 text-[#9b87f5]">Kammerjäger Simon</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
