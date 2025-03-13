@@ -5,19 +5,34 @@ import { Shield, Home, Zap, MapPin } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import { useUserLocation } from '@/hooks/useUserLocation';
+import Logo from '../ui/Logo';
 
-const PHONE_NUMBER = "040 - 180 46 785";
+const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
   const { city, loading } = useUserLocation();
   
   return (
     <section className="pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden relative">
+      {/* 24/7 Emergency Banner */}
+      <div className="bg-red-600 text-white py-2 absolute top-20 left-0 right-0 z-40 shadow-md">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-center">
+            <div className="w-3 h-3 bg-white rounded-full animate-ping mr-2"></div>
+            <p className="text-sm font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</p>
+          </div>
+        </div>
+      </div>
+      
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center">
           {/* Hero Text Content */}
           <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
-            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in whitespace-nowrap overflow-visible">
+            <div className="flex justify-center md:justify-start mb-4">
+              <Logo size="large" />
+            </div>
+            
+            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in whitespace-normal overflow-visible">
               Professionelle Schädlingsbekämpfung
             </div>
             

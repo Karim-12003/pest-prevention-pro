@@ -25,7 +25,7 @@ const PhoneButton = ({
     outline: "border border-accent text-accent hover:bg-accent/10 rounded-md hover:shadow-md",
     ghost: "text-accent hover:bg-accent/10 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform animate-pulse"
+    fixed: "fixed bottom-6 right-6 z-50 bg-accent text-accent-foreground shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform"
   };
   
   const sizeStyles = {
@@ -51,20 +51,16 @@ const PhoneButton = ({
     >
       {variant === 'fixed' ? (
         <div className="relative">
-          <PhoneIncoming size={24} className="text-white z-10 relative" />
-          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75"></div>
-          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75 delay-150"></div>
-          <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75 delay-300"></div>
+          <PhoneIncoming size={24} className="text-white z-10 relative animate-pulse" />
+          <div className="absolute -inset-1 bg-accent rounded-full opacity-60 animate-ping" style={{animationDuration: '2s'}}></div>
+          <div className="absolute -inset-3 bg-accent rounded-full opacity-20 animate-ping" style={{animationDuration: '3s', animationDelay: '0.5s'}}></div>
         </div>
       ) : (
         <>
-          <div className="relative">
-            <PhoneIncoming 
-              size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
-            />
-            <div className="absolute inset-0 rounded-full animate-ping opacity-75 scale-125 bg-accent/50"></div>
-          </div>
-          <span className="animate-pulse-subtle">{phoneNumber}</span>
+          <PhoneIncoming 
+            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
+          />
+          <span>{phoneNumber}</span>
         </>
       )}
     </a>

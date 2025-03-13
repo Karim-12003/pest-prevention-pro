@@ -1,10 +1,11 @@
+
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 
-const PHONE_NUMBER = "040 - 180 46 785";
+const PHONE_NUMBER = "+491782581987";
 
 const Contact = () => {
   return (
@@ -34,8 +35,6 @@ const Contact = () => {
                   <p className="text-sm text-muted-foreground mt-1">Für schnelle Hilfe und kostenlose Beratung</p>
                 </div>
               </div>
-              
-             
               
               <div className="flex items-start">
                 <div className="flex-shrink-0 mr-4">

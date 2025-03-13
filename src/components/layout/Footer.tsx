@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
 
-const PHONE_NUMBER = "040 - 180 46 785";
+const PHONE_NUMBER = "+491782581987";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

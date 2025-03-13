@@ -4,8 +4,9 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
+import Logo from '../ui/Logo';
 
-const PHONE_NUMBER = "040 - 180 46 785";
+const PHONE_NUMBER = "+491782581987";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,8 +42,11 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-primary font-bold text-xl md:text-2xl transition-all">
-            <span className="text-[#9b87f5]">Kammerjäger</span> <span className="font-light">Adalbert</span>
+          <div className="flex items-center">
+            <Logo size="small" />
+            <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2">
+              <span className="text-[#9b87f5]">Kammerjäger</span> <span className="font-light">Adalbert</span>
+            </div>
           </div>
 
           {/* Desktop Navigation */}

@@ -11,6 +11,9 @@ import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { useUserLocation } from '@/hooks/useUserLocation';
+import PaymentOptions from '../components/home/PaymentOptions';
+
+const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
   const { city } = useUserLocation();
@@ -71,14 +74,15 @@ const Index = () => {
         <Services />
         <Certifications />
         <Reviews />
+        <PaymentOptions />
         <Contact />
       </main>
       
       <Footer />
       
       {/* Fixed Buttons */}
-      <PhoneButton phoneNumber="040 - 180 46 785" variant="fixed" />
-      <WhatsAppButton phoneNumber="040 - 180 46 785" variant="fixed" />
+      <PhoneButton phoneNumber={PHONE_NUMBER} variant="fixed" />
+      <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="fixed" />
     </div>
   );
 };
