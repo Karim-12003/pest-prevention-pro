@@ -2,20 +2,23 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
+import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { city } = useUserLocation();
+  const locationText = city ? ` in ${city}` : '';
   
   const footerLinks = [
     {
       title: "Services",
       links: [
-        { name: "Insektenbekämpfung", href: "#services" },
-        { name: "Nagetierbekämpfung", href: "#services" },
-        { name: "Bettwanzenbekämpfung", href: "#services" },
-        { name: "Schimmelbekämpfung", href: "#services" },
+        { name: `Insektenbekämpfung${locationText}`, href: "#services" },
+        { name: `Nagetierbekämpfung${locationText}`, href: "#services" },
+        { name: `Bettwanzenbekämpfung${locationText}`, href: "#services" },
+        { name: `Schimmelbekämpfung${locationText}`, href: "#services" },
         { name: "Wartungsverträge", href: "#services" },
       ]
     },
@@ -48,11 +51,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span>{PHONE_NUMBER}</span>
+                <span><a href={`tel:${PHONE_NUMBER}`} aria-label="Anrufen">24/7 Notdienst: {PHONE_NUMBER}</a></span>
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span>info@kammerjaeger.de</span>
+                <span><a href="mailto:info@kammerjaeger.de" aria-label="Email senden">info@kammerjaeger.de</a></span>
               </li>
               
               <li className="flex items-start">
@@ -60,15 +63,23 @@ const Footer = () => {
                 <div>
                   <p>Mo-Fr: 8:00 - 20:00 Uhr</p>
                   <p>Sa: 9:00 - 19:00 Uhr</p>
+                  <p>So: 24/7 Notdienst</p>
                 </div>
               </li>
             </ul>
+            
+            {city && (
+              <div className="mt-6">
+                <h4 className="text-sm font-medium mb-2 text-[#9b87f5]">Ihr Kammerjäger{locationText}</h4>
+                <p className="text-sm">Professionelle Schädlingsbekämpfung{locationText} - Schnell und zuverlässig.</p>
+              </div>
+            )}
           </div>
           
           {/* Footer Links */}
           {footerLinks.map((column, idx) => (
-            <div key={idx}>
-              <h3 className="text-lg font-semibold mb-6 text-[#9b87f5]">{column.title}</h3>
+            <nav key={idx} aria-labelledby={`footer-nav-${idx}`}>
+              <h3 id={`footer-nav-${idx}`} className="text-lg font-semibold mb-6 text-[#9b87f5]">{column.title}</h3>
               <ul className="space-y-3">
                 {column.links.map((link, linkIdx) => (
                   <li key={linkIdx}>
@@ -82,7 +93,7 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
         
@@ -92,7 +103,7 @@ const Footer = () => {
               © {currentYear} Kammerjäger Adalbert. Alle Rechte vorbehalten.
             </p>
             <div className="text-sm opacity-80">
-              <span>IHK zertifizierte Schädlingsbekämpfung</span>
+              <span>IHK zertifizierte Schädlingsbekämpfung{locationText}</span>
             </div>
           </div>
         </div>
