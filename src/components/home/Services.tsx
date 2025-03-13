@@ -72,7 +72,7 @@ const Services = () => {
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-md">
           <AspectRatio ratio={16/9}>
             <img 
-              src="/placeholder.svg" 
+              src="https://www.hcc-magazin.com/wp-content/uploads/2021/11/hcc-magazin_schaelingsbekaempfung-gesundheitsschutz_arten-schaedlinge-professionelle-bekaempfung-methoden-840x473.jpg" 
               alt="Professionelle Schädlingsbekämpfung in Aktion" 
               className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
             />
