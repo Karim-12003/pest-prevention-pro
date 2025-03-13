@@ -10,47 +10,47 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Insektenbekämpfung",
     description: "Effektive Bekämpfung von Wespen, Kakerlaken, Ameisen und anderen Insekten mit modernsten Methoden.",
-    image: "https://images.unsplash.com/photo-1566407528570-addb9920e640?q=80&w=1000",
+    image: "https://images.selbermachen.de/images/_aliases/1280w/0/0/2/0/160200-1-de-DE/wespennest-entfernen.jpg0",
     alt: "Insektenbekämpfung"
   },
   {
     icon: <Rat className="h-10 w-10" />,
     title: "Nagetierbekämpfung",
     description: "Professionelle Entfernung von Mäusen, Ratten und anderen Nagetieren mit nachhaltigen Lösungen.",
-    image: "https://images.unsplash.com/photo-1579213838658-6c07473f2a16?q=80&w=1000",
+    image: "https://www.das-tierlexikon.de/wp-content/uploads/2018/08/mongolische-rennmaeuse.jpg",
     alt: "Nagetierbekämpfung"
   },
   {
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.unsplash.com/photo-1591485112459-4d5464a2ff86?q=80&w=1000",
+    image: "https://images.t-online.de/2021/08/87372772v2/0x100:1920x1080/fit-in/1920x0/marder-meist-faellt-ein-marder-im-haus-anfangs-nicht-auf-da-die-tiere-erst-nachts-aktiv-werden.jpg",
     alt: "Marderbekämpfung"
   },
   {
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://images.unsplash.com/photo-1606798874341-66f6e63d8f9b?q=80&w=1000",
+    image: "https://www.trocknung-bonn.de/wordpress/wp-content/uploads/2019/07/schimmelbekaempfung.jpg",
     alt: "Schimmelbekämpfung"
   },
   {
     icon: <Bed className="h-10 w-10" />,
     title: "Bettwanzenbekämpfung",
     description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern.",
-    image: "https://images.unsplash.com/photo-1584132905271-512c958d674a?q=80&w=1000",
+    image: "https://farmers-cat.de/media/wysiwyg/Bettwanzen/shutterstock_2236348135_.jpg",
     alt: "Bettwanzenbekämpfung"
   },
   {
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://images.unsplash.com/photo-1575663620136-5ebbfcc2c597?q=80&w=1000",
+    image: "https://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
     alt: "Spinnenbekämpfung"
   },
   {
     icon: <Stethoscope className="h-10 w-10" />,
-    title: "Präventionsservice",
+    title: "Wartungsverträge",
     description: "Vorbeugende Maßnahmen und regelmäßige Inspektionen zum Schutz vor Schädlingsbefall.",
     image: "https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=1000",
     alt: "Präventionsservice"
