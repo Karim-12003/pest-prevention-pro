@@ -47,7 +47,7 @@ const Navbar = () => {
             <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2">
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
                 <span className="text-[#9b87f5] whitespace-nowrap">Kammerjäger</span>
-                <span className="font-light whitespace-nowrap ml-0 sm:ml-1">Adalbert</span>
+                <span className="font-light whitespace-nowrap ml-0 sm:ml-1">Simon</span>
               </div>
             </div>
           </div>
