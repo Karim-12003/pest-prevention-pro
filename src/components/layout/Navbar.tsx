@@ -45,7 +45,10 @@ const Navbar = () => {
           <div className="flex items-center">
             <Logo size="small" />
             <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2">
-              <span className="text-[#9b87f5]">Kammerjäger</span> <span className="font-light">Adalbert</span>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <span className="text-[#9b87f5] whitespace-nowrap">Kammerjäger</span>
+                <span className="font-light whitespace-nowrap ml-0 sm:ml-1">Adalbert</span>
+              </div>
             </div>
           </div>
 
@@ -68,9 +71,9 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-2" />
-            <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-4" />
+          <div className="md:hidden flex items-center space-x-2">
+            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent" />
+            <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600" />
             <button
               onClick={toggleMenu}
               className="text-primary p-2 rounded-md hover:bg-secondary transition-colors"

@@ -61,8 +61,11 @@ const WhatsAppButton = ({
         <>
           <MessageCircle 
             size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
+            className="flex-shrink-0"
           />
-          <span>WhatsApp</span>
+          {variant !== 'ghost' || size !== 'sm' ? (
+            <span className="whitespace-nowrap">WhatsApp</span>
+          ) : null}
         </>
       )}
     </a>

@@ -32,8 +32,8 @@ const Hero = () => {
               <Logo size="large" />
             </div>
             
-            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in whitespace-normal overflow-visible">
-              Professionelle Schädlingsbekämpfung
+            <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in">
+              <span className="whitespace-normal">Professionelle&nbsp;Schädlingsbekämpfung</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>

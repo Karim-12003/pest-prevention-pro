@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Bug } from 'lucide-react';
 
 interface LogoProps {
   size?: 'small' | 'medium' | 'large';
@@ -15,21 +16,17 @@ const Logo = ({ size = 'medium', className }: LogoProps) => {
   };
 
   return (
-    <div className={cn(sizeClasses[size], 'relative', className)}>
+    <div className={cn(sizeClasses[size], 'relative rounded-full', className)}>
+      <div className="absolute inset-0 bg-accent rounded-full"></div>
+      <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+        <Bug className="w-1/2 h-1/2 text-accent" />
+      </div>
       <svg 
         viewBox="0 0 100 100" 
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
+        className="absolute inset-0 w-full h-full"
       >
-        <circle cx="50" cy="50" r="45" fill="#1A1F2C" />
-        <circle cx="50" cy="50" r="35" fill="#9b87f5" />
-        <path 
-          d="M30,50 Q50,20 70,50 Q50,80 30,50 Z" 
-          fill="#fff" 
-          stroke="#1A1F2C" 
-          strokeWidth="2" 
-        />
-        <circle cx="50" cy="40" r="5" fill="#1A1F2C" />
+        <circle cx="50" cy="50" r="48" fill="none" stroke="#9b87f5" strokeWidth="4" strokeDasharray="8 4" />
       </svg>
     </div>
   );

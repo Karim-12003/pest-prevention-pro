@@ -51,16 +51,18 @@ const PhoneButton = ({
     >
       {variant === 'fixed' ? (
         <div className="relative">
-          <PhoneIncoming size={24} className="text-white z-10 relative animate-pulse" />
-          <div className="absolute -inset-1 bg-accent rounded-full opacity-60 animate-ping" style={{animationDuration: '2s'}}></div>
-          <div className="absolute -inset-3 bg-accent rounded-full opacity-20 animate-ping" style={{animationDuration: '3s', animationDelay: '0.5s'}}></div>
+          <PhoneIncoming size={24} className="text-white z-10 relative" />
+          <div className="absolute inset-0 bg-accent/70 rounded-full animate-delayed-ping"></div>
         </div>
       ) : (
         <>
           <PhoneIncoming 
-            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
+            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
+            className="flex-shrink-0"
           />
-          <span>{phoneNumber}</span>
+          {variant !== 'ghost' || size !== 'sm' ? (
+            <span className="whitespace-nowrap">{phoneNumber}</span>
+          ) : null}
         </>
       )}
     </a>
