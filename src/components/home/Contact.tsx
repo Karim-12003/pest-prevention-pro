@@ -35,18 +35,7 @@ const Contact = () => {
                 </div>
               </div>
               
-              <div className="flex items-start">
-                <div className="flex-shrink-0 mr-4">
-                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <MapPin className="h-5 w-5 text-accent" />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Adresse</h4>
-                  <p>Musterstraße 123, 20095</p>
-                  <p className="text-sm text-muted-foreground mt-1">Service im gesamten Stadtgebiet</p>
-                </div>
-              </div>
+             
               
               <div className="flex items-start">
                 <div className="flex-shrink-0 mr-4">
@@ -69,8 +58,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Geschäftszeiten</h4>
-                  <p>Mo-Fr: 8:00 - 18:00 Uhr</p>
-                  <p>Sa: 9:00 - 14:00 Uhr</p>
+                  <p>Mo-Fr: 8:00 - 20:00 Uhr</p>
+                  <p>Sa: 9:00 - 19:00 Uhr</p>
                   <p className="text-sm text-muted-foreground mt-1">Notfallservice auch außerhalb der Geschäftszeiten</p>
                 </div>
               </div>
@@ -80,7 +69,7 @@ const Contact = () => {
               <div className="bg-secondary/50 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2">Unser Servicegebiet</h4>
                 <p className="text-sm">
-                  Wir bieten unsere Dienstleistungen in der gesamten Region und einem Umkreis von 50 km an.
+                  Wir bieten unsere Dienstleistungen in der gesamten Region und einem Umkreis von 150 km an.
                 </p>
               </div>
             </div>

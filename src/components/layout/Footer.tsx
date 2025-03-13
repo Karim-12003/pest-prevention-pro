@@ -16,7 +16,7 @@ const Footer = () => {
         { name: "Nagetierbekämpfung", href: "#services" },
         { name: "Bettwanzenbekämpfung", href: "#services" },
         { name: "Schimmelbekämpfung", href: "#services" },
-        { name: "Präventionsservice", href: "#services" },
+        { name: "Wartungsverträge", href: "#services" },
       ]
     },
     {
@@ -54,10 +54,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
                 <span>info@kammerjaeger.de</span>
               </li>
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span>Musterstraße 123, 20095</span>
-              </li>
+              
               <li className="flex items-start">
                 <Clock className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
                 <div>
