@@ -10,7 +10,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Insektenbekämpfung",
     description: "Effektive Bekämpfung von Wespen, Kakerlaken, Ameisen und anderen Insekten mit modernsten Methoden.",
-    image: "https://images.selbermachen.de/images/_aliases/1280w/0/0/2/0/160200-1-de-DE/wespennest-entfernen.jpg0",
+    image: "https://www.bund-niedersachsen.de/fileadmin/niedersachsen/bilder/artenschutz/wespen/wespennest_wasp-nest-gba3281439_1920_pixabay_com_wespennest-wespen-waben-nest-335984_kundennote_com.jpg",
     alt: "Insektenbekämpfung"
   },
   {
