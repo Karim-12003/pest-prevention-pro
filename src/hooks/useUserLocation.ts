@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { toast } from '@/components/ui/use-toast';
 
 type LocationData = {
   city: string;
@@ -17,8 +18,8 @@ export function useUserLocation(): LocationData {
   useEffect(() => {
     const fetchLocationFromIP = async () => {
       try {
-        // Using ipapi.co which provides a free IP geolocation API
-        const response = await fetch('https://ipapi.co/json/');
+        // Using a different IP geolocation service that works in browser environments
+        const response = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=b63a737e37e0407fb933f8dde6b9ac18');
         
         if (!response.ok) {
           throw new Error('Failed to fetch location data');
@@ -32,86 +33,92 @@ export function useUserLocation(): LocationData {
             loading: false,
             error: null
           });
+          console.log('Location detected:', data.city);
         } else {
           throw new Error('City not found in IP data');
         }
       } catch (error) {
         console.error('Error fetching location from IP:', error);
-        setLocationData({
-          city: 'Hamburg', // Fallback city if all methods fail
-          loading: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
-        });
-      }
-    };
-
-    const fetchLocationFromGPS = () => {
-      return new Promise<string>((resolve, reject) => {
-        if (!navigator.geolocation) {
-          reject(new Error('Geolocation is not supported by this browser'));
-          return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            try {
-              // Using reverse geocoding to get the city name from coordinates
-              const { latitude, longitude } = position.coords;
-              const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
-              );
-
-              if (!response.ok) {
-                throw new Error('Failed to fetch location data from coordinates');
-              }
-
-              const data = await response.json();
-              
-              // Extracting city from OpenStreetMap response
-              const city = data.address?.city || 
-                           data.address?.town || 
-                           data.address?.village || 
-                           data.address?.municipality ||
-                           null;
-                           
-              if (city) {
-                resolve(city);
-              } else {
-                reject(new Error('City not found in GPS data'));
-              }
-            } catch (error) {
-              reject(error);
-            }
-          },
-          (error) => {
-            reject(new Error(`GPS Error: ${error.message}`));
-          },
-          { 
-            enableHighAccuracy: false, 
-            timeout: 5000, 
-            maximumAge: 0 
+        
+        // Try alternative API if first one fails
+        try {
+          const alternativeResponse = await fetch('https://api.ipapi.com/api/check?access_key=c18d34bfef2f8a3db4ae7b2f14c4a3d4');
+          
+          if (!alternativeResponse.ok) {
+            throw new Error('Failed to fetch location data from alternative source');
           }
-        );
-      });
-    };
-
-    const determineLocation = async () => {
-      try {
-        // First try GPS
-        const city = await fetchLocationFromGPS();
-        setLocationData({
-          city,
-          loading: false,
-          error: null
-        });
-      } catch (gpsError) {
-        console.error('GPS location failed, trying IP-based location:', gpsError);
-        // If GPS fails, try IP-based location
-        await fetchLocationFromIP();
+          
+          const alternativeData = await alternativeResponse.json();
+          
+          if (alternativeData.city) {
+            setLocationData({
+              city: alternativeData.city,
+              loading: false,
+              error: null
+            });
+            console.log('Location detected from alternative source:', alternativeData.city);
+            return;
+          }
+        } catch (secondError) {
+          console.error('Error fetching location from alternative source:', secondError);
+        }
+        
+        // If all APIs fail, use navigator.geolocation as last resort
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              try {
+                const { latitude, longitude } = position.coords;
+                const geoResponse = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=de`);
+                
+                if (!geoResponse.ok) throw new Error('Failed to reverse geocode');
+                
+                const geoData = await geoResponse.json();
+                
+                if (geoData.city) {
+                  setLocationData({
+                    city: geoData.city,
+                    loading: false,
+                    error: null
+                  });
+                  console.log('Location detected from browser geolocation:', geoData.city);
+                  return;
+                }
+              } catch (geoError) {
+                console.error('Error with geolocation reverse lookup:', geoError);
+              }
+              
+              // If reverse geocoding fails, fall back to Hamburg
+              setLocationData({
+                city: 'Hamburg',
+                loading: false,
+                error: 'Failed to get precise location'
+              });
+            },
+            () => {
+              // Geolocation permission denied or error
+              setLocationData({
+                city: 'Hamburg',
+                loading: false,
+                error: 'Geolocation not available'
+              });
+            }
+          );
+        } else {
+          // Browser doesn't support geolocation
+          setLocationData({
+            city: 'Hamburg',
+            loading: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
       }
     };
 
-    determineLocation();
+    // Always fetch location on component mount
+    fetchLocationFromIP();
+
+    // Don't add dependencies to avoid re-fetching
   }, []);
 
   return locationData;

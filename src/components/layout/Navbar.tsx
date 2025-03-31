@@ -4,12 +4,17 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
+import Logo from '../ui/Logo';
+import { useUserLocation } from '@/hooks/useUserLocation';
+import { useToast } from '@/hooks/use-toast';
 
-const PHONE_NUMBER = "040 - 180 46 785";
+const PHONE_NUMBER = "+491782581987";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { city, loading, error } = useUserLocation();
+  const { toast } = useToast();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -22,6 +27,19 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Show toast when location is detected
+  useEffect(() => {
+    if (!loading && city && city !== 'Hamburg') {
+      toast({
+        title: "Standort erkannt",
+        description: `Wir bieten unsere Dienste in ${city} an!`,
+        duration: 5000,
+      });
+    } else if (!loading && error) {
+      console.log("Location detection error:", error);
+    }
+  }, [loading, city, error, toast]);
 
   const navLinks = [
     { name: 'Startseite', href: '#' },
@@ -41,8 +59,14 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-primary font-bold text-xl md:text-2xl transition-all">
-            <span className="text-[#9b87f5]">Kammerjäger</span> <span className="font-light">Adalbert</span>
+          <div className="flex items-center">
+            <Logo size="small" />
+            <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <span className="text-[#9b87f5] whitespace-nowrap">Kammerjäger</span>
+                <span className="font-light whitespace-nowrap ml-0 sm:ml-1">Adalbert</span>
+              </div>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -64,9 +88,9 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-2" />
-            <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="mr-4" />
+          <div className="md:hidden flex items-center space-x-4">
+            <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent" />
+            <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600" />
             <button
               onClick={toggleMenu}
               className="text-primary p-2 rounded-md hover:bg-secondary transition-colors"
