@@ -4,78 +4,67 @@ import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { useUserLocation } from '@/hooks/useUserLocation';
 
 const services = [
   {
     icon: <Bug className="h-10 w-10" />,
     title: "Insektenbekämpfung",
     description: "Effektive Bekämpfung von Wespen, Kakerlaken, Ameisen und anderen Insekten mit modernsten Methoden.",
-    image: "https://www.bund-niedersachsen.de/fileadmin/niedersachsen/bilder/artenschutz/wespen/wespennest_wasp-nest-gba3281439_1920_pixabay_com_wespennest-wespen-waben-nest-335984_kundennote_com.jpg",
-    alt: "Professionelle Insektenbekämpfung bei Wespen, Kakerlaken und Ameisen",
-    keywords: ["Wespenbekämpfung", "Ameisenbekämpfung", "Kakerlakenbekämpfung"]
+    image: "https://images.unsplash.com/photo-1566407528570-addb9920e640?q=80&w=1000",
+    alt: "Insektenbekämpfung"
   },
   {
     icon: <Rat className="h-10 w-10" />,
     title: "Nagetierbekämpfung",
     description: "Professionelle Entfernung von Mäusen, Ratten und anderen Nagetieren mit nachhaltigen Lösungen.",
-    image: "https://www.das-tierlexikon.de/wp-content/uploads/2018/08/mongolische-rennmaeuse.jpg",
-    alt: "Effektive Nagetierbekämpfung gegen Mäuse und Ratten durch Fachexperten",
-    keywords: ["Rattenbekämpfung", "Mäusebekämpfung", "Nagerbefall"]
+    image: "https://images.unsplash.com/photo-1579213838658-6c07473f2a16?q=80&w=1000",
+    alt: "Nagetierbekämpfung"
   },
   {
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.t-online.de/2021/08/87372772v2/0x100:1920x1080/fit-in/1920x0/marder-meist-faellt-ein-marder-im-haus-anfangs-nicht-auf-da-die-tiere-erst-nachts-aktiv-werden.jpg",
-    alt: "Marderbekämpfung für Dachböden und Wohnräume durch zertifizierte Experten",
-    keywords: ["Marderbekämpfung", "Marderschutz", "Marder Dachboden"]
+    image: "https://images.unsplash.com/photo-1591485112459-4d5464a2ff86?q=80&w=1000",
+    alt: "Marderbekämpfung"
   },
   {
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://www.trocknung-bonn.de/wordpress/wp-content/uploads/2019/07/schimmelbekaempfung.jpg",
-    alt: "Professionelle Schimmelbekämpfung und Feuchtigkeitsbehandlung für gesundes Raumklima",
-    keywords: ["Schimmelbekämpfung", "Feuchtigkeitsschäden", "Schimmelpilz Entfernung"]
+    image: "https://images.unsplash.com/photo-1606798874341-66f6e63d8f9b?q=80&w=1000",
+    alt: "Schimmelbekämpfung"
   },
   {
     icon: <Bed className="h-10 w-10" />,
     title: "Bettwanzenbekämpfung",
     description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern.",
-    image: "https://farmers-cat.de/media/wysiwyg/Bettwanzen/shutterstock_2236348135_.jpg",
-    alt: "Spezialisierte Bettwanzenbekämpfung durch qualifizierte Kammerjäger",
-    keywords: ["Bettwanzenbekämpfung", "Bettwanzen Behandlung", "Bettwanzen loswerden"]
+    image: "https://images.unsplash.com/photo-1584132905271-512c958d674a?q=80&w=1000",
+    alt: "Bettwanzenbekämpfung"
   },
   {
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
-    alt: "Spinnenbekämpfung und Entfernung von Spinnennetzen mit langanhaltender Wirkung",
-    keywords: ["Spinnenbekämpfung", "Spinnenentfernung", "Spinnennetze entfernen"]
+    image: "https://images.unsplash.com/photo-1575663620136-5ebbfcc2c597?q=80&w=1000",
+    alt: "Spinnenbekämpfung"
   },
   {
     icon: <Stethoscope className="h-10 w-10" />,
-    title: "Wartungsverträge",
+    title: "Präventionsservice",
     description: "Vorbeugende Maßnahmen und regelmäßige Inspektionen zum Schutz vor Schädlingsbefall.",
     image: "https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=1000",
-    alt: "Vorsorgende Schädlingsbekämpfung durch regelmäßige Inspektionen und Wartungsverträge",
-    keywords: ["Schädlingsmonitoring", "Präventionsservice", "Wartungsvertrag Schädlinge"]
+    alt: "Präventionsservice"
   },
 ];
 
 const Services = () => {
-  const { city } = useUserLocation();
-  const locationText = city ? ` in ${city}` : '';
-
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="section-heading">Unsere Schädlingsbekämpfung-Leistungen{locationText}</h2>
+          <h2 className="section-heading">Unsere Leistungen</h2>
           <p className="section-subheading">
-            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen - schnell, zuverlässig und effektiv.
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen.
           </p>
         </div>
 
@@ -83,22 +72,19 @@ const Services = () => {
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-md">
           <AspectRatio ratio={16/9}>
             <img 
-              src="https://www.hcc-magazin.com/wp-content/uploads/2021/11/hcc-magazin_schaelingsbekaempfung-gesundheitsschutz_arten-schaedlinge-professionelle-bekaempfung-methoden-840x473.jpg" 
-              alt="Professionelle Schädlingsbekämpfung in Aktion durch zertifizierte Experten" 
+              src="/placeholder.svg" 
+              alt="Professionelle Schädlingsbekämpfung in Aktion" 
               className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-              width="840"
-              height="473"
-              loading="lazy"
             />
           </AspectRatio>
           <div className="bg-white p-4 text-center text-sm text-muted-foreground">
-            Unsere Experten sorgen für umfassende Schädlingsbekämpfung in Ihrem Zuhause oder Geschäft{locationText}
+            Unsere Experten sorgen für umfassende Schädlingsbekämpfung in Ihrem Zuhause oder Geschäft
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {services.map((service, index) => (
-            <article
+            <div
               key={index}
               className={cn(
                 "bg-white rounded-xl p-6 shadow-sm border border-primary/10 transition-all duration-300 hover:shadow-md hover:translate-y-[-5px]"
@@ -111,9 +97,6 @@ const Services = () => {
                     src={service.image} 
                     alt={service.alt} 
                     className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                    width="400"
-                    height="225"
-                    loading="lazy"
                   />
                 </AspectRatio>
               </div>
@@ -121,19 +104,9 @@ const Services = () => {
               <div className="rounded-full bg-accent/10 p-4 inline-flex mb-5 text-accent">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}{locationText}</h3>
+              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
-              
-              {/* Hidden keywords for SEO */}
-              <div className="sr-only">
-                <h4>Stichworte zur {service.title}</h4>
-                <ul>
-                  {service.keywords.map((keyword, idx) => (
-                    <li key={idx}>{keyword}{locationText}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+            </div>
           ))}
         </div>
 

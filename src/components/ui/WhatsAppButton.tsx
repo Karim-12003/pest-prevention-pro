@@ -18,7 +18,7 @@ const WhatsAppButton = ({
   size = 'default',
   message = "Hallo, ich habe eine Anfrage bezüglich Schädlingsbekämpfung."
 }: WhatsAppButtonProps) => {
-  const formattedNumber = phoneNumber.replace(/\s/g, '').replace(/^\+/, '');
+  const formattedNumber = phoneNumber.replace(/\s/g, '').replace(/^0/, '49');
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
   
@@ -61,11 +61,9 @@ const WhatsAppButton = ({
         <>
           <MessageCircle 
             size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} 
-            className="flex-shrink-0"
+            className="animate-pulse"
           />
-          {variant !== 'ghost' || size !== 'sm' ? (
-            <span className="whitespace-nowrap">WhatsApp</span>
-          ) : null}
+          <span className="animate-pulse-subtle">WhatsApp</span>
         </>
       )}
     </a>
