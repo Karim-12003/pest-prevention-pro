@@ -2,23 +2,20 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
-import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const { city } = useUserLocation();
-  const locationText = city ? ` in ${city}` : '';
   
   const footerLinks = [
     {
       title: "Services",
       links: [
-        { name: `Insektenbekämpfung${locationText}`, href: "#services" },
-        { name: `Nagetierbekämpfung${locationText}`, href: "#services" },
-        { name: `Bettwanzenbekämpfung${locationText}`, href: "#services" },
-        { name: `Schimmelbekämpfung${locationText}`, href: "#services" },
+        { name: "Insektenbekämpfung", href: "#services" },
+        { name: "Nagetierbekämpfung", href: "#services" },
+        { name: "Bettwanzenbekämpfung", href: "#services" },
+        { name: "Schimmelbekämpfung", href: "#services" },
         { name: "Wartungsverträge", href: "#services" },
       ]
     },
@@ -67,13 +64,6 @@ const Footer = () => {
                 </div>
               </li>
             </ul>
-            
-            {city && (
-              <div className="mt-6">
-                <h4 className="text-sm font-medium mb-2 text-[#9b87f5]">Ihr Kammerjäger{locationText}</h4>
-                <p className="text-sm">Professionelle Schädlingsbekämpfung{locationText} - Schnell und zuverlässig.</p>
-              </div>
-            )}
           </div>
           
           {/* Footer Links */}
@@ -103,7 +93,7 @@ const Footer = () => {
               © {currentYear} Kammerjäger Adalbert. Alle Rechte vorbehalten.
             </p>
             <div className="text-sm opacity-80">
-              <span>IHK zertifizierte Schädlingsbekämpfung{locationText}</span>
+              <span>IHK zertifizierte Schädlingsbekämpfung</span>
             </div>
           </div>
         </div>

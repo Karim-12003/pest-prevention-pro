@@ -5,16 +5,12 @@ import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
-import { useUserLocation } from '@/hooks/useUserLocation';
-import { useToast } from '@/hooks/use-toast';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { city, loading, error } = useUserLocation();
-  const { toast } = useToast();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -27,19 +23,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Show toast when location is detected
-  useEffect(() => {
-    if (!loading && city && city !== 'Hamburg') {
-      toast({
-        title: "Standort erkannt",
-        description: `Wir bieten unsere Dienste in ${city} an!`,
-        duration: 5000,
-      });
-    } else if (!loading && error) {
-      console.log("Location detection error:", error);
-    }
-  }, [loading, city, error, toast]);
 
   const navLinks = [
     { name: 'Startseite', href: '#' },

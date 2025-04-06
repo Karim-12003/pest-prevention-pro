@@ -1,18 +1,15 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Shield, Home, Zap, MapPin } from 'lucide-react';
+import { Shield, Home, Zap } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
-import { useUserLocation } from '@/hooks/useUserLocation';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const { city, loading } = useUserLocation();
-  
   // Create schema.org structured data for LocalBusiness
   const structuredData = {
     "@context": "https://schema.org",
@@ -92,13 +89,6 @@ const Hero = () => {
                 Zertifizierte Profis mit über 20 Jahren Erfahrung. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
-              {!loading && city && (
-                <div className="flex items-center justify-center md:justify-start mb-6 text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '150ms' }}>
-                  <MapPin className="w-4 h-4 mr-1 text-accent" />
-                  <span>Ihr lokaler Schädlingsexperte in {city}</span>
-                </div>
-              )}
-              
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
                 <PhoneButton phoneNumber={PHONE_NUMBER} size="lg" />
                 <WhatsAppButton phoneNumber={PHONE_NUMBER} size="lg" />
@@ -130,7 +120,7 @@ const Hero = () => {
                   {
                     icon: <Zap className="w-5 h-5 md:w-6 md:h-6 text-accent" />,
                     title: "Schnelle Reaktionszeit",
-                    description: loading ? "Wir sind innerhalb von 30-60 Minuten bei Ihnen vor Ort" : `Wir sind innerhalb von 30-60 Minuten bei Ihnen in ${city} vor Ort`,
+                    description: "Wir sind innerhalb von 30-60 Minuten bei Ihnen vor Ort",
                     delay: 600,
                   }
                 ].map((feature, index) => (
