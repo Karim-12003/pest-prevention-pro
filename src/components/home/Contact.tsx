@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
@@ -64,14 +63,7 @@ const Contact = () => {
               </div>
             </div>
             
-            <div className="mt-8">
-              <div className="bg-secondary/50 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Unser Servicegebiet</h4>
-                <p className="text-sm">
-                  Wir bieten unsere Dienstleistungen in der gesamten Region und einem Umkreis von 150 km an.
-                </p>
-              </div>
-            </div>
+            
           </div>
           
           <div className="rounded-xl overflow-hidden shadow-sm border border-primary/10 bg-secondary/20 p-6 md:p-8">
