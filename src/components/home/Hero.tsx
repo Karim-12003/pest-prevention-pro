@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
@@ -18,7 +17,7 @@ const Hero = () => {
     "description": "Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten. 24/7 Notdienst verfügbar.",
     "telephone": PHONE_NUMBER,
     "url": "https://kammerjaeger-adalbert.de",
-    "image": "/og-image.png",
+    "image": "/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "DE"
@@ -37,16 +36,7 @@ const Hero = () => {
         "closes": "19:00"
       }
     ],
-    "priceRange": "€€",
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": 51.1657,
-        "longitude": 10.4515
-      },
-      "geoRadius": "100000"
-    }
+    "priceRange": "€€"
   };
 
   return (
