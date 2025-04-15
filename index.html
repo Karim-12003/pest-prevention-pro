@@ -27,6 +27,25 @@
       gtag('js', new Date());
 
       gtag('config', 'AW-16919164637');
+      
+      // Google Ads Event Snippet for Page View
+      gtag('event', 'page_view', {
+        'send_to': 'AW-16919164637',
+      });
+      
+      // Google Ads Conversion Tracking - Optional function for later use
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16919164637/zCppCKOp0YEYEO_d16Qp',
+            'event_callback': callback
+        });
+        return false;
+      }
     </script>
   </head>
 
