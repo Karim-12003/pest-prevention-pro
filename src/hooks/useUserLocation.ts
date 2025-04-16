@@ -11,42 +11,7 @@ export const useUserLocation = () => {
       try {
         setLoading(true);
         
-        // Method 1: Use Geolocation API + reverse geocoding
-        if (navigator.geolocation) {
-          try {
-            const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-              navigator.geolocation.getCurrentPosition(resolve, reject, {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
-              });
-            });
-            
-            const { latitude, longitude } = position.coords;
-            console.log("Geolocation coordinates:", latitude, longitude);
-            
-            // Use reverse geocoding with OpenCage Data API (free tier)
-            const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e4bf4a8f1fe94c5bb6d8e47fc67dfc5c&language=de&pretty=1`);
-            const data = await response.json();
-            
-            if (data.results && data.results.length > 0) {
-              const components = data.results[0].components;
-              const detectedCity = components.city || components.town || components.village || components.county;
-              
-              if (detectedCity) {
-                console.log("Location detected from coordinates:", detectedCity);
-                setCity(detectedCity);
-                setLoading(false);
-                return;
-              }
-            }
-          } catch (geoError) {
-            console.error("Geolocation error:", geoError);
-            // Continue to other methods if geolocation fails
-          }
-        }
-
-        // Method 2: Use IP Geolocation API
+        // Method 1: Use IP Geolocation API
         try {
           const ipResponse = await fetch('https://ipapi.co/json/');
           const ipData = await ipResponse.json();
@@ -62,7 +27,7 @@ export const useUserLocation = () => {
           // Continue to fallback if IP geolocation fails
         }
         
-        // Method 3: Alternative IP geolocation service
+        // Method 2: Alternative IP geolocation service
         try {
           const geoResponse = await fetch('https://geolocation-db.com/json/');
           const geoData = await geoResponse.json();
