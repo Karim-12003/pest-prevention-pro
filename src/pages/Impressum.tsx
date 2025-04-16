@@ -36,19 +36,12 @@ const Impressum = () => {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Kontakt</h2>
               <div className="space-y-2">
-                <p>Inhaber: [Dein Vor- und Nachname hier einfügen]</p>
+                
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
                 <p>E-Mail: <a href="mailto:info@kammerjaeger-adalbert.de" className="text-[#9b87f5] hover:underline">info@kammerjaeger-adalbert.de</a></p>
               </div>
             </section>
             
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-              <div className="space-y-2">
-                <p>[Dein Vor- und Nachname hier einfügen]</p>
-                <p>Adresse wie oben</p>
-              </div>
-            </section>
             
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Haftungsausschluss</h2>
