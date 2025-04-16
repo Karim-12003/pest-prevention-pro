@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -31,9 +32,9 @@ const Footer = () => {
     {
       title: "Rechtliches",
       links: [
-        { name: "Impressum", href: "#" },
+        { name: "Impressum", href: "/impressum" },
         { name: "Datenschutz", href: "#" },
-        { name: "AGB", href: "#" },
+        { name: "AGB", href: "/agb" },
       ]
     }
   ];
@@ -52,7 +53,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span><a href="mailto:info@kammerjaeger.de" aria-label="Email senden">info@kammerjaeger.de</a></span>
+                <span><a href="mailto:info@kammerjaeger-adalbert.de" aria-label="Email senden">info@kammerjaeger-adalbert.de</a></span>
               </li>
               
               <li className="flex items-start">
@@ -73,13 +74,23 @@ const Footer = () => {
               <ul className="space-y-3">
                 {column.links.map((link, linkIdx) => (
                   <li key={linkIdx}>
-                    <a 
-                      href={link.href}
-                      className="inline-flex items-center transition-colors hover:text-[#9b87f5]"
-                    >
-                      <ChevronRight className="h-3 w-3 mr-2" />
-                      {link.name}
-                    </a>
+                    {link.href.startsWith('#') ? (
+                      <a 
+                        href={link.href}
+                        className="inline-flex items-center transition-colors hover:text-[#9b87f5]"
+                      >
+                        <ChevronRight className="h-3 w-3 mr-2" />
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link 
+                        to={link.href}
+                        className="inline-flex items-center transition-colors hover:text-[#9b87f5]"
+                      >
+                        <ChevronRight className="h-3 w-3 mr-2" />
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
