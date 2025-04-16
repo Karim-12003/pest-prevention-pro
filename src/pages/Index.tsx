@@ -12,10 +12,14 @@ import WhatsAppButton from '../components/ui/WhatsAppButton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
+import { useUserLocation } from '@/hooks/useUserLocation';
+import { Loader2 } from 'lucide-react';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
+  const { city, loading } = useUserLocation();
+  
   useEffect(() => {
     // Smooth scroll to anchor links
     const handleHashChange = () => {
@@ -44,9 +48,10 @@ const Index = () => {
     };
   }, []);
 
-  // Static meta title and description without location data
-  const pageTitle = 'Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung';
-  const pageDescription = 'Sofortige Hilfe bei Schädlingsbefall. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.';
+  // Dynamic meta title and description with location data
+  const locationText = city ? ` in ${city}` : '';
+  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
@@ -58,8 +63,25 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
+        {loading && (
+          <div className="fixed top-0 left-0 w-full h-1 z-50 bg-gradient-to-r from-accent to-primary">
+            <div className="h-full w-24 animate-pulse bg-white/30 rounded-full"></div>
+          </div>
+        )}
+        
         <main className="flex-grow">
           <Hero />
+          
+          {city && (
+            <div className="container mx-auto py-6">
+              <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-sm border border-accent/10 rounded-lg p-4 text-center">
+                <p className="text-lg text-muted-foreground">
+                  Willkommen aus <span className="font-semibold text-accent">{city}</span>! Wir bieten Schädlingsbekämpfung in Ihrer Region.
+                </p>
+              </div>
+            </div>
+          )}
+          
           <div className="container mx-auto py-12 md:py-16 px-4">
             <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
               <AspectRatio ratio={16/9}>
