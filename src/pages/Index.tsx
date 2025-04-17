@@ -14,13 +14,11 @@ import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import { Loader2 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
   const { city, loading, error } = useUserLocation();
-  const { toast } = useToast();
   
   useEffect(() => {
     // Smooth scroll to anchor links

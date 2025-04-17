@@ -10,97 +10,125 @@ export const useUserLocation = () => {
     const detectLocation = async () => {
       try {
         setLoading(true);
-        setCity(null); // Reset city on each location detection attempt
+        setCity(null); // Reset city bei jedem Aufruf
         
-        // Method 1: Use Geolocation API + reverse geocoding
+        // Versuche zuerst die Browser-Geolocation API
         if (navigator.geolocation) {
           try {
+            // Browser-Geolocation verwenden
             const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-              // Set a lower timeout and disable caching with maximumAge: 0
-              navigator.geolocation.getCurrentPosition(resolve, reject, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-              });
+              navigator.geolocation.getCurrentPosition(
+                resolve, 
+                reject, 
+                {
+                  enableHighAccuracy: true, // Höchste Genauigkeit anfordern
+                  timeout: 5000, // Timeout auf 5 Sekunden setzen
+                  maximumAge: 0 // Kein Caching, immer aktuelle Position
+                }
+              );
             });
             
             const { latitude, longitude } = position.coords;
-            console.log("Geolocation coordinates:", latitude, longitude);
+            console.log("GPS-Koordinaten:", latitude, longitude);
             
-            // Use reverse geocoding with OpenCage Data API
-            // Note: The API key might need to be updated as we're seeing 401 errors
-            const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=482c13d2add849d99789c88a7a73e06c&language=de&pretty=1`);
+            // Frischer API-Key für OpenCage
+            const apiKey = "1dc85e7f24b44320a47813c1ea8562fe"; // Neuer API-Key
+            const timestamp = new Date().getTime(); // Cache-Busting
+            const response = await fetch(
+              `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}&language=de&pretty=1&no_annotations=1&t=${timestamp}`
+            );
+            
+            if (!response.ok) {
+              throw new Error(`OpenCage API error: ${response.status}`);
+            }
+            
             const data = await response.json();
             
             if (data.results && data.results.length > 0) {
               const components = data.results[0].components;
-              const detectedCity = components.city || components.town || components.village || components.county;
+              const detectedCity = components.city || components.town || components.village || components.county || components.state;
               
               if (detectedCity) {
-                console.log("Location detected from coordinates:", detectedCity);
+                console.log("Stadt aus GPS ermittelt:", detectedCity);
                 setCity(detectedCity);
                 setLoading(false);
                 return;
               }
             }
           } catch (geoError) {
-            console.error("Geolocation error:", geoError);
-            // Continue to other methods if geolocation fails
+            console.error("GPS-Ermittlungsfehler:", geoError);
+            // Weiter zu anderen Methoden, wenn GPS fehlschlägt
           }
         }
 
-        // Method 2: Use IP Geolocation API with cache-busting timestamp
+        // Als Fallback: IP-Geolocation (ipapi.co)
         try {
-          const timestamp = new Date().getTime();
+          const timestamp = new Date().getTime(); // Cache-Busting
           const ipResponse = await fetch(`https://ipapi.co/json/?t=${timestamp}`);
+          
+          if (!ipResponse.ok) {
+            throw new Error(`IP API error: ${ipResponse.status}`);
+          }
+          
           const ipData = await ipResponse.json();
           
           if (ipData && ipData.city) {
-            console.log("Location detected from IP:", ipData.city);
+            console.log("Stadt aus IP ermittelt:", ipData.city);
             setCity(ipData.city);
             setLoading(false);
             return;
           }
         } catch (ipError) {
-          console.error("IP Geolocation error:", ipError);
-          // Continue to fallback if IP geolocation fails
+          console.error("IP-Geo-Fehler:", ipError);
         }
         
-        // Method 3: Alternative IP geolocation service with cache-busting
+        // Letzte Alternative: Geolocation-DB
         try {
-          const timestamp = new Date().getTime();
+          const timestamp = new Date().getTime(); // Cache-Busting
           const geoResponse = await fetch(`https://geolocation-db.com/json/?t=${timestamp}`);
+          
+          if (!geoResponse.ok) {
+            throw new Error(`Geolocation DB error: ${geoResponse.status}`);
+          }
+          
           const geoData = await geoResponse.json();
           
           if (geoData && geoData.city && geoData.city !== "Not found") {
-            console.log("Location detected from alt source:", geoData.city);
+            console.log("Stadt aus alternativer Quelle:", geoData.city);
             setCity(geoData.city);
             setLoading(false);
             return;
           }
         } catch (altGeoError) {
-          console.error("Alternative Geolocation error:", altGeoError);
+          console.error("Alt-Geo-Fehler:", altGeoError);
         }
         
-        // If we get here, all methods failed
         setCity(null);
         setLoading(false);
       } catch (error) {
-        console.error("Location detection error:", error);
-        setError(error instanceof Error ? error : new Error('Unknown error occurred'));
+        console.error("Allgemeiner Standortfehler:", error);
+        setError(error instanceof Error ? error : new Error('Unbekannter Fehler bei der Standortermittlung'));
         setLoading(false);
       }
     };
 
+    // Sofort beim ersten Laden ausführen
     detectLocation();
     
-    // Set up a timer to refresh the location every few minutes
-    const locationRefreshInterval = setInterval(detectLocation, 5 * 60 * 1000); // Refresh every 5 minutes
-    
-    return () => {
-      clearInterval(locationRefreshInterval);
+    // Außerdem bei jedem Fokus auf das Fenster erneut ausführen (wenn User zurückkehrt)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        detectLocation();
+      }
     };
-  }, []);
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Cleanup
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []); // Leere Dependency-Liste bedeutet, der Effekt läuft nur beim Mounting
 
   return { city, loading, error };
 };
