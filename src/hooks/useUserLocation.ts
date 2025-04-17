@@ -31,8 +31,8 @@ export const useUserLocation = () => {
             const { latitude, longitude } = position.coords;
             console.log("GPS-Koordinaten:", latitude, longitude);
             
-            // Frischer API-Key für OpenCage
-            const apiKey = "1dc85e7f24b44320a47813c1ea8562fe"; // Neuer API-Key
+            // Aktualisierter API-Key für OpenCage
+            const apiKey = "d5540c95e6a9483fa33633b4bd474c48"; // Neuer API-Key
             const timestamp = new Date().getTime(); // Cache-Busting
             const response = await fetch(
               `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}&language=de&pretty=1&no_annotations=1&t=${timestamp}`

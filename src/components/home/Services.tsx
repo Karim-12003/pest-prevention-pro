@@ -35,7 +35,7 @@ const services = [
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://www.trocknung-bonn.de/wordpress/wp-content/uploads/2019/07/schimmelbekaempfung.jpg",
+    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
     alt: "Professionelle Schimmelbekämpfung und Feuchtigkeitsbehandlung für gesundes Raumklima",
     keywords: ["Schimmelbekämpfung", "Feuchtigkeitsschäden", "Schimmelpilz Entfernung"]
   },
