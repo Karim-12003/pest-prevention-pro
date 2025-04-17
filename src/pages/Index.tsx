@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -49,21 +48,6 @@ const Index = () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
-
-  // Show notification when location is detected
-  useEffect(() => {
-    if (city && !loading) {
-      toast({
-        title: "Standort erkannt",
-        description: `Wir haben Ihren Standort als ${city} erkannt.`,
-        duration: 5000,
-      });
-    }
-    
-    if (error) {
-      console.error("Location error:", error);
-    }
-  }, [city, loading, error, toast]);
 
   // Dynamic meta title and description with location data
   const locationText = city ? ` in ${city}` : '';
