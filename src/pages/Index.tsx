@@ -14,11 +14,13 @@ import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import { Loader2 } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  const { city, loading } = useUserLocation();
+  const { city, loading, error } = useUserLocation();
+  const { toast } = useToast();
   
   useEffect(() => {
     // Smooth scroll to anchor links
@@ -48,6 +50,21 @@ const Index = () => {
     };
   }, []);
 
+  // Show notification when location is detected
+  useEffect(() => {
+    if (city && !loading) {
+      toast({
+        title: "Standort erkannt",
+        description: `Wir haben Ihren Standort als ${city} erkannt.`,
+        duration: 5000,
+      });
+    }
+    
+    if (error) {
+      console.error("Location error:", error);
+    }
+  }, [city, loading, error, toast]);
+
   // Dynamic meta title and description with location data
   const locationText = city ? ` in ${city}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
@@ -74,9 +91,12 @@ const Index = () => {
           
           {city && (
             <div className="container mx-auto py-6">
-              <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-sm border border-accent/10 rounded-lg p-4 text-center">
-                <p className="text-lg text-muted-foreground">
-                  Willkommen aus <span className="font-semibold text-accent">{city}</span>! Wir bieten Schädlingsbekämpfung in Ihrer Region.
+              <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
+                <p className="text-lg text-primary">
+                  Willkommen aus <span className="font-bold text-accent">{city}</span>! 
+                </p>
+                <p className="text-muted-foreground mt-1">
+                  Unsere Schädlingsbekämpfer sind auch in Ihrer Region im Einsatz.
                 </p>
               </div>
             </div>
