@@ -10,14 +10,16 @@ export const useUserLocation = () => {
     const detectLocation = async () => {
       try {
         setLoading(true);
+        setCity(null); // Reset city on each location detection attempt
         
         // Method 1: Use Geolocation API + reverse geocoding
         if (navigator.geolocation) {
           try {
             const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+              // Set a lower timeout and disable caching with maximumAge: 0
               navigator.geolocation.getCurrentPosition(resolve, reject, {
                 enableHighAccuracy: true,
-                timeout: 10000,
+                timeout: 5000,
                 maximumAge: 0
               });
             });
@@ -26,7 +28,8 @@ export const useUserLocation = () => {
             console.log("Geolocation coordinates:", latitude, longitude);
             
             // Use reverse geocoding with OpenCage Data API
-            const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e4bf4a8f1fe94c5bb6d8e47fc67dfc5c&language=de&pretty=1`);
+            // Note: The API key might need to be updated as we're seeing 401 errors
+            const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=482c13d2add849d99789c88a7a73e06c&language=de&pretty=1`);
             const data = await response.json();
             
             if (data.results && data.results.length > 0) {
@@ -46,9 +49,10 @@ export const useUserLocation = () => {
           }
         }
 
-        // Method 2: Use IP Geolocation API
+        // Method 2: Use IP Geolocation API with cache-busting timestamp
         try {
-          const ipResponse = await fetch('https://ipapi.co/json/');
+          const timestamp = new Date().getTime();
+          const ipResponse = await fetch(`https://ipapi.co/json/?t=${timestamp}`);
           const ipData = await ipResponse.json();
           
           if (ipData && ipData.city) {
@@ -62,9 +66,10 @@ export const useUserLocation = () => {
           // Continue to fallback if IP geolocation fails
         }
         
-        // Method 3: Alternative IP geolocation service
+        // Method 3: Alternative IP geolocation service with cache-busting
         try {
-          const geoResponse = await fetch('https://geolocation-db.com/json/');
+          const timestamp = new Date().getTime();
+          const geoResponse = await fetch(`https://geolocation-db.com/json/?t=${timestamp}`);
           const geoData = await geoResponse.json();
           
           if (geoData && geoData.city && geoData.city !== "Not found") {
@@ -88,6 +93,13 @@ export const useUserLocation = () => {
     };
 
     detectLocation();
+    
+    // Set up a timer to refresh the location every few minutes
+    const locationRefreshInterval = setInterval(detectLocation, 5 * 60 * 1000); // Refresh every 5 minutes
+    
+    return () => {
+      clearInterval(locationRefreshInterval);
+    };
   }, []);
 
   return { city, loading, error };
