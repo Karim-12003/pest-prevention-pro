@@ -35,7 +35,7 @@ const services = [
     icon: <Sprout className="h-10 w-10" />,
     title: "Schimmelbekämpfung",
     description: "Gründliche Beseitigung von Schimmel und Feuchtigkeitsschäden für ein gesundes Raumklima.",
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    image: "https://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
     alt: "Professionelle Schimmelbekämpfung und Feuchtigkeitsbehandlung für gesundes Raumklima",
     keywords: ["Schimmelbekämpfung", "Feuchtigkeitsschäden", "Schimmelpilz Entfernung"]
   },
@@ -51,7 +51,7 @@ const services = [
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
+    image: "https://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
     alt: "Spinnenbekämpfung und Entfernung von Spinnennetzen mit langanhaltender Wirkung",
     keywords: ["Spinnenbekämpfung", "Spinnenentfernung", "Spinnennetze entfernen"]
   },
