@@ -51,7 +51,7 @@ const services = [
     icon: <BugOff className="h-10 w-10" />,
     title: "Spinnenbekämpfung",
     description: "Gezielte Entfernung von Spinnen und deren Netzen mit langanhaltender Wirkung.",
-    image: "https://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpgG",
+    image: "https://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
     alt: "Spinnenbekämpfung und Entfernung von Spinnennetzen mit langanhaltender Wirkung",
     keywords: ["Spinnenbekämpfung", "Spinnenentfernung", "Spinnennetze entfernen"]
   },
