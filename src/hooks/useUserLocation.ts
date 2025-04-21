@@ -14,76 +14,47 @@ export const useUserLocation = () => {
         setLoading(true);
         setCity(null);
         
-        // 1. Versuche zuerst die Browser-Geolocation API mit höchster Genauigkeit
-        if (navigator.geolocation) {
-          try {
-            // Erweiterte Geolocation-Optionen für maximale Genauigkeit
-            const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-              navigator.geolocation.getCurrentPosition(
-                resolve,
-                reject,
-                {
-                  enableHighAccuracy: true,
-                  timeout: 10000,
-                  maximumAge: 0
-                }
-              );
-            });
+        // Mozilla Location Service für WLAN & Mobilfunk Triangulation
+        try {
+          const mls_response = await fetch(`https://location.services.mozilla.com/v1/geolocate?key=test`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              considerIp: true,
+              wifiAccessPoints: [], // Browser füllt dies automatisch
+              cellTowers: [], // Browser füllt dies automatisch
+            }),
+          });
 
-            const { latitude, longitude } = position.coords;
-            console.log("GPS Koordinaten:", latitude, longitude);
+          if (mls_response.ok) {
+            const mlsData = await mls_response.json();
+            console.log("MLS Daten:", mlsData);
+            
+            // OpenCage Reverse Geocoding mit MLS Position
+            const opencage_response = await fetch(
+              `https://api.opencagedata.com/geocode/v1/json?q=${mlsData.location.lat}+${mlsData.location.lng}&key=9404c85230654d5abc450964c2f3e7f1&language=de&pretty=1&no_annotations=1&t=${Date.now()}`
+            );
 
-            // Mozilla Location Service für WLAN & Mobilfunk Triangulation
-            try {
-              const mls_response = await fetch(`https://location.services.mozilla.com/v1/geolocate?key=test`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  considerIp: true,
-                  wifiAccessPoints: [], // Browser füllt dies automatisch
-                  cellTowers: [], // Browser füllt dies automatisch
-                }),
-              });
-
-              if (mls_response.ok) {
-                const mlsData = await mls_response.json();
-                console.log("MLS Daten:", mlsData);
+            if (opencage_response.ok) {
+              const geocodeData = await opencage_response.json();
+              
+              if (geocodeData.results && geocodeData.results.length > 0) {
+                const components = geocodeData.results[0].components;
+                const detectedCity = components.city || components.town || components.village || components.suburb || components.county || components.state;
                 
-                // Kombiniere GPS mit WLAN/Mobilfunk für höhere Genauigkeit
-                const refinedLat = (latitude + mlsData.location.lat) / 2;
-                const refinedLng = (longitude + mlsData.location.lng) / 2;
-                
-                console.log("Verfeinerte Koordinaten:", refinedLat, refinedLng);
-                
-                // OpenCage Reverse Geocoding mit verfeinerter Position
-                const opencage_response = await fetch(
-                  `https://api.opencagedata.com/geocode/v1/json?q=${refinedLat}+${refinedLng}&key=9404c85230654d5abc450964c2f3e7f1&language=de&pretty=1&no_annotations=1&t=${Date.now()}`
-                );
-
-                if (opencage_response.ok) {
-                  const geocodeData = await opencage_response.json();
-                  
-                  if (geocodeData.results && geocodeData.results.length > 0) {
-                    const components = geocodeData.results[0].components;
-                    const detectedCity = components.city || components.town || components.village || components.suburb || components.county || components.state;
-                    
-                    if (detectedCity) {
-                      console.log("Stadt ermittelt:", detectedCity);
-                      setCity(detectedCity);
-                      setLoading(false);
-                      return;
-                    }
-                  }
+                if (detectedCity) {
+                  console.log("Stadt ermittelt:", detectedCity);
+                  setCity(detectedCity);
+                  setLoading(false);
+                  return;
                 }
               }
-            } catch (mlsError) {
-              console.error("MLS Fehler:", mlsError);
             }
-          } catch (geoError) {
-            console.error("GPS Fehler:", geoError);
           }
+        } catch (mlsError) {
+          console.error("MLS Fehler:", mlsError);
         }
 
         // Fallback: IP-basierte Geolocation
@@ -104,7 +75,7 @@ export const useUserLocation = () => {
           console.error("IP-Geo Fehler:", ipError);
           toast({
             title: "Standortermittlung fehlgeschlagen",
-            description: "Bitte erlauben Sie die Standortermittlung in Ihrem Browser.",
+            description: "Die Standortermittlung konnte nicht durchgeführt werden.",
             variant: "destructive",
           });
         }
@@ -138,3 +109,4 @@ export const useUserLocation = () => {
 
   return { city, loading, error };
 };
+
