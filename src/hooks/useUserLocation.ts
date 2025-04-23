@@ -2,6 +2,79 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
+const OPENCAGE_API_KEY = '9404c85230654d5abc450964c2f3e7f1';
+const IPINFO_TOKEN = '86bd4c7e187c28';
+
+async function getCityFromIP(): Promise<string> {
+  try {
+    const response = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
+    const data = await response.json();
+    return data.city || 'Unbekannt';
+  } catch (e) {
+    console.error('IP-Geolocation Fehler:', e);
+    return 'Unbekannt';
+  }
+}
+
+async function getCity(): Promise<string> {
+  return new Promise((resolve) => {
+    // Browser Geolocation API als erste Option
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+
+          try {
+            // Reverse Geocoding mit OpenCage
+            const response = await fetch(
+              `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${OPENCAGE_API_KEY}&language=de&pretty=1&no_annotations=1`
+            );
+            
+            if (!response.ok) {
+              console.error('OpenCage API Fehler:', response.statusText);
+              return resolve(await getCityFromIP());
+            }
+
+            const data = await response.json();
+            
+            if (data.results && data.results.length > 0) {
+              const components = data.results[0].components;
+              const city = components.city || 
+                          components.town || 
+                          components.village || 
+                          components.suburb ||
+                          components.county;
+              
+              if (city) {
+                return resolve(city);
+              }
+            }
+            
+            // Fallback auf IP-basierte Geolokation
+            resolve(await getCityFromIP());
+          } catch (error) {
+            console.error('Reverse Geocoding Fehler:', error);
+            resolve(await getCityFromIP());
+          }
+        },
+        async (error) => {
+          // Wenn Geolocation verweigert oder fehlgeschlagen
+          console.log('Browser Geolocation fehlgeschlagen:', error.message);
+          resolve(await getCityFromIP());
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      // Fallback wenn Geolocation nicht unterstützt
+      resolve(getCityFromIP());
+    }
+  });
+}
+
 export const useUserLocation = () => {
   const [city, setCity] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -14,77 +87,27 @@ export const useUserLocation = () => {
         setLoading(true);
         setCity(null);
         
-        // Mozilla Location Service für WLAN & Mobilfunk Triangulation
-        try {
-          const mls_response = await fetch(`https://location.services.mozilla.com/v1/geolocate?key=test`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              considerIp: true,
-              wifiAccessPoints: [], // Browser füllt dies automatisch
-              cellTowers: [], // Browser füllt dies automatisch
-            }),
-          });
-
-          if (mls_response.ok) {
-            const mlsData = await mls_response.json();
-            console.log("MLS Daten:", mlsData);
-            
-            // OpenCage Reverse Geocoding mit MLS Position
-            const opencage_response = await fetch(
-              `https://api.opencagedata.com/geocode/v1/json?q=${mlsData.location.lat}+${mlsData.location.lng}&key=9404c85230654d5abc450964c2f3e7f1&language=de&pretty=1&no_annotations=1&t=${Date.now()}`
-            );
-
-            if (opencage_response.ok) {
-              const geocodeData = await opencage_response.json();
-              
-              if (geocodeData.results && geocodeData.results.length > 0) {
-                const components = geocodeData.results[0].components;
-                const detectedCity = components.city || components.town || components.village || components.suburb || components.county || components.state;
-                
-                if (detectedCity) {
-                  console.log("Stadt ermittelt:", detectedCity);
-                  setCity(detectedCity);
-                  setLoading(false);
-                  return;
-                }
-              }
-            }
-          }
-        } catch (mlsError) {
-          console.error("MLS Fehler:", mlsError);
-        }
-
-        // Fallback: IP-basierte Geolocation
-        try {
-          const ipResponse = await fetch(`https://ipapi.co/json/?t=${Date.now()}`);
-          
-          if (ipResponse.ok) {
-            const ipData = await ipResponse.json();
-            
-            if (ipData && ipData.city) {
-              console.log("Stadt über IP ermittelt:", ipData.city);
-              setCity(ipData.city);
-              setLoading(false);
-              return;
-            }
-          }
-        } catch (ipError) {
-          console.error("IP-Geo Fehler:", ipError);
+        const detectedCity = await getCity();
+        
+        if (detectedCity && detectedCity !== 'Unbekannt') {
+          setCity(detectedCity);
+        } else {
+          setCity(null);
           toast({
             title: "Standortermittlung fehlgeschlagen",
             description: "Die Standortermittlung konnte nicht durchgeführt werden.",
             variant: "destructive",
           });
         }
-        
-        setCity(null);
-        setLoading(false);
       } catch (error) {
-        console.error("Allgemeiner Fehler:", error);
+        console.error("Standortermittlung fehlgeschlagen:", error);
         setError(error instanceof Error ? error : new Error('Unbekannter Fehler bei der Standortermittlung'));
+        toast({
+          title: "Standortermittlung fehlgeschlagen",
+          description: "Die Standortermittlung konnte nicht durchgeführt werden.",
+          variant: "destructive",
+        });
+      } finally {
         setLoading(false);
       }
     };
@@ -105,8 +128,7 @@ export const useUserLocation = () => {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [toast]);
 
   return { city, loading, error };
 };
-
