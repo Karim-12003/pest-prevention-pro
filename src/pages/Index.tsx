@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -14,6 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
+import MovingLogoBanner from '../components/home/MovingLogoBanner';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -68,6 +68,7 @@ const Index = () => {
         <main className="flex-grow">
           <Hero />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
+          <MovingLogoBanner />
           
           {city && (
             <div className="container mx-auto py-6">

@@ -85,9 +85,25 @@ const Reviews = () => {
   return (
     <AnimatedSection id="reviews" className="bg-secondary/50">
       <div className="container mx-auto">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="section-heading">Kundenbewertungen</h2>
-          <p className="section-subheading">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="flex justify-center items-center gap-4 mb-8">
+            <h2 className="section-heading mb-0">Kundenbewertungen</h2>
+            <a 
+              href="https://www.provenexpert.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-block"
+            >
+              <div className="flex items-center bg-[#2D529F] text-white px-4 py-2 rounded-lg hover:bg-[#1D428F] transition-colors">
+                <img
+                  src="https://images.provenexpert.com/37/6b/0082402d84a7e550c066425919b6/provenexpert-logo-weiss.svg"
+                  alt="ProvenExpert"
+                  className="h-6"
+                />
+              </div>
+            </a>
+          </div>
+          <p className="section-subheading mb-0">
             Erfahren Sie, was unsere Kunden über unsere Schädlingsbekämpfungsdienste sagen.
           </p>
         </div>
@@ -108,8 +124,11 @@ const Reviews = () => {
                 />
               ))}
             </div>
-            <p className="text-lg font-medium">
-              4.9/5 Durchschnittsbewertung aus über 487 Kundenbewertungen
+            <p className="text-lg font-medium mb-2">
+              4.9/5 Durchschnittsbewertung
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Basierend auf über 487 verifizierten Bewertungen auf ProvenExpert
             </p>
           </div>
         </div>
@@ -119,3 +138,4 @@ const Reviews = () => {
 };
 
 export default Reviews;
+

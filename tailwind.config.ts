@@ -133,6 +133,10 @@ export default {
 						opacity: '0',
 					},
 				},
+				scroll: {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-100%)' }
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -148,6 +152,7 @@ export default {
 				'bounce': 'bounce 1s infinite',
 				'ping': 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite',
 				'delayed-ping': 'delayed-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite 0.5s',
+				'scroll': 'scroll 20s linear infinite',
 			},
 			transitionProperty: {
 				'height': 'height',
