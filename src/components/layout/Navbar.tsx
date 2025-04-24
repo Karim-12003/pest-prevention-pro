@@ -48,8 +48,8 @@ const Navbar = () => {
             <Logo size={isMobile ? "medium" : "medium"} />
             <div className="text-primary font-bold text-xl md:text-2xl lg:text-3xl transition-all ml-3">
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
-                <span className="text-[#9b87f5] whitespace-nowrap leading-tight">Kammerjäger</span>
-                <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight">Adalbert</span>
+                <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-2xl sm:text-2xl md:text-2xl">Kammerjäger</span>
+                <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-2xl sm:text-2xl md:text-2xl">Adalbert</span>
               </div>
             </div>
           </div>
@@ -116,4 +116,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
