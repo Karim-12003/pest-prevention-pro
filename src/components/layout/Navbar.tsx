@@ -5,12 +5,14 @@ import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -35,19 +37,19 @@ const Navbar = () => {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2 md:py-4',
         isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Logo size="medium" />
-            <div className="text-primary font-bold text-2xl md:text-3xl transition-all ml-3">
+            <Logo size={isMobile ? "small" : "medium"} />
+            <div className="text-primary font-bold text-xl md:text-3xl transition-all ml-2 md:ml-3">
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
-                <span className="text-[#9b87f5] whitespace-nowrap">Kammerjäger</span>
-                <span className="font-light whitespace-nowrap ml-0 sm:ml-2">Adalbert</span>
+                <span className="text-[#9b87f5] whitespace-nowrap leading-tight">Kammerjäger</span>
+                <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight">Adalbert</span>
               </div>
             </div>
           </div>
@@ -71,7 +73,7 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-2">
             <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent" />
             <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600" />
             <button
@@ -90,7 +92,7 @@ const Navbar = () => {
       <div
         className={cn(
           'md:hidden absolute w-full transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg',
-          isMenuOpen ? 'top-full opacity-100' : '-top-[400px] opacity-0'
+          isMenuOpen ? 'top-full opacity-100 visible' : '-top-[400px] opacity-0 invisible'
         )}
       >
         <div className="container mx-auto px-4 py-4">

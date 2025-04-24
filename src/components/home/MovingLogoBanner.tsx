@@ -3,8 +3,11 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Award } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const MovingLogoBanner = () => {
+  const isMobile = useIsMobile();
+  
   const logos = [
     {
       name: "IHK Ausbildungsbetrieb",
@@ -34,7 +37,7 @@ const MovingLogoBanner = () => {
 
   return (
     <AnimatedSection className="py-6 bg-primary/5 overflow-hidden">
-      <div className="flex gap-6 animate-[scroll_20s_linear_infinite]">
+      <div className={`flex gap-6 ${isMobile ? 'animate-[scroll_30s_linear_infinite]' : 'animate-[scroll_20s_linear_infinite]'}`}>
         <div className="flex gap-6 min-w-full">
           {logos.map((logo, index) => (
             <Badge

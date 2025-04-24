@@ -4,6 +4,7 @@ import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const reviews = [
   {
@@ -93,11 +94,16 @@ const ReviewCard = ({ review, index }: { review: typeof reviews[0], index: numbe
 };
 
 const Reviews = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <AnimatedSection id="reviews" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="flex justify-center items-center gap-6 mb-8">
+          <div className={cn(
+            "flex justify-center items-center mb-8",
+            isMobile ? "flex-col gap-4" : "gap-6"
+          )}>
             <h2 className="section-heading mb-0">Kundenbewertungen</h2>
             <a 
               href="https://www.provenexpert.com/" 
@@ -108,7 +114,10 @@ const Reviews = () => {
               <img 
                 src="https://weltweiser.de/wp-content/uploads/2022/07/proven-expert.png" 
                 alt="ProvenExpert Logo" 
-                className="h-16 object-contain" 
+                className={cn(
+                  "object-contain", 
+                  isMobile ? "h-20" : "h-16"
+                )} 
               />
             </a>
           </div>
@@ -117,14 +126,14 @@ const Reviews = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
           {reviews.map((review, index) => (
             <ReviewCard key={index} review={review} index={index} />
           ))}
         </div>
 
-        <div className="text-center mt-16">
-          <div className="bg-white rounded-xl p-6 inline-block shadow-sm border border-primary/10">
+        <div className="text-center mt-10 md:mt-16">
+          <div className="bg-white rounded-xl p-4 md:p-6 inline-block shadow-sm border border-primary/10">
             <div className="flex items-center justify-center mb-3">
               {[...Array(5)].map((_, i) => (
                 <Star 
