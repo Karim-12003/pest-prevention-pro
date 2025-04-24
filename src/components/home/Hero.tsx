@@ -47,13 +47,13 @@ const Hero = () => {
         </script>
       </Helmet>
       
-      <section className="pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden relative">
+      <section className="pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden relative">
         {/* 24/7 Emergency Banner */}
-        <div className="bg-red-600 text-white py-2 absolute top-20 left-0 right-0 z-40 shadow-md">
+        <div className="bg-red-600 text-white py-2 absolute top-24 left-0 right-0 z-40 shadow-md">
           <div className="container mx-auto">
             <div className="flex items-center justify-center">
               <div className="w-3 h-3 bg-white rounded-full animate-ping mr-2"></div>
-              <p className="text-sm font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</p>
+              <p className="text-sm font-medium md:text-base">24/7 Notfalldienst unter {PHONE_NUMBER}</p>
             </div>
           </div>
         </div>
