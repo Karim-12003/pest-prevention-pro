@@ -18,7 +18,7 @@ interface OpenCageResponse {
   }>;
 }
 
-const GOOGLE_API_KEY = 'AIzaSyBZm2zqFlx7qzHk9TPXPfZIK6H2Y5nKoT4';
+const GOOGLE_API_KEY = 'AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA ';
 const OPENCAGE_API_KEY = '9404c85230654d5abc450964c2f3e7f1';
 const IPINFO_TOKEN = '86bd4c7e187c28';
 
