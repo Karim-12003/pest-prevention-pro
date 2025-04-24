@@ -20,7 +20,7 @@ interface OpenCageResponse {
 
 // API-Keys (Google API-Key sollte gültig sein, bei Problemen bitte überprüfen)
 const GOOGLE_API_KEY = 'AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA'; // Leerzeichen am Ende entfernt
-const OPENCAGE_API_KEY = '9404c85230654d5abc450964c2f3e7f1';
+const OPENCAGE_API_KEY = '79026b05644a445a8fe125bed49ea1ae';
 const IPINFO_TOKEN = '86bd4c7e187c28';
 
 async function getCityFromGoogleGeoAPI(): Promise<string | null> {
