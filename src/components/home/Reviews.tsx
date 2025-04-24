@@ -1,7 +1,9 @@
+
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Card, CardContent } from '@/components/ui/card';
 
 const reviews = [
   {
@@ -30,7 +32,7 @@ const reviews = [
   },
   {
     name: "Jürgen Hoffmann",
-    location: ". Pauli",
+    location: "St. Pauli",
     rating: 4,
     text: "Guter und schneller Service bei akutem Schädlingsbefall. Die kostenlose Anfahrt war ein großer Pluspunkt. Einziger kleiner Kritikpunkt: Die Nachkontrolle musste ich selbst anstoßen, sonst top!",
   },
@@ -44,39 +46,37 @@ const reviews = [
 
 const ReviewCard = ({ review, index }: { review: typeof reviews[0], index: number }) => {
   return (
-    <div 
-      className={cn(
-        "rounded-xl p-6 shadow-sm border border-primary/10 bg-white transition-all duration-300 hover:shadow-md",
-        index % 3 === 1 ? "md:translate-y-4" : "",
-        index % 3 === 2 ? "md:translate-y-8" : ""
-      )}
-    >
-      <div className="flex items-center mb-4">
-        <div className="flex-shrink-0 mr-4">
-          <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-            <Quote className="h-5 w-5 text-accent" />
+    <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+      <CardContent className="pt-6">
+        <div className="flex items-center mb-4">
+          <div className="flex-shrink-0 mr-3">
+            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <span className="text-blue-600 font-bold text-lg">{review.name.charAt(0)}</span>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-800">{review.name}</h4>
+            {review.location && (
+              <p className="text-xs text-gray-500">{review.location}</p>
+            )}
           </div>
         </div>
-        <div>
-          <h4 className="font-semibold">{review.name}</h4>
-          <p className="text-xs text-muted-foreground">{review.location}</p>
+        
+        <div className="flex mb-2">
+          {[...Array(5)].map((_, i) => (
+            <Star 
+              key={i} 
+              className={cn(
+                "h-5 w-5 mr-1", 
+                i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+              )} 
+            />
+          ))}
         </div>
-      </div>
-      
-      <div className="flex mb-3">
-        {[...Array(5)].map((_, i) => (
-          <Star 
-            key={i} 
-            className={cn(
-              "h-4 w-4 mr-1", 
-              i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-            )} 
-          />
-        ))}
-      </div>
-      
-      <p className="text-sm text-primary/80">{review.text}</p>
-    </div>
+        
+        <p className="text-sm text-gray-600 mt-2">{review.text}</p>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -85,7 +85,7 @@ const Reviews = () => {
     <AnimatedSection id="reviews" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="flex justify-center items-center gap-4 mb-8">
+          <div className="flex justify-center items-center gap-6 mb-8">
             <h2 className="section-heading mb-0">Kundenbewertungen</h2>
             <a 
               href="https://www.provenexpert.com/" 
@@ -96,7 +96,7 @@ const Reviews = () => {
               <img 
                 src="https://weltweiser.de/wp-content/uploads/2022/07/proven-expert.png" 
                 alt="ProvenExpert Logo" 
-                className="h-8 object-contain"
+                className="h-16 object-contain" 
               />
             </a>
           </div>
