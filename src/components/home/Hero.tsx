@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
@@ -86,8 +85,10 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                {cityFromUrl ? `Kammerjäger ${cityFromUrl}` : 'Ihr Experte für '}<span className="text-accent">{!cityFromUrl && 'effektive'}</span> <br className="hidden sm:inline" />
-                <span className="inline-block">{!cityFromUrl && 'Schädlingsbekämpfung'}</span>
+                {cityFromUrl 
+                  ? `Ihr Experte für Schädlingsbekämpfung in ${cityFromUrl}` 
+                  : 'Ihr Experte für Effektive Schädlingsbekämpfung'
+                }
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in city-text" style={{ animationDelay: '200ms' }}>
