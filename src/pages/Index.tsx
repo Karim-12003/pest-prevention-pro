@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -19,6 +20,22 @@ const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
   const { city, loading } = useUserLocation();
+  const [cityFromUrl, setCityFromUrl] = useState<string | null>(null);
+  
+  useEffect(() => {
+    // URL-Parameter für Stadt abrufen
+    const params = new URLSearchParams(window.location.search);
+    const cityParam = params.get('city');
+    
+    if (cityParam) {
+      // Erste Buchstabe groß, Rest klein
+      const formattedCity = cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase();
+      setCityFromUrl(formattedCity);
+      
+      // Setze Titel und Meta-Tags
+      document.title = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${formattedCity}`;
+    }
+  }, []);
   
   useEffect(() => {
     const handleHashChange = () => {
@@ -45,7 +62,9 @@ const Index = () => {
     };
   }, []);
 
-  const locationText = city ? ` in ${city}` : '';
+  // Verwende city-Parameter aus URL oder die automatisch erkannte Stadt
+  const displayCity = cityFromUrl || city;
+  const locationText = displayCity ? ` in ${displayCity}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
@@ -70,11 +89,11 @@ const Index = () => {
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           
-          {city && (
+          {displayCity && (
             <div className="container mx-auto py-6">
               <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
                 <p className="text-lg text-primary">
-                  Willkommen aus <span className="font-bold text-accent">{city}</span>!
+                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>!
                 </p>
               </div>
             </div>
