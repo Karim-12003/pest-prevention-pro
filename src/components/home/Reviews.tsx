@@ -1,7 +1,7 @@
 
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, Google } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -46,8 +46,11 @@ const reviews = [
 
 const ReviewCard = ({ review, index }: { review: typeof reviews[0], index: number }) => {
   return (
-    <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+    <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 relative">
       <CardContent className="pt-6">
+        <div className="absolute top-4 right-4">
+          <Google className="h-6 w-6 text-green-500" />
+        </div>
         <div className="flex items-center mb-4">
           <div className="flex-shrink-0 mr-3">
             <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
