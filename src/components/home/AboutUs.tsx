@@ -42,7 +42,7 @@ const AboutUs = () => {
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
           <AspectRatio ratio={16/9}>
             <img 
-              src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e" 
+              src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_1800x1439_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png.webp" 
               alt="Professioneller Kammerjäger lächelt freundlich" 
               className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               width="1200"
