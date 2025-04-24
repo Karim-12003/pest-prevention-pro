@@ -8,11 +8,11 @@ import Reviews from '../components/home/Reviews';
 import Contact from '../components/home/Contact';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import SectionCTA from '../components/ui/SectionCTA';
+import AboutUs from '../components/home/AboutUs';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -81,28 +81,7 @@ const Index = () => {
             </div>
           )}
           
-          <div className="container mx-auto py-12 md:py-16 px-4">
-            <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
-              <AspectRatio ratio={16/9}>
-                <img 
-                  src="https://oknoplast.de/content/uploads/2024/07/innenraeume-quiet-luxury.webp" 
-                  alt="Ein sauberes, schädlingsfreies Zuhause nach professioneller Schädlingsbekämpfung" 
-                  className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
-                  width="1200"
-                  height="675"
-                  loading="lazy"
-                />
-              </AspectRatio>
-              <div className="bg-white p-6 md:p-8 text-center">
-                <h2 className="text-xl md:text-2xl font-semibold mb-3 text-[#1A1F2C]">
-                  Ihr sicheres Zuhause ist unser Ziel
-                </h2>
-                <p className="text-muted-foreground text-base md:text-lg">
-                  Wir sorgen dafür, dass Ihr Wohnraum frei von ungebetenen Gästen bleibt und Sie sich rundum wohlfühlen können.
-                </p>
-              </div>
-            </div>
-          </div>
+          <AboutUs />
           <Services />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />
           <Certifications />
