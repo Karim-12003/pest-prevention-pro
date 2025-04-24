@@ -1,13 +1,11 @@
 
 import { useState, useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { getCity } from '@/utils/locationDetection';
 
 export const useUserLocation = () => {
   const [city, setCity] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const { toast } = useToast();
 
   useEffect(() => {
     const detectLocation = async () => {
@@ -21,29 +19,22 @@ export const useUserLocation = () => {
           setCity(detectedCity);
         } else {
           setCity(null);
-          toast({
-            title: "Standortermittlung fehlgeschlagen",
-            description: "Die Standortermittlung konnte nicht durchgeführt werden.",
-            variant: "destructive",
-          });
+          // Fehlerbenachrichtigung entfernt
+          console.log('Keine Stadt erkannt, aber keine Benachrichtigung anzeigen');
         }
       } catch (error) {
         console.error("Standortermittlung fehlgeschlagen:", error);
         setError(error instanceof Error ? error : new Error('Unbekannter Fehler bei der Standortermittlung'));
-        toast({
-          title: "Standortermittlung fehlgeschlagen",
-          description: "Die Standortermittlung konnte nicht durchgeführt werden.",
-          variant: "destructive",
-        });
+        // Fehlerbenachrichtigung entfernt
       } finally {
         setLoading(false);
       }
     };
 
-    // Execute immediately on first load
+    // Bei erstem Laden ausführen
     detectLocation();
     
-    // Re-run when window gets focus
+    // Bei Window Focus erneut ausführen
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         detectLocation();
@@ -55,7 +46,7 @@ export const useUserLocation = () => {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [toast]);
+  }, []);
 
   return { city, loading, error };
 };

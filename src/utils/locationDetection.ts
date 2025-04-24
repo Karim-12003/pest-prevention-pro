@@ -18,7 +18,8 @@ interface OpenCageResponse {
   }>;
 }
 
-const GOOGLE_API_KEY = 'AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA ';
+// API-Keys (Google API-Key sollte gültig sein, bei Problemen bitte überprüfen)
+const GOOGLE_API_KEY = 'AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA'; // Leerzeichen am Ende entfernt
 const OPENCAGE_API_KEY = '9404c85230654d5abc450964c2f3e7f1';
 const IPINFO_TOKEN = '86bd4c7e187c28';
 
@@ -26,7 +27,7 @@ async function getCityFromGoogleGeoAPI(): Promise<string | null> {
   try {
     const body = {
       considerIp: true,
-      wifiAccessPoints: [] // Could be enhanced with real WiFi data if needed
+      wifiAccessPoints: [] // Könnte mit echten WLAN-Daten erweitert werden
     };
 
     const geoRes = await fetch(
@@ -39,7 +40,7 @@ async function getCityFromGoogleGeoAPI(): Promise<string | null> {
     );
 
     if (!geoRes.ok) {
-      console.error('Google Geolocation API error:', await geoRes.text());
+      // Reduzierte Fehlerausgabe
       return null;
     }
 
@@ -51,7 +52,7 @@ async function getCityFromGoogleGeoAPI(): Promise<string | null> {
     );
 
     if (!response.ok) {
-      console.error('OpenCage API error:', await response.text());
+      // Reduzierte Fehlerausgabe
       return null;
     }
 
@@ -66,7 +67,7 @@ async function getCityFromGoogleGeoAPI(): Promise<string | null> {
 
     return city;
   } catch (e) {
-    console.error('Error in Google Geolocation process:', e);
+    // Fehler leise verarbeiten
     return null;
   }
 }
@@ -76,26 +77,35 @@ async function getCityFromIP(): Promise<string> {
     const response = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
     
     if (!response.ok) {
-      console.error('IPinfo API error:', await response.text());
+      // Reduzierte Fehlerausgabe
       return 'Unbekannt';
     }
 
     const data = await response.json();
     return data.city || 'Unbekannt';
   } catch (e) {
-    console.error('IP Geolocation error:', e);
+    // Fehler leise verarbeiten
     return 'Unbekannt';
   }
 }
 
 export async function getCity(): Promise<string> {
-  const googleLocation = await getCityFromGoogleGeoAPI();
-  if (googleLocation) {
-    console.log('Location found via Google Geolocation API:', googleLocation);
-    return googleLocation;
+  try {
+    const googleLocation = await getCityFromGoogleGeoAPI();
+    if (googleLocation) {
+      console.log('Location found via Google Geolocation API:', googleLocation);
+      return googleLocation;
+    }
+  } catch (error) {
+    // Fehler leise verarbeiten
   }
 
-  const ipLocation = await getCityFromIP();
-  console.log('Fallback to IP-based location:', ipLocation);
-  return ipLocation;
+  try {
+    const ipLocation = await getCityFromIP();
+    console.log('Fallback to IP-based location:', ipLocation);
+    return ipLocation;
+  } catch (error) {
+    // Bei Fehler unbekannter Standort
+    return 'Unbekannt';
+  }
 }

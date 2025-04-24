@@ -18,10 +18,10 @@ import { Loader2 } from 'lucide-react';
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  const { city, loading, error } = useUserLocation();
+  const { city, loading } = useUserLocation();
   
   useEffect(() => {
-    // Smooth scroll to anchor links
+    // Smooth scroll zu Ankerlinks
     const handleHashChange = () => {
       const { hash } = window.location;
       if (hash) {
@@ -35,10 +35,10 @@ const Index = () => {
       }
     };
 
-    // Scroll to the correct position when hash changes
+    // Zum richtigen Bereich scrollen wenn sich der Hash ändert
     window.addEventListener('hashchange', handleHashChange);
     
-    // Check for hash on initial load
+    // Bei initialem Laden auf Hash überprüfen
     if (window.location.hash) {
       setTimeout(handleHashChange, 100);
     }
@@ -48,7 +48,7 @@ const Index = () => {
     };
   }, []);
 
-  // Dynamic meta title and description with location data
+  // Dynamischer Meta-Titel und -Beschreibung mit Standortdaten
   const locationText = city ? ` in ${city}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -116,7 +116,7 @@ const Index = () => {
         
         <Footer />
         
-        {/* Fixed Buttons */}
+        {/* Feste Buttons */}
         <PhoneButton phoneNumber={PHONE_NUMBER} variant="fixed" />
         <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="fixed" />
       </div>
