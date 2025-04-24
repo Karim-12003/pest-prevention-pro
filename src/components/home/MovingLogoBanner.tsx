@@ -36,14 +36,14 @@ const MovingLogoBanner = () => {
   ];
 
   return (
-    <AnimatedSection className="py-8 bg-primary/5 overflow-hidden">
-      <div className={`flex gap-4 md:gap-6 ${isMobile ? 'animate-[scroll_25s_linear_infinite]' : 'animate-[scroll_20s_linear_infinite]'}`}>
-        <div className="flex gap-4 md:gap-6 min-w-full justify-around md:justify-center">
+    <AnimatedSection className="py-6 bg-primary/5 overflow-hidden">
+      <div className={`flex ${isMobile ? 'animate-[scroll_30s_linear_infinite]' : 'animate-[scroll_20s_linear_infinite]'}`}>
+        <div className="flex min-w-full">
           {logos.map((logo, index) => (
             <Badge
               key={index}
               variant={logo.variant}
-              className="px-3 md:px-6 py-2 text-sm md:text-base whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-auto min-h-[3rem] flex items-center"
+              className="mx-6 px-4 py-2 text-sm md:text-base whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-auto min-h-[3rem] flex items-center"
             >
               <div className="flex items-center">
                 {logo.icon}
@@ -52,12 +52,12 @@ const MovingLogoBanner = () => {
             </Badge>
           ))}
         </div>
-        <div className="flex gap-4 md:gap-6 min-w-full justify-around md:justify-center">
+        <div className="flex min-w-full">
           {logos.map((logo, index) => (
             <Badge
               key={`duplicate-${index}`}
               variant={logo.variant}
-              className="px-3 md:px-6 py-2 text-sm md:text-base whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-auto min-h-[3rem] flex items-center"
+              className="mx-6 px-4 py-2 text-sm md:text-base whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-auto min-h-[3rem] flex items-center"
             >
               <div className="flex items-center">
                 {logo.icon}
@@ -72,4 +72,3 @@ const MovingLogoBanner = () => {
 };
 
 export default MovingLogoBanner;
-
