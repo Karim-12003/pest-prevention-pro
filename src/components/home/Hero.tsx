@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
@@ -74,7 +75,6 @@ const Hero = () => {
         
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
-            {/* Hero Text Content */}
             <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
               <div className="flex justify-center md:justify-start mb-4">
                 <Logo size="large" />
@@ -86,7 +86,7 @@ const Hero = () => {
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
                 {cityFromUrl 
-                  ? `Ihr Experte für Schädlingsbekämpfung in ${cityFromUrl}` 
+                  ? `Ihr Experte für Effektive Schädlingsbekämpfung in ${cityFromUrl}` 
                   : 'Ihr Experte für Effektive Schädlingsbekämpfung'
                 }
               </h1>
