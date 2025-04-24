@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bug } from 'lucide-react';
+import { Bug, Clock, Award, Users2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import AnimatedSection from '../ui/AnimatedSection';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -73,4 +73,3 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
-
