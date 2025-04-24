@@ -1,4 +1,3 @@
-
 interface GoogleGeoResponse {
   location: {
     lat: number;
@@ -21,7 +20,7 @@ interface OpenCageResponse {
 // API-Keys (Google API-Key sollte gültig sein, bei Problemen bitte überprüfen)
 const GOOGLE_API_KEY = 'AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA'; // Leerzeichen am Ende entfernt
 const OPENCAGE_API_KEY = '79026b05644a445a8fe125bed49ea1ae';
-const IPINFO_TOKEN = '86bd4c7e187c28';
+const IPINFO_TOKEN = '42a60e4ff0a512';
 
 async function getCityFromGoogleGeoAPI(): Promise<string | null> {
   try {
