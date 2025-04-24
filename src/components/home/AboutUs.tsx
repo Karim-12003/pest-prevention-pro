@@ -1,13 +1,14 @@
 
 import React from 'react';
-import { Shield, Clock, Award, Users2 } from 'lucide-react';
+import { Bug } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import AnimatedSection from '../ui/AnimatedSection';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const AboutUs = () => {
   const features = [
     {
-      icon: Shield,
+      icon: Bug,
       title: "Zertifizierte Expertise",
       description: "IHK-geprüfte Schädlingsbekämpfer mit jahrelanger Erfahrung"
     },
@@ -38,6 +39,19 @@ const AboutUs = () => {
           </p>
         </div>
         
+        <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
+          <AspectRatio ratio={16/9}>
+            <img 
+              src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e" 
+              alt="Professioneller Kammerjäger lächelt freundlich" 
+              className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
+              width="1200"
+              height="675"
+              loading="lazy"
+            />
+          </AspectRatio>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <Card key={index} className="border-accent/10 hover:shadow-lg transition-shadow duration-300">
@@ -59,3 +73,4 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+
