@@ -11,19 +11,20 @@ const AboutUs = () => {
       icon: Bug,
       title: "Zertifizierte Expertise",
       description: "IHK-geprüfte Schädlingsbekämpfer mit jahrelanger Erfahrung"
+      
     },
     {
-      icon: Clock,
+      icon: ,
       title: "24/7 Notdienst",
       description: "Schnelle Hilfe rund um die Uhr, auch an Wochenenden"
     },
     {
-      icon: Award,
+      icon: ,
       title: "Garantierte Qualität",
       description: "Modernste Methoden und umweltfreundliche Lösungen"
     },
     {
-      icon: Users2,
+      icon: ,
       title: "Persönliche Betreuung",
       description: "Individuelle Beratung und maßgeschneiderte Lösungen"
     }
