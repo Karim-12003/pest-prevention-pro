@@ -58,12 +58,40 @@
 
   <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTVFNWPH"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTVFNWPH"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <script>
+      // Holt den city-Parameter aus der URL und passt die Inhalte an
+      function getCityFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const city = params.get('city');
+        return city ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() : null;
+      }
+
+      function updatePageWithCity(city) {
+        if (!city) return;
+
+        // Überschrift anpassen
+        const headline = document.getElementById('headline');
+        if (headline) headline.textContent = `Kammerjäger ${city}`;
+
+        // Optional weitere Texte anpassen
+        const textBlocks = document.querySelectorAll('.city-text');
+        textBlocks.forEach(block => {
+          block.innerHTML = block.innerHTML.replace(/{{city}}/g, city);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const city = getCityFromURL();
+        updatePageWithCity(city);
+      });
+    </script>
   </body>
 </html>

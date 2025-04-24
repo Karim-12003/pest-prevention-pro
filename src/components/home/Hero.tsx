@@ -70,7 +70,7 @@ const Hero = () => {
                 <span className="break-words">Professionelle Schädlingsbekämpfung</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
                 Ihr Experte für <span className="text-accent">effektive</span> <br className="hidden sm:inline" />
                 <span className="inline-block">Schädlingsbekämpfung</span>
               </h1>
