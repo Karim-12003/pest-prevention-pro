@@ -11,52 +11,58 @@ const MovingLogoBanner = () => {
   const logos = [
     {
       name: "IHK Ausbildungsbetrieb",
-      logo: "/lovable-uploads/ihk-logo.svg",
       variant: "secondary" as const,
-      fallback: <div className="flex items-center"><Award className="h-5 w-5 mr-2" /> IHK Ausbildungsbetrieb</div>
+      icon: <Award className="h-4 w-4 mr-2" />,
+      text: "IHK Ausbildungsbetrieb"
     },
     {
       name: "Deutscher Schädlingsbekämpfer Verband",
-      logo: "/lovable-uploads/dsv-logo.svg", 
       variant: "secondary" as const,
-      fallback: <div className="flex items-center"><Award className="h-5 w-5 mr-2" /> DSV</div>
+      icon: <Award className="h-4 w-4 mr-2" />,
+      text: "DSV"
     },
     {
       name: "Das Handwerk",
-      logo: "/lovable-uploads/handwerk-logo.svg",
       variant: "secondary" as const,
-      fallback: <div className="flex items-center"><Award className="h-5 w-5 mr-2" /> Das Handwerk</div>
+      icon: <Award className="h-4 w-4 mr-2" />,
+      text: "Das Handwerk"
     },
     {
       name: "Mitglied der Handwerkskammer",
-      logo: "/lovable-uploads/hwk-logo.svg",
       variant: "secondary" as const,
-      fallback: <div className="flex items-center"><Award className="h-5 w-5 mr-2" /> Handwerkskammer</div>
+      icon: <Award className="h-4 w-4 mr-2" />,
+      text: "Handwerkskammer"
     }
   ];
 
   return (
     <AnimatedSection className="py-6 bg-primary/5 overflow-hidden">
       <div className={`flex gap-6 ${isMobile ? 'animate-[scroll_30s_linear_infinite]' : 'animate-[scroll_20s_linear_infinite]'}`}>
-        <div className="flex gap-6 min-w-full">
+        <div className="flex gap-6 min-w-full justify-center">
           {logos.map((logo, index) => (
             <Badge
               key={index}
               variant={logo.variant}
-              className="px-6 py-2 text-sm whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-12 flex items-center"
+              className="px-4 py-2 text-sm whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-10 flex items-center"
             >
-              {logo.fallback}
+              <div className="flex items-center">
+                {logo.icon}
+                <span>{logo.text}</span>
+              </div>
             </Badge>
           ))}
         </div>
-        <div className="flex gap-6 min-w-full">
+        <div className="flex gap-6 min-w-full justify-center">
           {logos.map((logo, index) => (
             <Badge
               key={`duplicate-${index}`}
               variant={logo.variant}
-              className="px-6 py-2 text-sm whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-12 flex items-center"
+              className="px-4 py-2 text-sm whitespace-nowrap bg-white shadow-sm hover:bg-white/90 h-10 flex items-center"
             >
-              {logo.fallback}
+              <div className="flex items-center">
+                {logo.icon}
+                <span>{logo.text}</span>
+              </div>
             </Badge>
           ))}
         </div>

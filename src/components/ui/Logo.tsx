@@ -9,9 +9,9 @@ interface LogoProps {
 
 const Logo = ({ size = 'medium', className }: LogoProps) => {
   const sizeClasses = {
-    small: 'w-9 h-9',
-    medium: 'w-14 h-14',
-    large: 'w-20 h-20',
+    small: 'w-10 h-10',
+    medium: 'w-16 h-16',
+    large: 'w-24 h-24',
   };
 
   return (
@@ -21,7 +21,7 @@ const Logo = ({ size = 'medium', className }: LogoProps) => {
         alt="Kammerjäger Adalbert Logo" 
         className="w-full h-full object-contain"
         style={{ 
-          filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.08))',
+          filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))',
           willChange: 'transform',
         }}
       />
