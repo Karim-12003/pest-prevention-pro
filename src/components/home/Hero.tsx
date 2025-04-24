@@ -86,7 +86,7 @@ const Hero = () => {
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
                 {cityFromUrl 
-                  ? `Ihr Experte für Effektive Schädlingsbekämpfung in ${cityFromUrl}` 
+                  ? `Ihr Experte für Effektive Schädlingsbekämpfung aus ${cityFromUrl}` 
                   : 'Ihr Experte für Effektive Schädlingsbekämpfung'
                 }
               </h1>
