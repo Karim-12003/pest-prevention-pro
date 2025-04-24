@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -13,7 +12,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
-import { Loader2 } from 'lucide-react';
+import SectionCTA from '../components/ui/SectionCTA';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -21,7 +20,6 @@ const Index = () => {
   const { city, loading } = useUserLocation();
   
   useEffect(() => {
-    // Smooth scroll zu Ankerlinks
     const handleHashChange = () => {
       const { hash } = window.location;
       if (hash) {
@@ -35,10 +33,8 @@ const Index = () => {
       }
     };
 
-    // Zum richtigen Bereich scrollen wenn sich der Hash ändert
     window.addEventListener('hashchange', handleHashChange);
     
-    // Bei initialem Laden auf Hash überprüfen
     if (window.location.hash) {
       setTimeout(handleHashChange, 100);
     }
@@ -48,7 +44,6 @@ const Index = () => {
     };
   }, []);
 
-  // Dynamischer Meta-Titel und -Beschreibung mit Standortdaten
   const locationText = city ? ` in ${city}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -71,6 +66,7 @@ const Index = () => {
         
         <main className="flex-grow">
           <Hero />
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           
           {city && (
             <div className="container mx-auto py-6">
@@ -108,15 +104,18 @@ const Index = () => {
             </div>
           </div>
           <Services />
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />
           <Certifications />
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Professionelle Beratung gewünscht?" />
           <Reviews />
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Überzeugt? Kontaktieren Sie uns!" />
           <PaymentOptions />
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Fragen zu unseren Zahlungsoptionen?" />
           <Contact />
         </main>
         
         <Footer />
         
-        {/* Feste Buttons */}
         <PhoneButton phoneNumber={PHONE_NUMBER} variant="fixed" />
         <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="fixed" />
       </div>
