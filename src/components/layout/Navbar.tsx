@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 md:py-4',
         isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
       )}
     >
@@ -45,8 +45,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Logo size={isMobile ? "small" : "medium"} />
-            <div className="text-primary font-bold text-lg md:text-2xl transition-all ml-2">
+            <Logo size={isMobile ? "medium" : "medium"} />
+            <div className="text-primary font-bold text-xl md:text-2xl lg:text-3xl transition-all ml-3">
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
                 <span className="text-[#9b87f5] whitespace-nowrap leading-tight">Kammerjäger</span>
                 <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight">Adalbert</span>
@@ -116,3 +116,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
