@@ -40,13 +40,13 @@ const AboutUs = () => {
         </div>
         
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
-          <AspectRatio ratio={16/9}>
+          <AspectRatio ratio={4/3}>
             <img 
-              src="https://ungeziefer-bekaempfen.de/wp-content/themes/yootheme/cache/ungeziefer_bekaempfen_hero2-eed6c5ff.jpeg" 
+              src="https://pest-control-essentials.com/wp-content/uploads/2023/05/Pest-Control-Company.jpg" 
               alt="Professioneller Kammerjäger lächelt freundlich" 
               className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               width="1200"
-              height="675"
+              height="900"
               loading="lazy"
             />
           </AspectRatio>

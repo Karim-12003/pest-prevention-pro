@@ -67,13 +67,12 @@ const services = [
 
 const Services = () => {
   const { city } = useUserLocation();
-  const locationText = city ? ` in ${city}` : '';
 
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="section-heading">Unsere Schädlingsbekämpfung-Leistungen{locationText}</h2>
+          <h2 className="section-heading">Unsere Schädlingsbekämpfung-Leistungen</h2>
           <p className="section-subheading">
             Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen - schnell, zuverlässig und effektiv.
           </p>
@@ -92,7 +91,7 @@ const Services = () => {
             />
           </AspectRatio>
           <div className="bg-white p-4 text-center text-sm text-muted-foreground">
-            Unsere Experten sorgen für umfassende Schädlingsbekämpfung in Ihrem Zuhause oder Geschäft{locationText}
+            Unsere Experten sorgen für umfassende Schädlingsbekämpfung in Ihrem Zuhause oder Geschäft
           </div>
         </div>
 
@@ -121,7 +120,7 @@ const Services = () => {
               <div className="rounded-full bg-accent/10 p-4 inline-flex mb-5 text-accent">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}{locationText}</h3>
+              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
               
               {/* Hidden keywords for SEO */}
@@ -129,7 +128,7 @@ const Services = () => {
                 <h4>Stichworte zur {service.title}</h4>
                 <ul>
                   {service.keywords.map((keyword, idx) => (
-                    <li key={idx}>{keyword}{locationText}</li>
+                    <li key={idx}>{keyword}</li>
                   ))}
                 </ul>
               </div>

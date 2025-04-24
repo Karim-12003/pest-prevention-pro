@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -72,10 +73,7 @@ const Index = () => {
             <div className="container mx-auto py-6">
               <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
                 <p className="text-lg text-primary">
-                  Willkommen aus <span className="font-bold text-accent">{city}</span>! 
-                </p>
-                <p className="text-muted-foreground mt-1">
-                  Unsere Schädlingsbekämpfer sind auch in Ihrer Region im Einsatz.
+                  Willkommen aus <span className="font-bold text-accent">{city}</span>!
                 </p>
               </div>
             </div>
