@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -46,10 +47,19 @@
             window.location = url;
           }
         };
+        
+        // First conversion label
         gtag('event', 'conversion', {
             'send_to': 'AW-16919164637/aYxbCOrF5L0aEN3t14M_',
             'event_callback': callback
         });
+        
+        // Second conversion label
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16919164637/notCJ-p2b0aEN3t14M_',
+            'event_callback': callback
+        });
+        
         return false;
       }
     </script>
