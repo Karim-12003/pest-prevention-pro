@@ -9,6 +9,12 @@ import { Helmet } from 'react-helmet-async';
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
+  const city = new URLSearchParams(window.location.search).get('city') || 'Ihrer Stadt';
+  
+  const formattedCity = city 
+    ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() 
+    : 'Ihrer Stadt';
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -68,11 +74,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in city-text" style={{ animationDelay: '100ms' }}>
-                Kammerjäger in {{city}}
+                Kammerjäger in {formattedCity}
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in city-text" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {{city}}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {formattedCity}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
