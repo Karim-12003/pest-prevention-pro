@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Impressum from "./pages/Impressum";
 import AGB from "./pages/AGB";
 import NotFound from "./pages/NotFound";
+import CityPage from "./pages/CityPage";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/:city" element={<CityPage />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/agb" element={<AGB />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
