@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -9,11 +10,15 @@ import { Helmet } from 'react-helmet-async';
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const city = new URLSearchParams(window.location.search).get('city') || 'Ihrer Stadt';
+  const [city, setCity] = useState("Ihrer Stadt");
   
-  const formattedCity = city 
-    ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() 
-    : 'Ihrer Stadt';
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cityParam = params.get('city');
+    if (cityParam) {
+      setCity(cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase());
+    }
+  }, []);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -73,12 +78,12 @@ const Hero = () => {
                 <span className="break-words">Professionelle Schädlingsbekämpfung</span>
               </div>
               
-              <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in city-text" style={{ animationDelay: '100ms' }}>
-                Kammerjäger in {{city}}
+              <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
+                Kammerjäger in {city}
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in city-text" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {{city}}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {city}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

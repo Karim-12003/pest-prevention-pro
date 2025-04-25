@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -25,7 +25,7 @@ const services = [
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.t-online.de/2021/08/87372772v2/0x100:1920x1080/fit-in/1920x0/marder-meist-faellt-ein-marder-im-haus-anfangs-nicht-auf-da-die-tiere-erst-nachts-aktiv-werden.jpg",
+    image: "https://images.t-online.de/2021/08/87372772v2/0x1920x1080/fit-in/1920x0/marder-meist-faellt-ein-marder-im-haus-anfangs-nicht-auf-da-die-tiere-erst-nachts-aktiv-werden.jpg",
     alt: "Marderbekämpfung für Dachböden und Wohnräume durch zertifizierte Experten",
     keywords: ["Marderbekämpfung", "Marderschutz", "Marder Dachboden"]
   },
@@ -64,15 +64,25 @@ const services = [
 ];
 
 const Services = () => {
+  const [city, setCity] = useState("Ihrer Stadt");
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cityParam = params.get('city');
+    if (cityParam) {
+      setCity(cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase());
+    }
+  }, []);
+
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="section-heading city-text">
-            Unsere Schädlingsbekämpfung-Leistungen in {{city}}
+          <h2 className="section-heading">
+            Unsere Schädlingsbekämpfung-Leistungen in {city}
           </h2>
-          <p className="section-subheading city-text">
-            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {{city}} - schnell, zuverlässig und effektiv.
+          <p className="section-subheading">
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {city} - schnell, zuverlässig und effektiv.
           </p>
         </div>
 
@@ -132,8 +142,8 @@ const Services = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-lg mb-6 city-text">
-            Alle Leistungen werden in {{city}} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
+          <p className="text-lg mb-6">
+            Alle Leistungen werden in {city} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 
