@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -17,6 +16,14 @@ const PhoneButton = ({
   size = 'default',
 }: PhoneButtonProps) => {
   const formattedNumber = phoneNumber.replace(/\s/g, '');
+  
+  const handleClick = () => {
+    // @ts-ignore
+    if (typeof gtag_report_conversion === 'function') {
+      // @ts-ignore
+      gtag_report_conversion();
+    }
+  };
   
   const baseStyles = "inline-flex items-center justify-center font-medium transition-all ease-in-out duration-300";
   
@@ -48,6 +55,7 @@ const PhoneButton = ({
         className
       )}
       aria-label="Rufen Sie uns an"
+      onClick={handleClick}
     >
       {variant === 'fixed' ? (
         <div className="relative">
