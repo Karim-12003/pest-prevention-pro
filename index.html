@@ -66,28 +66,21 @@
     <script type="module" src="/src/main.tsx"></script>
     
     <script>
-      // Funktion holt den 'city'-Parameter aus der URL
-      function getCityFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        const city = params.get('city');
-        return city ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() : null;
-      }
-
-      // Funktion ersetzt {{city}} Platzhalter im Text
-      function updatePageWithCity(city) {
-        if (!city) return;
-
-        // Ersetze alle {{city}} in Elementen mit class "city-text"
-        const textBlocks = document.querySelectorAll('.city-text');
-        textBlocks.forEach(block => {
-          block.innerHTML = block.innerHTML.replace(/{{city}}/g, city);
-        });
-      }
-
-      // Führt alles aus, sobald die Seite geladen ist
       document.addEventListener('DOMContentLoaded', () => {
-        const city = getCityFromURL();
-        updatePageWithCity(city);
+        const params = new URLSearchParams(window.location.search);
+        let city = params.get('city');
+
+        // Nur weitermachen, wenn city existiert
+        if (city) {
+          // Erster Buchstabe groß, Rest klein
+          city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+          // Alle {{city}} Platzhalter ersetzen
+          const textBlocks = document.querySelectorAll('.city-text');
+          textBlocks.forEach(block => {
+            block.innerHTML = block.innerHTML.replace(/{{city}}/g, city);
+          });
+        }
       });
     </script>
   </body>

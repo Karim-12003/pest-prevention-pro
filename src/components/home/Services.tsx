@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
@@ -65,23 +64,15 @@ const services = [
 ];
 
 const Services = () => {
-  // Add default city value or get it from URL parameters
-  const city = new URLSearchParams(window.location.search).get('city') || 'Ihrer Stadt';
-  
-  // Capitalize the first letter of the city
-  const formattedCity = city 
-    ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() 
-    : 'Ihrer Stadt';
-
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="section-heading city-text">
-            Unsere Schädlingsbekämpfung-Leistungen in {formattedCity}
+            Unsere Schädlingsbekämpfung-Leistungen in {{city}}
           </h2>
           <p className="section-subheading city-text">
-            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {formattedCity} - schnell, zuverlässig und effektiv.
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {{city}} - schnell, zuverlässig und effektiv.
           </p>
         </div>
 
@@ -142,7 +133,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6 city-text">
-            Alle Leistungen werden in {formattedCity} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
+            Alle Leistungen werden in {{city}} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 
