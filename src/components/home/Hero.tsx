@@ -10,13 +10,13 @@ import { Helmet } from 'react-helmet-async';
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const [city, setCity] = useState("Ihrer Stadt");
+  const [city, setCity] = useState('NRW');
   
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const cityParam = params.get('city');
     if (cityParam) {
-      setCity(cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase());
+      setCity(cityParam);
     }
   }, []);
 

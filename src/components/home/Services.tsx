@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
@@ -64,13 +65,13 @@ const services = [
 ];
 
 const Services = () => {
-  const [city, setCity] = useState("Ihrer Stadt");
+  const [city, setCity] = useState('NRW');
   
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const cityParam = params.get('city');
     if (cityParam) {
-      setCity(cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase());
+      setCity(cityParam);
     }
   }, []);
 
