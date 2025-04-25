@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
@@ -80,10 +79,10 @@ const Services = () => {
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="section-heading">
-            Unsere Schädlingsbekämpfung-Leistungen in {{city}}
+            Unsere Schädlingsbekämpfung-Leistungen in {city}
           </h2>
           <p className="section-subheading">
-            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {{city}} - schnell, zuverlässig und effektiv.
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {city} - schnell, zuverlässig und effektiv.
           </p>
         </div>
 
@@ -144,7 +143,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6">
-            Alle Leistungen werden in {{city}} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
+            Alle Leistungen werden in {city} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 
