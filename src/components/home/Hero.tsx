@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap } from 'lucide-react';
@@ -13,18 +12,15 @@ const Hero = () => {
   const [cityFromUrl, setCityFromUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // URL-Parameter für Stadt abrufen
     const params = new URLSearchParams(window.location.search);
     const city = params.get('city');
     
     if (city) {
-      // Erste Buchstabe groß, Rest klein
       const formattedCity = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
       setCityFromUrl(formattedCity);
     }
   }, []);
 
-  // Create schema.org structured data for LocalBusiness
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -63,7 +59,6 @@ const Hero = () => {
       </Helmet>
       
       <section className="pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden relative">
-        {/* 24/7 Emergency Banner */}
         <div className="bg-red-600 text-white py-2 absolute top-24 left-0 right-0 z-40 shadow-md">
           <div className="container mx-auto">
             <div className="flex items-center justify-center">
@@ -85,16 +80,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                {cityFromUrl 
-                  ? `Ihr Experte für Effektive Schädlingsbekämpfung aus ${cityFromUrl}` 
-                  : 'Ihr Experte für Effektive Schädlingsbekämpfung'
-                }
+                Ihr Experte für Effektive Schädlingsbekämpfung
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in city-text" style={{ animationDelay: '200ms' }}>
-                {cityFromUrl 
-                  ? `Zertifizierte Profis mit über 20 Jahren Erfahrung in ${cityFromUrl}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.`
-                  : 'Zertifizierte Profis mit über 20 Jahren Erfahrung. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.'}
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {{city}}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
@@ -109,7 +99,6 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* Hero Features */}
             <div className="w-full md:w-1/2 pl-0 md:pl-10">
               <div className="grid grid-cols-1 gap-5 md:gap-6 max-w-md mx-auto">
                 {[

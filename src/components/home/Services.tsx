@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
@@ -66,39 +65,18 @@ const services = [
 ];
 
 const Services = () => {
-  const { city } = useUserLocation();
-  const [cityFromUrl, setCityFromUrl] = React.useState<string | null>(null);
-  
-  React.useEffect(() => {
-    // URL-Parameter für Stadt abrufen
-    const params = new URLSearchParams(window.location.search);
-    const cityParam = params.get('city');
-    
-    if (cityParam) {
-      // Erste Buchstabe groß, Rest klein
-      const formattedCity = cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase();
-      setCityFromUrl(formattedCity);
-    }
-  }, []);
-  
-  // Verwende city-Parameter aus URL oder die automatisch erkannte Stadt
-  const displayCity = cityFromUrl || city;
-
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="section-heading">
-            {displayCity ? `Unsere Schädlingsbekämpfung-Leistungen in ${displayCity}` : 'Unsere Schädlingsbekämpfung-Leistungen'}
+            Unsere Schädlingsbekämpfung-Leistungen in {{city}}
           </h2>
           <p className="section-subheading city-text">
-            {displayCity 
-              ? `Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in ${displayCity} - schnell, zuverlässig und effektiv.` 
-              : 'Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen - schnell, zuverlässig und effektiv.'}
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {{city}} - schnell, zuverlässig und effektiv.
           </p>
         </div>
 
-        {/* Bild hinzufügen, das in den Service-Bereich integriert ist */}
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-md">
           <AspectRatio ratio={16/9}>
             <img 
@@ -123,7 +101,6 @@ const Services = () => {
                 "bg-white rounded-xl p-6 shadow-sm border border-primary/10 transition-all duration-300 hover:shadow-md hover:translate-y-[-5px]"
               )}
             >
-              {/* Service image */}
               <div className="mb-5 rounded-lg overflow-hidden">
                 <AspectRatio ratio={16/9}>
                   <img 
@@ -143,7 +120,6 @@ const Services = () => {
               <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
               
-              {/* Hidden keywords for SEO */}
               <div className="sr-only">
                 <h4>Stichworte zur {service.title}</h4>
                 <ul>
@@ -158,9 +134,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6 city-text">
-            {displayCity 
-              ? `Alle Leistungen werden in ${displayCity} mit einer <span class="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span class="font-semibold text-accent">transparenten Preismodell</span> angeboten.`
-              : 'Alle Leistungen werden mit <span class="font-semibold text-accent">kostenloser Anfahrt</span> und einem <span class="font-semibold text-accent">transparenten Preismodell</span> angeboten.'}
+            Alle Leistungen werden in {{city}} mit einer <span class="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span class="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 

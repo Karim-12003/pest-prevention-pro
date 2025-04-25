@@ -67,27 +67,28 @@
     <script type="module" src="/src/main.tsx"></script>
     
     <script>
-      // Holt den city-Parameter aus der URL und passt die Inhalte an
+      // Holt den city-Parameter aus der URL und passt den Inhalt auf der Seite an
       function getCityFromURL() {
         const params = new URLSearchParams(window.location.search);
-        const city = params.get('city');
+        const city = params.get('city'); // Holt den 'city' Parameter aus der URL
         return city ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() : null;
       }
 
       function updatePageWithCity(city) {
         if (!city) return;
 
-        // Überschrift anpassen
+        // Ändert den Text in der H1-Überschrift (mit ID "headline")
         const headline = document.getElementById('headline');
-        if (headline) headline.textContent = `Kammerjäger ${city}`;
+        if (headline) headline.textContent = `Kammerjäger in ${city}`;
 
-        // Optional weitere Texte anpassen
+        // Ersetzt alle {{city}} Platzhalter in Textblöcken (Klasse "city-text")
         const textBlocks = document.querySelectorAll('.city-text');
         textBlocks.forEach(block => {
           block.innerHTML = block.innerHTML.replace(/{{city}}/g, city);
         });
       }
 
+      // Führt das Script aus, sobald die Seite vollständig geladen ist
       document.addEventListener('DOMContentLoaded', () => {
         const city = getCityFromURL();
         updatePageWithCity(city);
