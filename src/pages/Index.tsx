@@ -14,10 +14,12 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
+import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
+  const { city } = useUserLocation();
   const pageTitle = "Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung";
   const pageDescription = "Sofortige Hilfe bei Schädlingsbefall. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.";
 
@@ -58,6 +60,15 @@ const Index = () => {
         
         <main className="flex-grow">
           <Hero />
+          <div className="bg-accent text-white py-2">
+            <div className="container mx-auto">
+              <div className="flex items-center justify-center">
+                <p className="text-sm font-medium md:text-base">
+                  Willkommen aus {city || 'NRW'}!
+                </p>
+              </div>
+            </div>
+          </div>
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           <AboutUs />
