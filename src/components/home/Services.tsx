@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
@@ -134,7 +135,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6 city-text">
-            Alle Leistungen werden in {{city}} mit einer <span class="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span class="font-semibold text-accent">transparenten Preismodell</span> angeboten.
+            Alle Leistungen werden in {{city}} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 
