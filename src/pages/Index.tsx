@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -10,7 +11,6 @@ import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
 import PaymentOptions from '../components/home/PaymentOptions';
 import { Helmet } from 'react-helmet-async';
-import { useUserLocation } from '@/hooks/useUserLocation';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
@@ -18,21 +18,9 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  const { city, loading } = useUserLocation();
-  const [cityFromUrl, setCityFromUrl] = useState<string | null>(null);
-  
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cityParam = params.get('city');
-    
-    if (cityParam) {
-      const formattedCity = cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase();
-      setCityFromUrl(formattedCity);
-      
-      document.title = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${formattedCity}`;
-    }
-  }, []);
-  
+  const pageTitle = "Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung";
+  const pageDescription = "Sofortige Hilfe bei Schädlingsbefall. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.";
+
   useEffect(() => {
     const handleHashChange = () => {
       const { hash } = window.location;
@@ -58,11 +46,6 @@ const Index = () => {
     };
   }, []);
 
-  const displayCity = cityFromUrl || city || 'NRW';
-  const locationText = displayCity ? ` in ${displayCity}` : '';
-  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
-  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
-
   return (
     <>
       <Helmet>
@@ -73,27 +56,10 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
-        {loading && (
-          <div className="fixed top-0 left-0 w-full h-1 z-50 bg-gradient-to-r from-accent to-primary">
-            <div className="h-full w-24 animate-pulse bg-white/30 rounded-full"></div>
-          </div>
-        )}
-        
         <main className="flex-grow">
           <Hero />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
-          
-          {displayCity && (
-            <div className="container mx-auto py-6">
-              <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
-                <p className="text-lg text-primary">
-                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>!
-                </p>
-              </div>
-            </div>
-          )}
-          
           <AboutUs />
           <Services />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -64,24 +65,5 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const params = new URLSearchParams(window.location.search);
-        let city = params.get('city');
-
-        // Nur weitermachen, wenn city existiert
-        if (city) {
-          // Erster Buchstabe groß, Rest klein
-          city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-
-          // Alle {{city}} Platzhalter ersetzen
-          const textBlocks = document.querySelectorAll('.city-text');
-          textBlocks.forEach(block => {
-            block.innerHTML = block.innerHTML.replace(/{{city}}/g, city);
-          });
-        }
-      });
-    </script>
   </body>
 </html>

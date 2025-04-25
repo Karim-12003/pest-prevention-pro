@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { getCity } from '@/utils/locationDetection';
 
