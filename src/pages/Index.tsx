@@ -63,7 +63,7 @@ const Index = () => {
   }, []);
 
   // Verwende city-Parameter aus URL oder die automatisch erkannte Stadt
-  const displayCity = cityFromUrl || city;
+  const displayCity = cityFromUrl || city || 'NRW';
   const locationText = displayCity ? ` in ${displayCity}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${locationText}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -93,7 +93,7 @@ const Index = () => {
             <div className="container mx-auto py-6">
               <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
                 <p className="text-lg text-primary">
-                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>!
+                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>! Ihr Experte für effektive Schädlingsbekämpfung.
                 </p>
               </div>
             </div>
