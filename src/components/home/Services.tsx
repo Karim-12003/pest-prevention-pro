@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Squirrel } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -65,25 +65,15 @@ const services = [
 ];
 
 const Services = () => {
-  const [city, setCity] = useState('NRW');
-  
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cityParam = params.get('city');
-    if (cityParam) {
-      setCity(cityParam);
-    }
-  }, []);
-
   return (
     <AnimatedSection id="services" className="bg-secondary/50">
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="section-heading">
-            Unsere Schädlingsbekämpfung-Leistungen in {city}
+            Unsere Schädlingsbekämpfung-Leistungen in NRW
           </h2>
           <p className="section-subheading">
-            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in {city} - schnell, zuverlässig und effektiv.
+            Wir bieten umfassende und maßgeschneiderte Lösungen für alle Arten von Schädlingsproblemen in NRW - schnell, zuverlässig und effektiv.
           </p>
         </div>
 
@@ -144,7 +134,7 @@ const Services = () => {
 
         <div className="mt-16 text-center">
           <p className="text-lg mb-6">
-            Alle Leistungen werden in {city} mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
+            Alle Leistungen werden in NRW mit einer <span className="font-semibold text-accent">kostenlosen Anfahrt</span> und einem <span className="font-semibold text-accent">transparenten Preismodell</span> angeboten.
           </p>
           <a 
             href="#contact" 
