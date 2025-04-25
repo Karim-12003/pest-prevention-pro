@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -23,16 +22,13 @@ const Index = () => {
   const [cityFromUrl, setCityFromUrl] = useState<string | null>(null);
   
   useEffect(() => {
-    // URL-Parameter für Stadt abrufen
     const params = new URLSearchParams(window.location.search);
     const cityParam = params.get('city');
     
     if (cityParam) {
-      // Erste Buchstabe groß, Rest klein
       const formattedCity = cityParam.charAt(0).toUpperCase() + cityParam.slice(1).toLowerCase();
       setCityFromUrl(formattedCity);
       
-      // Setze Titel und Meta-Tags
       document.title = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${formattedCity}`;
     }
   }, []);
@@ -62,7 +58,6 @@ const Index = () => {
     };
   }, []);
 
-  // Verwende city-Parameter aus URL oder die automatisch erkannte Stadt
   const displayCity = cityFromUrl || city || 'NRW';
   const locationText = displayCity ? ` in ${displayCity}` : '';
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${locationText}`;
@@ -93,7 +88,7 @@ const Index = () => {
             <div className="container mx-auto py-6">
               <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur shadow-md border border-accent/10 rounded-lg p-5 text-center transform transition-all hover:shadow-lg">
                 <p className="text-lg text-primary">
-                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>! Ihr Experte für effektive Schädlingsbekämpfung.
+                  Willkommen aus <span className="font-bold text-accent">{displayCity}</span>!
                 </p>
               </div>
             </div>
