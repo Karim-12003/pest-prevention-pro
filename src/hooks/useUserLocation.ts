@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { getCity } from '@/utils/locationDetection';
 
@@ -13,38 +14,17 @@ export const useUserLocation = () => {
         setCity(null);
         
         const detectedCity = await getCity();
-        
-        if (detectedCity && detectedCity !== 'Unbekannt') {
-          setCity(detectedCity);
-        } else {
-          setCity(null);
-          // Fehlerbenachrichtigung entfernt
-          console.log('Keine Stadt erkannt, aber keine Benachrichtigung anzeigen');
-        }
+        setCity(detectedCity);
       } catch (error) {
         console.error("Standortermittlung fehlgeschlagen:", error);
         setError(error instanceof Error ? error : new Error('Unbekannter Fehler bei der Standortermittlung'));
-        // Fehlerbenachrichtigung entfernt
+        setCity('NRW');
       } finally {
         setLoading(false);
       }
     };
 
-    // Bei erstem Laden ausführen
     detectLocation();
-    
-    // Bei Window Focus erneut ausführen
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        detectLocation();
-      }
-    };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
   }, []);
 
   return { city, loading, error };
