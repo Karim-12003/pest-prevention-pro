@@ -26,7 +26,7 @@ const services = [
     icon: <Squirrel className="h-10 w-10" />,
     title: "Marderbekämpfung",
     description: "Fachgerechte Vertreibung und Prävention von Mardern in Wohnhäusern und auf Dachböden.",
-    image: "https://images.t-online.de/2021/08/87372772v2/0x1920x1080/fit-in/1920x0/marder-meist-faellt-ein-marder-im-haus-anfangs-nicht-auf-da-die-tiere-erst-nachts-aktiv-werden.jpg",
+    image: "https://www.ruv.de/dam/ratgeber/images/2017/54-02-2017-486069343.jpg",
     alt: "Marderbekämpfung für Dachböden und Wohnräume durch zertifizierte Experten",
     keywords: ["Marderbekämpfung", "Marderschutz", "Marder Dachboden"]
   },
