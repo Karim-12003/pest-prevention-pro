@@ -26,14 +26,14 @@ const PhoneButton = ({
     }
   };
   
-  const baseStyles = "inline-flex items-center justify-center font-medium transition-all ease-in-out duration-300";
+  const baseStyles = "inline-flex items-center justify-center font-medium";
   
   const variantStyles = {
-    default: "bg-red-600 text-white hover:bg-red-700 rounded-md shadow-lg hover:shadow-xl scale-100 hover:scale-105 animate-pulse",
+    default: "bg-red-600 text-white hover:bg-red-700 rounded-md shadow-lg",
     outline: "border-2 border-red-600 text-red-600 hover:bg-red-50 rounded-md hover:shadow-md",
     ghost: "text-accent hover:bg-accent/10 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-lg rounded-full hover:scale-110 active:scale-95 transition-transform animate-bounce"
+    fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-lg rounded-full"
   };
   
   const sizeStyles = {
@@ -60,8 +60,7 @@ const PhoneButton = ({
     >
       {variant === 'fixed' ? (
         <div className="relative">
-          <PhoneIncoming size={28} className="text-white z-10 relative" />
-          <div className="absolute inset-0 bg-red-400/70 rounded-full animate-delayed-ping"></div>
+          <PhoneIncoming size={28} className="text-white" />
         </div>
       ) : (
         <>

@@ -18,7 +18,7 @@ const SectionCTA = ({
         <PhoneButton 
           phoneNumber={phoneNumber} 
           size="lg"
-          className="shadow-md hover:shadow-lg transition-all duration-300"
+          className="shadow-md"
         />
       </div>
     </div>
