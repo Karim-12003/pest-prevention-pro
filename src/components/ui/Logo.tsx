@@ -17,7 +17,7 @@ const Logo = ({ size = 'medium', className }: LogoProps) => {
   return (
     <div className={cn(sizeClasses[size], 'relative flex items-center justify-center', className)}>
       <img 
-        src="/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png" 
+        src="/lovable-uploads/fd34969b-82ab-4649-be06-3894900a053e.png" 
         alt="Kammerjäger Adalbert Logo" 
         className="w-full h-full object-contain"
         style={{ 
