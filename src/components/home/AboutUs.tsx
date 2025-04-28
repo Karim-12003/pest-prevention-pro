@@ -35,14 +35,14 @@ const AboutUs = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-primary mb-4">Über uns</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Seit über 15 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl.
+            Seit über 20 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl.
           </p>
         </div>
         
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
           <AspectRatio ratio={4/3}>
             <img 
-              src="https://ungeziefer-bekaempfen.de/wp-content/themes/yootheme/cache/ungeziefer_bekaempfen_hero2-eed6c5ff.jpeg" 
+              src="https://schaedlingsbekaempfung-frankfurt.de/wp-content/uploads/2023/09/schaedlingsbekaempfung-frankfurt-am-main.jpeg" 
               alt="Professioneller Kammerjäger lächelt freundlich" 
               className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               width="1200"
