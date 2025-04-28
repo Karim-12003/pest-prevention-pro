@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
@@ -7,11 +6,17 @@ import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
 import { useUserLocation } from '@/hooks/useUserLocation';
+import { useParams } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const { city } = useUserLocation();
+  const { city: urlCity } = useParams();
+  const { city: detectedCity } = useUserLocation();
+  
+  const displayCity = urlCity 
+    ? urlCity.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    : detectedCity || 'NRW';
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -72,11 +77,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus NRW
+                Ihr Experte für effektive Schädlingsbekämpfung aus {displayCity}
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus NRW. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {displayCity}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
