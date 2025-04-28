@@ -35,7 +35,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Ameisenbekämpfung",
     description: "Gezielte und nachhaltige Bekämpfung von Ameisen in Wohnräumen, Gärten und Terrassen.",
-    image: "https://www.swr.de/swr1/swr1leute/1724937119340%2Cameisen-schaedling-oder-chance-ewiges-leben-susanne-foitzik-100~_v-16x9@2dL_-6c42aff4e68b43c7868c3240d3ebfa29867457da.jpg://www.hcc-magazin.com/wp-content/uploads/2021/11/hcc-magazin_schaelingsbekaempfung-gesundheitsschutz_arten-schaedlinge-professionelle-bekaempfung-methoden-840x473.jpg",
+    image: "https://www.swr.de/swr1/swr1leute/1724937119340%2Cameisen-schaedling-oder-chance-ewiges-leben-susanne-foitzik-100~_v-16x9@2dL_-6c42aff4e68b43c7868c3240d3ebfa29867457da.jpg",
     alt: "Professionelle Ameisenbekämpfung im Innen- und Außenbereich",
     keywords: ["Ameisenbekämpfung", "Ameisennest entfernen", "Ameisen loswerden"]
   },
@@ -67,7 +67,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Flohbekämpfung",
     description: "Gründliche Beseitigung von Flöhen in Wohnräumen und Polstermöbeln mit langanhaltender Wirkung.",
-    image: "hthttps://ardap.de/cdn/shop/articles/Floehe-in-der-Wohnung_93cc3066-036f-41d1-9056-331d3f75592c.jpg?v=1738322856tps://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
+    image: "https://kaspar-schaedlingsbekaempfung.de/wp-content/uploads/2020/09/Floh1-shutterstock_1408962617-1024x646.jpg",
     alt: "Professionelle Flohbekämpfung für Wohnräume und Polstermöbel",
     keywords: ["Flohbekämpfung", "Flöhe bekämpfen", "Flohbefall behandeln"]
   },
