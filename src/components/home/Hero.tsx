@@ -60,17 +60,6 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className="bg-green-600 text-white py-2 absolute top-32 left-0 right-0 z-40 shadow-md animate-fade-in">
-          <div className="container mx-auto">
-            <div className="flex items-center justify-center gap-2">
-              <Calendar className="w-5 h-5 animate-pulse" />
-              <p className="text-sm font-medium md:text-base">
-                Heute noch freie Termine verfügbar!
-              </p>
-            </div>
-          </div>
-        </div>
-        
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
@@ -99,6 +88,13 @@ const Hero = () => {
                 >
                   Kostenlose Beratung
                 </a>
+              </div>
+              
+              <div className="mt-6 bg-accent/10 text-accent rounded-lg py-3 px-4 shadow-sm flex items-center justify-center md:justify-start gap-2 animate-pulse-subtle animate-fade-in" style={{ animationDelay: '400ms' }}>
+                <Calendar className="w-5 h-5 animate-pulse" />
+                <p className="text-sm font-medium md:text-base">
+                  Heute noch freie Termine verfügbar!
+                </p>
               </div>
             </div>
             
