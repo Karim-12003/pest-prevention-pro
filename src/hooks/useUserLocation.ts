@@ -1,31 +1,11 @@
 
 import { useState, useEffect } from 'react';
-import { getCity } from '@/utils/locationDetection';
 
 export const useUserLocation = () => {
-  const [city, setCity] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [city, setCity] = useState<string | null>('NRW');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const detectLocation = async () => {
-      try {
-        setLoading(true);
-        setCity(null);
-        
-        const detectedCity = await getCity();
-        setCity(detectedCity);
-      } catch (error) {
-        console.error("Standortermittlung fehlgeschlagen:", error);
-        setError(error instanceof Error ? error : new Error('Unbekannter Fehler bei der Standortermittlung'));
-        setCity('NRW');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    detectLocation();
-  }, []);
-
+  // No geolocation detection anymore, just return the default value
   return { city, loading, error };
 };

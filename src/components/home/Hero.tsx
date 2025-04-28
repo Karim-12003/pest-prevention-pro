@@ -6,18 +6,16 @@ import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
-import { useUserLocation } from '@/hooks/useUserLocation';
 import { useParams } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
   const { city: urlCity } = useParams();
-  const { city: detectedCity } = useUserLocation();
   
   const displayCity = urlCity 
     ? urlCity.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-    : detectedCity || 'NRW';
+    : 'NRW';
 
   const structuredData = {
     "@context": "https://schema.org",
