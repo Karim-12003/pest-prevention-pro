@@ -14,7 +14,7 @@ const SectionCTA = ({
   return (
     <div className="py-8 bg-white">
       <div className="container mx-auto text-center">
-        <p className="text-xl md:text-2xl mb-6 text-blue-600 font-bold">{text}</p>
+        <p className="text-xl md:text-2xl mb-6 text-accent font-bold">{text}</p>
         <PhoneButton 
           phoneNumber={phoneNumber} 
           size="lg"
