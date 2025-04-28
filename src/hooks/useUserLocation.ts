@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export const useUserLocation = () => {
   const [city, setCity] = useState<string | null>('NRW');
