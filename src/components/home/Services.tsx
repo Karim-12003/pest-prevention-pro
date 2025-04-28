@@ -19,7 +19,7 @@ const services = [
     icon: <Mouse className="h-10 w-10" />,
     title: "Mäusebekämpfung",
     description: "Effektive Entfernung von Mäusen und anderen Nagetieren aus Ihrem Zuhause oder Geschäftsräumen.",
-    image: "https://www.das-tierlexikon.de/wp-content/uploads/2018/08/mongolische-rennmaeuse.jpg",
+    image: "https://bk-schaedling.de/wp-content/uploads/2019/12/Maus-am-Kabel-WEB.jpg",
     alt: "Professionelle Mäusebekämpfung durch zertifizierte Kammerjäger",
     keywords: ["Mäusebekämpfung", "Mäusebefall", "Mäusenest entfernen"]
   },
@@ -35,7 +35,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Ameisenbekämpfung",
     description: "Gezielte und nachhaltige Bekämpfung von Ameisen in Wohnräumen, Gärten und Terrassen.",
-    image: "https://www.hcc-magazin.com/wp-content/uploads/2021/11/hcc-magazin_schaelingsbekaempfung-gesundheitsschutz_arten-schaedlinge-professionelle-bekaempfung-methoden-840x473.jpg",
+    image: "https://www.swr.de/swr1/swr1leute/1724937119340%2Cameisen-schaedling-oder-chance-ewiges-leben-susanne-foitzik-100~_v-16x9@2dL_-6c42aff4e68b43c7868c3240d3ebfa29867457da.jpg://www.hcc-magazin.com/wp-content/uploads/2021/11/hcc-magazin_schaelingsbekaempfung-gesundheitsschutz_arten-schaedlinge-professionelle-bekaempfung-methoden-840x473.jpg",
     alt: "Professionelle Ameisenbekämpfung im Innen- und Außenbereich",
     keywords: ["Ameisenbekämpfung", "Ameisennest entfernen", "Ameisen loswerden"]
   },
@@ -43,7 +43,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Silberfisch- & Papierfischbekämpfung",
     description: "Effektive Bekämpfung von Silberfischen und Papierfischen für ein gesundes Raumklima ohne Schädlinge.",
-    image: "https://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
+    image: "https://ardap.de/cdn/shop/articles/ofenfischchen_a454c276-fce2-4a2a-9e50-95f0e23de197.jpg?v=1744916439://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
     alt: "Spezialisierte Bekämpfung von Silberfischen und Papierfischen",
     keywords: ["Silberfischbekämpfung", "Papierfischbekämpfung", "Feuchtigkeit bekämpfen"]
   },
@@ -67,7 +67,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Flohbekämpfung",
     description: "Gründliche Beseitigung von Flöhen in Wohnräumen und Polstermöbeln mit langanhaltender Wirkung.",
-    image: "https://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
+    image: "hthttps://ardap.de/cdn/shop/articles/Floehe-in-der-Wohnung_93cc3066-036f-41d1-9056-331d3f75592c.jpg?v=1738322856tps://www.ace-zydek.de/images/schaedlinge/spinnen-box-03.jpg",
     alt: "Professionelle Flohbekämpfung für Wohnräume und Polstermöbel",
     keywords: ["Flohbekämpfung", "Flöhe bekämpfen", "Flohbefall behandeln"]
   },
