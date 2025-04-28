@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Shield, Home, Zap } from 'lucide-react';
+import { Shield, Home, Zap, Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
@@ -55,6 +56,17 @@ const Hero = () => {
             <div className="flex items-center justify-center">
               <div className="w-3 h-3 bg-white rounded-full animate-ping mr-2"></div>
               <p className="text-sm font-medium md:text-base">24/7 Notfalldienst unter {PHONE_NUMBER}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-green-600 text-white py-2 absolute top-32 left-0 right-0 z-40 shadow-md animate-fade-in">
+          <div className="container mx-auto">
+            <div className="flex items-center justify-center gap-2">
+              <Calendar className="w-5 h-5 animate-pulse" />
+              <p className="text-sm font-medium md:text-base">
+                Heute noch freie Termine verfügbar!
+              </p>
             </div>
           </div>
         </div>
