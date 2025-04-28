@@ -29,11 +29,11 @@ const PhoneButton = ({
   const baseStyles = "inline-flex items-center justify-center font-medium";
   
   const variantStyles = {
-    default: "bg-red-600 text-white hover:bg-red-700 rounded-md shadow-lg",
-    outline: "border-2 border-red-600 text-red-600 hover:bg-red-50 rounded-md hover:shadow-md",
+    default: "bg-blue-600 text-white hover:bg-blue-700 rounded-md shadow-lg",
+    outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md hover:shadow-md",
     ghost: "text-accent hover:bg-accent/10 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-lg rounded-full"
+    fixed: "fixed bottom-6 right-6 z-50 bg-blue-600 text-white shadow-lg rounded-full"
   };
   
   const sizeStyles = {

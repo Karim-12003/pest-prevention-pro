@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
@@ -56,7 +57,7 @@ const Hero = () => {
       </Helmet>
       
       <section className="pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden relative">
-        <div className="bg-red-600 text-white py-2 absolute top-24 left-0 right-0 z-40 shadow-md">
+        <div className="bg-blue-600 text-white py-2 absolute top-24 left-0 right-0 z-40 shadow-md">
           <div className="container mx-auto">
             <div className="flex items-center justify-center">
               <div className="w-3 h-3 bg-white rounded-full animate-ping mr-2"></div>
