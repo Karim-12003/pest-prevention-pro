@@ -13,10 +13,6 @@ const certifications = [
     description: "Wir besitzen den erforderlichen Sachkundenachweis für den Umgang mit Bioziden gemäß §4 der Biozidverordnung.",
   },
   {
-    title: "Mitglied im Deutschen Schädlingsbekämpfer-Verband (DSV)",
-    description: "Als Mitglied im DSV verpflichten wir uns zur Einhaltung strenger Qualitätsstandards und kontinuierlicher Weiterbildung.",
-  },
-  {
     title: "Zertifizierung für besondere Schädlingsbekämpfung",
     description: "Spezialisiert und zertifiziert für die Bekämpfung von besonderen Schädlingen wie Bettwanzen und Holzschädlingen.",
   },
