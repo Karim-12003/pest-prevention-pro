@@ -13,12 +13,6 @@ const MovingLogoBanner = () => {
       text: "IHK Ausbildungsbetrieb"
     },
     {
-      name: "Deutscher Schädlingsbekämpfer Verband",
-      variant: "secondary" as const,
-      icon: <Award className="h-5 w-5 mr-2" />,
-      text: "DSV"
-    },
-    {
       name: "Das Handwerk",
       variant: "secondary" as const,
       icon: <Award className="h-5 w-5 mr-2" />,
