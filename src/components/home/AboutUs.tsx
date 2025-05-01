@@ -42,7 +42,7 @@ const AboutUs = () => {
         <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
           <AspectRatio ratio={4/3}>
             <img 
-              src="https://schaedlingsbekaempfung-frankfurt.de/wp-content/uploads/2023/09/schaedlingsbekaempfung-frankfurt-am-main.jpeg" 
+              src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
               alt="Professioneller Kammerjäger lächelt freundlich" 
               className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
               width="1200"
