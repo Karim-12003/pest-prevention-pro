@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -19,7 +19,12 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 const PHONE_NUMBER = "+491782581987";
 
 const CityPage = () => {
-  const { city, loading } = useUserLocation();
+  const { city, loading, error } = useUserLocation();
+  
+  useEffect(() => {
+    console.log("CityPage rendering with city:", city);
+    if (error) console.error("Location error:", error);
+  }, [city, error]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -40,7 +45,7 @@ const CityPage = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-placeholder">{city}</span>!
+                  Willkommen aus <span className="city-placeholder font-bold">{city}</span>!
                 </p>
               </div>
             </div>

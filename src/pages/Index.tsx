@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -20,7 +20,15 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  const { city } = useUserLocation();
+  const { city, loading, error } = useUserLocation();
+  const [searchParams] = useSearchParams();
+  
+  useEffect(() => {
+    console.log("Index rendering with city:", city);
+    // Log the URL params to debug
+    console.log("URL search params:", Object.fromEntries(searchParams.entries()));
+    if (error) console.error("Location error:", error);
+  }, [city, error, searchParams]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${city !== 'NRW' ? ` in ${city}` : ''}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall${city !== 'NRW' ? ` in ${city}` : ''}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -41,7 +49,7 @@ const Index = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-placeholder">{city}</span>!
+                  Willkommen aus <span className="city-placeholder font-bold">{city}</span>!
                 </p>
               </div>
             </div>

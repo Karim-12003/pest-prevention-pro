@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -11,7 +11,12 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const { city } = useUserLocation();
+  const { city, loading, error } = useUserLocation();
+  
+  useEffect(() => {
+    console.log("Hero rendering with city:", city);
+    if (error) console.error("Location error:", error);
+  }, [city, error]);
   
   const structuredData = {
     "@context": "https://schema.org",
@@ -72,11 +77,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{city}</span>
+                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold">{city}</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-bold">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

@@ -37,7 +37,7 @@ export function getLocationFromUrl(): string {
   // Extract city from path if it exists
   const pathParts = window.location.pathname.split('/');
   if (pathParts.length > 1 && pathParts[1] && pathParts[1] !== 'impressum' && pathParts[1] !== 'agb') {
-    const pathCity = pathParts[1];
+    const pathCity = decodeURIComponent(pathParts[1].replace(/\+/g, ' ')).trim();
     
     // Handle Google Ads placeholder in path
     if (pathCity === '{Location(City)}' || 
