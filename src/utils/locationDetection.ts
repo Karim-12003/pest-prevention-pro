@@ -20,14 +20,17 @@ export function getLocationFromUrl(): string {
     // Handle Google Ads placeholder
     if (city === '{Location(City)}' || 
         city.toLowerCase() === '%7blocation(city)%7d') {
+      console.log("Found placeholder in query parameter, defaulting to NRW");
       return 'NRW';
     }
     
     // Limit length to prevent abuse
     if (city.length > 30) {
+      console.log("City name too long, defaulting to NRW");
       return 'NRW';
     }
     
+    console.log("Found city in query parameter:", city);
     return formatCityName(city);
   }
   
@@ -39,13 +42,16 @@ export function getLocationFromUrl(): string {
     // Handle Google Ads placeholder in path
     if (pathCity === '{Location(City)}' || 
         pathCity.toLowerCase() === '%7blocation(city)%7d') {
+      console.log("Found placeholder in path, defaulting to NRW");
       return 'NRW';
     }
     
+    console.log("Found city in path:", pathCity);
     return formatCityName(pathCity);
   }
   
   // Default fallback
+  console.log("No city found, defaulting to NRW");
   return 'NRW';
 }
 

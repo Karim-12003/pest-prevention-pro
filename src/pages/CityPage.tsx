@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -20,7 +19,7 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 const PHONE_NUMBER = "+491782581987";
 
 const CityPage = () => {
-  const { city } = useUserLocation();
+  const { city, loading } = useUserLocation();
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;

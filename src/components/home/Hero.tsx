@@ -1,13 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { getLocationFromUrl } from '@/utils/locationDetection';
 import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
@@ -19,7 +17,7 @@ const Hero = () => {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Kammerjäger Adalbert",
-    "description": "Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten. 24/7 Notdienst verfügbar.",
+    "description": `Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten in ${city}. 24/7 Notdienst verfügbar.`,
     "telephone": PHONE_NUMBER,
     "url": "https://kammerjaeger-adalbert.de",
     "image": "/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png",
