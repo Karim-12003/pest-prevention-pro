@@ -20,6 +20,12 @@ export const useUserLocation = () => {
         .replace(/\b\w/g, (c) => c.toUpperCase());
       setCity(formattedCity);
     } else if (cityQueryParam) {
+      // Handle the placeholder from Google Ads
+      if (cityQueryParam === '{Location(City)}') {
+        setCity('NRW');
+        return;
+      }
+      
       // Handle the query parameter from Google Ads
       const formattedCity = cityQueryParam
         .replace(/-/g, ' ')
