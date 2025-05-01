@@ -1,22 +1,19 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { getLocationFromUrl } from '@/utils/locationDetection';
+import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
 
 const Hero = () => {
-  const { city: urlCity } = useParams();
+  const { city } = useUserLocation();
   
-  const displayCity = urlCity 
-    ? urlCity.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-    : 'NRW';
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -76,11 +73,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus {displayCity}
+                Ihr Experte für effektive Schädlingsbekämpfung aus {city}
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {displayCity}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {city}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

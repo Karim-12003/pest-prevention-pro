@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -15,20 +15,27 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
+import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
 
 const CityPage = () => {
-  const { city } = useParams();
+  const { city } = useUserLocation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { city: urlCity } = useParams();
   
-  const formattedCity = city
-    ? city
-        .replace(/-/g, ' ')
-        .replace(/\b\w/g, (c) => c.toUpperCase())
-    : 'NRW';
-
-  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${formattedCity}`;
-  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${formattedCity}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
+  // Handle the case when someone visits with ?city=Location but is on the root path
+  useEffect(() => {
+    const cityParam = searchParams.get('city');
+    if (cityParam && !urlCity) {
+      // Redirect to the proper URL format (for SEO purposes)
+      navigate(`/${cityParam.toLowerCase().replace(/ /g, '-')}`, { replace: true });
+    }
+  }, [searchParams, urlCity, navigate]);
+  
+  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
@@ -46,7 +53,7 @@ const CityPage = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus {formattedCity}!
+                  Willkommen aus {city}!
                 </p>
               </div>
             </div>
