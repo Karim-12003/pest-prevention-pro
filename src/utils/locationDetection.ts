@@ -1,40 +1,55 @@
 
-import { useParams, useSearchParams } from 'react-router-dom';
-
-export async function getCity(): Promise<string> {
-  // This function is kept for backward compatibility
-  return 'NRW';
-}
-
+// Simple utility to get city from URL parameters
 export function getLocationFromUrl(): string {
-  // First check if it's in the URL search params
-  const urlParams = new URLSearchParams(window.location.search);
-  const cityParam = urlParams.get('city');
-  
-  if (cityParam) {
-    // Handle the {Location(City)} placeholder from Google Ads
-    if (cityParam === '{Location(City)}') {
+  const params = new URLSearchParams(window.location.search);
+  let city = params.get("city");
+
+  // Function to format city name properly
+  function formatCityName(name: string): string {
+    // Split by spaces or hyphens
+    const words = name.split(/[\s-]+/);
+    return words.map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join(' ');
+  }
+
+  if (city) {
+    // Decode URI components and trim
+    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
+    
+    // Handle Google Ads placeholder
+    if (city === '{Location(City)}' || 
+        city.toLowerCase() === '%7blocation(city)%7d') {
       return 'NRW';
     }
     
-    return cityParam
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase());
+    // Limit length to prevent abuse
+    if (city.length > 30) {
+      return 'NRW';
+    }
+    
+    return formatCityName(city);
   }
   
   // Extract city from path if it exists
   const pathParts = window.location.pathname.split('/');
-  if (pathParts.length > 1 && pathParts[1]) {
-    // Check if path contains the placeholder
-    if (pathParts[1] === '{Location(City)}' || 
-        pathParts[1].toLowerCase() === '%7blocation(city)%7d') {
+  if (pathParts.length > 1 && pathParts[1] && pathParts[1] !== 'impressum' && pathParts[1] !== 'agb') {
+    const pathCity = pathParts[1];
+    
+    // Handle Google Ads placeholder in path
+    if (pathCity === '{Location(City)}' || 
+        pathCity.toLowerCase() === '%7blocation(city)%7d') {
       return 'NRW';
     }
     
-    return pathParts[1]
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase());
+    return formatCityName(pathCity);
   }
   
+  // Default fallback
   return 'NRW';
+}
+
+// Legacy function for backward compatibility
+export async function getCity(): Promise<string> {
+  return getLocationFromUrl();
 }

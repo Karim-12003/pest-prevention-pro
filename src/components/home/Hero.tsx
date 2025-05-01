@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
@@ -73,11 +74,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus {city}
+                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{city}</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus {city}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
