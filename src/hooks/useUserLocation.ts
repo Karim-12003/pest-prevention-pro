@@ -15,6 +15,13 @@ export const useUserLocation = () => {
   useEffect(() => {
     // First check route params (/:city), then query params (?city=), then default to NRW
     if (urlCity) {
+      // Handle URL encoded placeholder
+      if (urlCity === '{Location(City)}' || 
+          urlCity.toLowerCase() === '%7blocation(city)%7d') {
+        setCity('NRW');
+        return;
+      }
+      
       const formattedCity = urlCity
         .replace(/-/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase());

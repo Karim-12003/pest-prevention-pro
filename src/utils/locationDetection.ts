@@ -7,6 +7,7 @@ export async function getCity(): Promise<string> {
 }
 
 export function getLocationFromUrl(): string {
+  // First check if it's in the URL search params
   const urlParams = new URLSearchParams(window.location.search);
   const cityParam = urlParams.get('city');
   
@@ -24,6 +25,12 @@ export function getLocationFromUrl(): string {
   // Extract city from path if it exists
   const pathParts = window.location.pathname.split('/');
   if (pathParts.length > 1 && pathParts[1]) {
+    // Check if path contains the placeholder
+    if (pathParts[1] === '{Location(City)}' || 
+        pathParts[1].toLowerCase() === '%7blocation(city)%7d') {
+      return 'NRW';
+    }
+    
     return pathParts[1]
       .replace(/-/g, ' ')
       .replace(/\b\w/g, (c) => c.toUpperCase());
