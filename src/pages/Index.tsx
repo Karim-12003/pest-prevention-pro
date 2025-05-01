@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -25,9 +24,31 @@ const Index = () => {
   
   useEffect(() => {
     console.log("Index rendering with city:", city);
+    
     // Log the URL params to debug
     console.log("URL search params:", Object.fromEntries(searchParams.entries()));
-    if (error) console.error("Location error:", error);
+    console.log("Current pathname:", window.location.pathname);
+    console.log("Full URL:", window.location.href);
+    
+    if (error) console.error("Location error in Index:", error);
+    
+    // Update document title with the city
+    document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
+    
+    // Update all city placeholders in the DOM directly as a fallback
+    const updateCityPlaceholders = () => {
+      const elements = document.querySelectorAll('.city-placeholder');
+      elements.forEach(el => {
+        if (el.textContent !== city) {
+          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
+          el.textContent = city;
+        }
+      });
+    };
+    
+    // Execute immediately and after a short delay
+    updateCityPlaceholders();
+    setTimeout(updateCityPlaceholders, 100);
   }, [city, error, searchParams]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung${city !== 'NRW' ? ` in ${city}` : ''}`;

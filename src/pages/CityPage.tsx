@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -23,7 +22,26 @@ const CityPage = () => {
   
   useEffect(() => {
     console.log("CityPage rendering with city:", city);
-    if (error) console.error("Location error:", error);
+    document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
+    
+    if (error) console.error("Location error in CityPage:", error);
+    
+    // Update all city placeholders in the DOM directly
+    const updateCityPlaceholders = () => {
+      const elements = document.querySelectorAll('.city-placeholder');
+      elements.forEach(el => {
+        if (el.textContent !== city) {
+          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
+          el.textContent = city;
+        }
+      });
+    };
+    
+    // Execute immediately
+    updateCityPlaceholders();
+    
+    // And also after a short delay to ensure DOM is ready
+    setTimeout(updateCityPlaceholders, 100);
   }, [city, error]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;

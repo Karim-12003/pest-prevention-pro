@@ -15,7 +15,13 @@ const Hero = () => {
   
   useEffect(() => {
     console.log("Hero rendering with city:", city);
-    if (error) console.error("Location error:", error);
+    if (error) console.error("Location error in Hero:", error);
+    
+    // Update all city-placeholder elements manually as a backup
+    const placeholders = document.querySelectorAll('.city-placeholder');
+    placeholders.forEach(el => {
+      el.textContent = city;
+    });
   }, [city, error]);
   
   const structuredData = {

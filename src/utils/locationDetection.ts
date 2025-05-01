@@ -1,18 +1,12 @@
 
 // Simple utility to get city from URL parameters
 export function getLocationFromUrl(): string {
+  console.log("Getting location from URL:", window.location.href);
+  
+  // First check for city in query parameter
   const params = new URLSearchParams(window.location.search);
   let city = params.get("city");
-
-  // Function to format city name properly
-  function formatCityName(name: string): string {
-    // Split by spaces or hyphens
-    const words = name.split(/[\s-]+/);
-    return words.map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    ).join(' ');
-  }
-
+  
   if (city) {
     // Decode URI components and trim
     city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
@@ -30,7 +24,9 @@ export function getLocationFromUrl(): string {
       return 'NRW';
     }
     
-    console.log("Found city in query parameter:", city);
+    console.log("Successfully extracted city from query parameter:", city);
+    
+    // Function to format city name properly
     return formatCityName(city);
   }
   
@@ -46,13 +42,22 @@ export function getLocationFromUrl(): string {
       return 'NRW';
     }
     
-    console.log("Found city in path:", pathCity);
+    console.log("Successfully extracted city from path:", pathCity);
     return formatCityName(pathCity);
   }
   
   // Default fallback
-  console.log("No city found, defaulting to NRW");
+  console.log("No city found in URL, defaulting to NRW");
   return 'NRW';
+}
+
+// Format city name properly (capitalize first letter of each word)
+function formatCityName(name: string): string {
+  // Split by spaces or hyphens
+  const words = name.split(/[\s-]+/);
+  return words.map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  ).join(' ');
 }
 
 // Legacy function for backward compatibility
