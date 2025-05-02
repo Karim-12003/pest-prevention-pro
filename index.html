@@ -72,7 +72,7 @@
               return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
           }
 
-          if (city) {
+          if (city && city !== "{Location(City)}") {
               city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
               if (city.length > 30) city = "Ihrer Stadt";
               else city = formatCityName(city);
@@ -80,9 +80,8 @@
               city = "Ihrer Stadt";
           }
 
-          // Wiederholt alle 500ms für max. 5 Sekunden (10 Versuche)
+          // Wiederholt 10x, falls etwas überschreibt
           let attempts = 0;
-          const maxAttempts = 10;
           const interval = setInterval(() => {
               const placeholders = document.querySelectorAll('.city-placeholder');
               if (placeholders.length > 0) {
@@ -93,7 +92,7 @@
               }
 
               attempts++;
-              if (attempts >= maxAttempts) {
+              if (attempts >= 10) {
                   clearInterval(interval);
               }
           }, 500);
