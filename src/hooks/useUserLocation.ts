@@ -3,30 +3,26 @@ import { useState, useEffect } from 'react';
 import { getLocationFromUrl } from '@/utils/locationDetection';
 
 export const useUserLocation = () => {
-  const [city, setCity] = useState<string | null>(null);
+  const [city, setCity] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // Explicitly define the detection function inside the effect
     const detectLocation = () => {
       try {
         setLoading(true);
         
-        // Force the URL reading to happen now
-        const url = window.location.href; // Reading this to ensure the effect captures current URL
-        console.log("Current URL in useUserLocation:", url);
-        
-        // Use our improved location detection function
+        // Get the city from the URL
         const detectedCity = getLocationFromUrl();
-        
         console.log("useUserLocation detected city:", detectedCity);
         
-        // Update state with the detected city
+        // Set the city
         setCity(detectedCity);
       } catch (err) {
         console.error("Error detecting location:", err);
         setError(err instanceof Error ? err : new Error(String(err)));
+        // On error, we still want to show something
+        setCity('Düsseldorf');
       } finally {
         setLoading(false);
       }
@@ -35,17 +31,28 @@ export const useUserLocation = () => {
     // Run the detection immediately
     detectLocation();
     
-    // Add an event listener to detect URL changes
+    // Add event listeners for navigation
     window.addEventListener('popstate', detectLocation);
     
-    // Clean up event listener
+    // Explicitly handle when the URL changes without a page reload
+    const originalPushState = window.history.pushState;
+    window.history.pushState = function() {
+      // Call the original function
+      // @ts-ignore
+      originalPushState.apply(this, arguments);
+      // Then run our handler
+      detectLocation();
+    };
+    
+    // Clean up
     return () => {
       window.removeEventListener('popstate', detectLocation);
+      window.history.pushState = originalPushState;
     };
-  }, []); // Dependencies array is empty to run only once on mount
+  }, []);
 
   return { 
-    city: city || 'NRW', // Default to NRW only if city is null
+    city, 
     loading, 
     error 
   };

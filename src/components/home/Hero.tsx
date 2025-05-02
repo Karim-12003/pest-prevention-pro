@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
@@ -14,15 +13,20 @@ const Hero = () => {
   const { city, loading, error } = useUserLocation();
   
   useEffect(() => {
+    // Log for debugging
     console.log("Hero rendering with city:", city);
-    if (error) console.error("Location error in Hero:", error);
     
-    // Update all city-placeholder elements manually as a backup
+    // Update all city-placeholder elements
     const placeholders = document.querySelectorAll('.city-placeholder');
-    placeholders.forEach(el => {
-      el.textContent = city;
-    });
-  }, [city, error]);
+    if (placeholders.length > 0) {
+      placeholders.forEach(el => {
+        if (el.textContent !== city) {
+          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
+          el.textContent = city;
+        }
+      });
+    }
+  }, [city]);
   
   const structuredData = {
     "@context": "https://schema.org",
@@ -83,11 +87,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold">{city}</span>
+                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{city}</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-bold">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

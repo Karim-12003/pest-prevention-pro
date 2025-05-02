@@ -18,6 +18,12 @@ export function getLocationFromUrl(): string {
       return 'NRW';
     }
     
+    // Validate city - only return non-empty strings
+    if (city.length === 0) {
+      console.log("Empty city param, defaulting to NRW");
+      return 'NRW';
+    }
+    
     // Limit length to prevent abuse
     if (city.length > 30) {
       console.log("City name too long, defaulting to NRW");
@@ -25,15 +31,25 @@ export function getLocationFromUrl(): string {
     }
     
     console.log("Successfully extracted city from query parameter:", city);
-    
-    // Function to format city name properly
     return formatCityName(city);
   }
   
   // Extract city from path if it exists
   const pathParts = window.location.pathname.split('/');
-  if (pathParts.length > 1 && pathParts[1] && pathParts[1] !== 'impressum' && pathParts[1] !== 'agb') {
+  if (pathParts.length > 1 && pathParts[1]) {
+    // Skip special paths
+    if (pathParts[1] === 'impressum' || pathParts[1] === 'agb') {
+      console.log("Special page detected, defaulting to NRW");
+      return 'NRW';
+    }
+    
     const pathCity = decodeURIComponent(pathParts[1].replace(/\+/g, ' ')).trim();
+    
+    // Handle empty path segment
+    if (pathCity.length === 0) {
+      console.log("Empty path segment, defaulting to NRW");
+      return 'NRW';
+    }
     
     // Handle Google Ads placeholder in path
     if (pathCity === '{Location(City)}' || 
@@ -46,9 +62,15 @@ export function getLocationFromUrl(): string {
     return formatCityName(pathCity);
   }
   
-  // Default fallback
-  console.log("No city found in URL, defaulting to NRW");
-  return 'NRW';
+  // For homepage (root path)
+  if (window.location.pathname === '/' || window.location.pathname === '') {
+    console.log("Root path detected, using default city: Düsseldorf");
+    return 'Düsseldorf';
+  }
+  
+  // Default fallback - should rarely happen
+  console.log("No valid city detected, defaulting to Düsseldorf");
+  return 'Düsseldorf';
 }
 
 // Format city name properly (capitalize first letter of each word)

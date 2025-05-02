@@ -21,12 +21,14 @@ const CityPage = () => {
   const { city, loading, error } = useUserLocation();
   
   useEffect(() => {
+    // Debug logs
     console.log("CityPage rendering with city:", city);
+    console.log("Current pathname:", window.location.pathname);
+    
+    // Update document title with the city
     document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
     
-    if (error) console.error("Location error in CityPage:", error);
-    
-    // Update all city placeholders in the DOM directly
+    // Update all city placeholders in the DOM
     const updateCityPlaceholders = () => {
       const elements = document.querySelectorAll('.city-placeholder');
       elements.forEach(el => {
@@ -37,12 +39,11 @@ const CityPage = () => {
       });
     };
     
-    // Execute immediately
+    // Execute immediately and after a short delay to ensure React has rendered
     updateCityPlaceholders();
-    
-    // And also after a short delay to ensure DOM is ready
     setTimeout(updateCityPlaceholders, 100);
-  }, [city, error]);
+    setTimeout(updateCityPlaceholders, 500);
+  }, [city]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -68,6 +69,7 @@ const CityPage = () => {
               </div>
             </div>
           </div>
+          
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           <AboutUs />
