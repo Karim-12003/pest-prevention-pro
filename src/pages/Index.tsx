@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -14,42 +15,15 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
-import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
+const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  const { city, loading, error } = useUserLocation();
   const [searchParams] = useSearchParams();
   
-  useEffect(() => {
-    // Debug logs
-    console.log("Index rendering with city:", city);
-    console.log("Current pathname:", window.location.pathname);
-    console.log("Full URL:", window.location.href);
-    
-    // Update document title with the city
-    document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
-    
-    // Update all city placeholders in the DOM
-    const updateCityPlaceholders = () => {
-      const elements = document.querySelectorAll('.city-placeholder');
-      elements.forEach(el => {
-        if (el.textContent !== city) {
-          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
-          el.textContent = city;
-        }
-      });
-    };
-    
-    // Execute immediately and after a short delay to ensure React has rendered
-    updateCityPlaceholders();
-    setTimeout(updateCityPlaceholders, 100);
-    setTimeout(updateCityPlaceholders, 500);
-  }, [city]);
-  
-  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
-  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
+  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${DEFAULT_CITY}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${DEFAULT_CITY}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
@@ -67,7 +41,7 @@ const Index = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-placeholder font-bold">{city}</span>!
+                  Willkommen aus <span className="city-placeholder font-bold">{DEFAULT_CITY}</span>!
                 </p>
               </div>
             </div>
