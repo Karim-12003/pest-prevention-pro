@@ -8,7 +8,7 @@ export function getLocationFromUrl(): string {
   const params = new URLSearchParams(window.location.search);
   let city = params.get("city");
   
-  if (city) {
+  if (city && city !== "{Location(City)}") {
     // Decode URI components and trim
     city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
     
@@ -20,6 +20,24 @@ export function getLocationFromUrl(): string {
     
     console.log("Successfully extracted city from query parameter:", city);
     return formatCityName(city);
+  }
+  
+  // Check if we're on a city path (/:city)
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  if (pathSegments.length > 0) {
+    const pathCity = pathSegments[0];
+    if (pathCity && pathCity.length <= 30) {
+      console.log("Successfully extracted city from path:", pathCity);
+      return formatCityName(pathCity);
+    }
+  }
+  
+  // Use the DOM to check if a city has already been set by the index.html script
+  const existingCityElement = document.querySelector('.city-placeholder');
+  if (existingCityElement && existingCityElement.textContent && 
+      existingCityElement.textContent !== 'Ihrer Stadt') {
+    console.log("Using already set city from DOM:", existingCityElement.textContent);
+    return existingCityElement.textContent;
   }
   
   // Default fallback
