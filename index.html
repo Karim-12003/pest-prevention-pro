@@ -63,41 +63,6 @@
         return false;
       }
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const params = new URLSearchParams(window.location.search);
-          let city = params.get("city");
-
-          function formatCityName(name) {
-              return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-          }
-
-          if (city && city !== "{Location(City)}") {
-              city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
-              if (city.length > 30) city = "Ihrer Stadt";
-              else city = formatCityName(city);
-          } else {
-              city = "Ihrer Stadt";
-          }
-
-          // Wiederholt 10x, falls etwas überschreibt
-          let attempts = 0;
-          const interval = setInterval(() => {
-              const placeholders = document.querySelectorAll('.city-placeholder');
-              if (placeholders.length > 0) {
-                  placeholders.forEach(el => {
-                      el.textContent = city;
-                  });
-                  console.log("City gesetzt:", city);
-              }
-
-              attempts++;
-              if (attempts >= 10) {
-                  clearInterval(interval);
-              }
-          }, 500);
-      });
-    </script>
   </head>
 
   <body>
