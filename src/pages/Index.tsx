@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -22,8 +22,52 @@ const DEFAULT_CITY = "Ihrer Stadt";
 const Index = () => {
   const [searchParams] = useSearchParams();
   
-  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${DEFAULT_CITY}`;
-  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${DEFAULT_CITY}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
+  let city = searchParams.get('city');
+  
+  // Format the city name if it exists
+  const formatCityName = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  };
+  
+  // Apply the formatting and validation logic
+  if (city && city !== "{Location(City)}" && city !== "") {
+    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
+    if (city.length > 30) {
+      city = DEFAULT_CITY;
+    } else {
+      city = formatCityName(city);
+    }
+  } else {
+    city = DEFAULT_CITY;
+  }
+  
+  useEffect(() => {
+    // Debug logs
+    console.log("Index page rendering with city:", city);
+    console.log("URL params:", window.location.search);
+    
+    // Update document title with the city
+    document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
+    
+    // Update all city placeholders in the DOM
+    const updateCityPlaceholders = () => {
+      const elements = document.querySelectorAll('.city-placeholder');
+      elements.forEach(el => {
+        if (el.textContent !== city) {
+          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
+          el.textContent = city;
+        }
+      });
+    };
+    
+    // Execute immediately and after a short delay to ensure React has rendered
+    updateCityPlaceholders();
+    setTimeout(updateCityPlaceholders, 100);
+    setTimeout(updateCityPlaceholders, 500);
+  }, [city]);
+  
+  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${city}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
@@ -41,7 +85,7 @@ const Index = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-placeholder font-bold">{DEFAULT_CITY}</span>!
+                  Willkommen aus <span className="city-placeholder font-bold">{city}</span>!
                 </p>
               </div>
             </div>

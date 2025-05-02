@@ -1,21 +1,43 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
+import { useSearchParams } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Hero = () => {
+  const [searchParams] = useSearchParams();
+  
+  let city = searchParams.get('city');
+  
+  // Format the city name if it exists
+  const formatCityName = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  };
+  
+  // Apply the formatting and validation logic
+  if (city && city !== "{Location(City)}" && city !== "") {
+    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
+    if (city.length > 30) {
+      city = DEFAULT_CITY;
+    } else {
+      city = formatCityName(city);
+    }
+  } else {
+    city = DEFAULT_CITY;
+  }
+  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Kammerjäger Adalbert",
-    "description": `Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten in ${DEFAULT_CITY}. 24/7 Notdienst verfügbar.`,
+    "description": `Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten in ${city}. 24/7 Notdienst verfügbar.`,
     "telephone": PHONE_NUMBER,
     "url": "https://kammerjaeger-adalbert.de",
     "image": "/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png",
@@ -70,11 +92,11 @@ const Hero = () => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{DEFAULT_CITY}</span>
+                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{city}</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{DEFAULT_CITY}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{city}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

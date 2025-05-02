@@ -14,17 +14,38 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
+import { useSearchParams } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const CityPage = () => {
-  const city = DEFAULT_CITY;
+  const [searchParams] = useSearchParams();
+  
+  let city = searchParams.get('city');
+  
+  // Format the city name if it exists
+  const formatCityName = (name: string) => {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  };
+  
+  // Apply the formatting and validation logic
+  if (city && city !== "{Location(City)}" && city !== "") {
+    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
+    if (city.length > 30) {
+      city = DEFAULT_CITY;
+    } else {
+      city = formatCityName(city);
+    }
+  } else {
+    city = DEFAULT_CITY;
+  }
   
   useEffect(() => {
     // Debug logs
     console.log("CityPage rendering with city:", city);
     console.log("Current pathname:", window.location.pathname);
+    console.log("URL params:", window.location.search);
     
     // Update document title with the city
     document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
