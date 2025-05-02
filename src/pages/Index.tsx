@@ -1,6 +1,6 @@
 
-import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -21,31 +21,40 @@ const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
   const [searchParams] = useSearchParams();
-  
-  let city = searchParams.get('city');
+  const [city, setCity] = useState(DEFAULT_CITY);
+  const location = useLocation();
   
   // Format the city name if it exists
   const formatCityName = (name) => {
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
   
-  // Apply the formatting and validation logic
-  if (city && city !== "{Location(City)}" && city !== "") {
-    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
-    if (city.length > 30) {
-      city = DEFAULT_CITY;
+  useEffect(() => {
+    // Get city from URL parameter
+    let cityParam = searchParams.get('city');
+    
+    console.log("Original city parameter:", cityParam);
+    
+    // Apply the formatting and validation logic
+    if (cityParam && cityParam !== "{Location(City)}" && cityParam !== "") {
+      cityParam = decodeURIComponent(cityParam.replace(/\+/g, ' ')).trim();
+      if (cityParam.length > 30) {
+        cityParam = DEFAULT_CITY;
+      } else {
+        cityParam = formatCityName(cityParam);
+      }
+      setCity(cityParam);
     } else {
-      city = formatCityName(city);
+      setCity(DEFAULT_CITY);
     }
-  } else {
-    city = DEFAULT_CITY;
-  }
+    
+    // Debug logs
+    console.log("Index page rendering with city:", cityParam);
+    console.log("URL params:", window.location.search);
+    console.log("Full URL:", window.location.href);
+  }, [searchParams, location.search]);
   
   useEffect(() => {
-    // Debug logs
-    console.log("Index page rendering with city:", city);
-    console.log("URL params:", window.location.search);
-    
     // Update document title with the city
     document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
     
@@ -53,17 +62,20 @@ const Index = () => {
     const updateCityPlaceholders = () => {
       const elements = document.querySelectorAll('.city-placeholder');
       elements.forEach(el => {
-        if (el.textContent !== city) {
-          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
-          el.textContent = city;
-        }
+        el.textContent = city;
       });
     };
     
-    // Execute immediately and after a short delay to ensure React has rendered
+    // Execute immediately and multiple times to ensure React has rendered
     updateCityPlaceholders();
-    setTimeout(updateCityPlaceholders, 100);
-    setTimeout(updateCityPlaceholders, 500);
+    const interval = setInterval(updateCityPlaceholders, 100);
+    
+    // Clear interval after 2 seconds
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 2000);
+    
+    return () => clearInterval(interval);
   }, [city]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
@@ -80,7 +92,7 @@ const Index = () => {
         <Navbar />
         
         <main className="flex-grow">
-          <Hero />
+          <Hero cityName={city} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
               <div className="flex items-center justify-center">

@@ -1,5 +1,5 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useSearchParams, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -14,39 +14,53 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
-import { useSearchParams } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const CityPage = () => {
   const [searchParams] = useSearchParams();
-  
-  let city = searchParams.get('city');
+  const [city, setCity] = useState(DEFAULT_CITY);
+  const params = useParams();
+  const location = useLocation();
   
   // Format the city name if it exists
   const formatCityName = (name: string) => {
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   };
   
-  // Apply the formatting and validation logic
-  if (city && city !== "{Location(City)}" && city !== "") {
-    city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
-    if (city.length > 30) {
-      city = DEFAULT_CITY;
-    } else {
-      city = formatCityName(city);
-    }
-  } else {
-    city = DEFAULT_CITY;
-  }
-  
   useEffect(() => {
+    // Try to get city from route parameter first
+    let cityValue = params.city;
+    
+    // If not present, try from query parameter
+    if (!cityValue) {
+      cityValue = searchParams.get('city');
+    }
+    
+    console.log("Original city parameter:", cityValue);
+    
+    // Apply the formatting and validation logic
+    if (cityValue && cityValue !== "{Location(City)}" && cityValue !== "") {
+      cityValue = decodeURIComponent(cityValue.replace(/\+/g, ' ')).trim();
+      if (cityValue.length > 30) {
+        cityValue = DEFAULT_CITY;
+      } else {
+        cityValue = formatCityName(cityValue);
+      }
+      setCity(cityValue);
+    } else {
+      setCity(DEFAULT_CITY);
+    }
+    
     // Debug logs
-    console.log("CityPage rendering with city:", city);
+    console.log("CityPage rendering with city:", cityValue);
     console.log("Current pathname:", window.location.pathname);
     console.log("URL params:", window.location.search);
-    
+    console.log("Full URL:", window.location.href);
+  }, [params, searchParams, location.pathname, location.search]);
+  
+  useEffect(() => {
     // Update document title with the city
     document.title = `Kammerjäger Adalbert - Schädlingsbekämpfung in ${city}`;
     
@@ -54,17 +68,20 @@ const CityPage = () => {
     const updateCityPlaceholders = () => {
       const elements = document.querySelectorAll('.city-placeholder');
       elements.forEach(el => {
-        if (el.textContent !== city) {
-          console.log(`Updating city placeholder from ${el.textContent} to ${city}`);
-          el.textContent = city;
-        }
+        el.textContent = city;
       });
     };
     
-    // Execute immediately and after a short delay to ensure React has rendered
+    // Execute immediately and multiple times to ensure React has rendered
     updateCityPlaceholders();
-    setTimeout(updateCityPlaceholders, 100);
-    setTimeout(updateCityPlaceholders, 500);
+    const interval = setInterval(updateCityPlaceholders, 100);
+    
+    // Clear interval after 2 seconds
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 2000);
+    
+    return () => clearInterval(interval);
   }, [city]);
   
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${city}`;
@@ -81,7 +98,7 @@ const CityPage = () => {
         <Navbar />
         
         <main className="flex-grow">
-          <Hero />
+          <Hero cityName={city} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
               <div className="flex items-center justify-center">

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KTVFNWPH');</script>
+  <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="t3oVI_72E4X1WSP69YQSazszqRkbHIl4_CTNUQ1j0R8" />
+    <title>Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in Ihrer Nähe</title>
+    <meta name="description" content="Kammerjäger Adalbert - IHK-zertifizierte Schädlingsbekämpfung mit 24/7 Notdienst. Kostenlose Anfahrt und Beratung für Bettwanzen, Insekten, Ratten und mehr." />
+    <meta name="keywords" content="Kammerjäger, Schädlingsbekämpfung, Bettwanzen, Insektenbekämpfung, Nagetierbekämpfung, Marderbekämpfung, 24/7 Notdienst" />
+    <meta name="author" content="Kammerjäger Adalbert" />
+    <link rel="icon" href="/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png" type="image/png">
+    <link rel="apple-touch-icon" href="/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png">
+    <meta property="og:title" content="Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung" />
+    <meta property="og:description" content="IHK-zertifizierte Schädlingsbekämpfer mit 24/7 Notdienst & kostenloser Anfahrt. Effektive Bekämpfung von Bettwanzen, Insekten, Ratten und mehr." />
+    <meta property="og:image" content="/lovable-uploads/b413039e-1a85-4fcd-b872-92ec0f7a9ed6.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kammerjaeger-adalbert.de" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://kammerjaeger-adalbert.de" />
+    <meta name="robots" content="index, follow" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16919164637"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16919164637');
+      
+      // Google Ads Event Snippet for Page View
+      gtag('event', 'page_view', {
+        'send_to': 'AW-16919164637',
+      });
+
+      // Google Ads Conversion Tracking - Optional function for later use
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        
+        // First conversion label
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16919164637/aYxbCOrF5L0aEN3t14M_',
+            'event_callback': callback
+        });
+        
+        // Second conversion label
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16919164637/notCJ-p2b0aEN3t14M_',
+            'event_callback': callback
+        });
+        
+        return false;
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTVFNWPH"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="root"></div>
+    <!-- City parameter handling on initial load -->
+    <script>
+      // Make sure this runs before React hydration
+      window.addEventListener("DOMContentLoaded", function() {
+        const params = new URLSearchParams(window.location.search);
+        let city = params.get("city");
+        
+        function formatCityName(name) {
+          return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        }
+        
+        if (city && city !== "{Location(City)}" && city !== "") {
+          city = decodeURIComponent(city.replace(/\+/g, ' ')).trim();
+          if (city.length > 30) {
+            city = "Ihrer Stadt";
+          } else {
+            city = formatCityName(city);
+          }
+          console.log("Initial city parameter detection:", city);
+        } else {
+          city = "Ihrer Stadt";
+        }
+      });
+    </script>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
