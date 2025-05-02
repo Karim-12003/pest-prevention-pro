@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -13,12 +14,12 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
-import { useUserLocation } from '@/hooks/useUserLocation';
 
 const PHONE_NUMBER = "+491782581987";
+const DEFAULT_CITY = "Ihrer Stadt";
 
 const CityPage = () => {
-  const { city, loading, error } = useUserLocation();
+  const city = DEFAULT_CITY;
   
   useEffect(() => {
     // Debug logs
