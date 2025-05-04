@@ -33,7 +33,7 @@ const PhoneButton = ({
     outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md hover:shadow-md",
     ghost: "text-accent hover:bg-accent/10 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-blue-600 text-white shadow-lg rounded-full"
+    fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-xl rounded-full animate-pulse-slow"
   };
   
   const sizeStyles = {
@@ -43,7 +43,7 @@ const PhoneButton = ({
   };
   
   const fixedStyles = variant === 'fixed' 
-    ? "w-16 h-16 flex items-center justify-center" 
+    ? "w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform duration-300" 
     : "";
 
   return (

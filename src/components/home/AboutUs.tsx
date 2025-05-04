@@ -3,7 +3,6 @@ import React from 'react';
 import { Bug, Clock, Award, Users2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import AnimatedSection from '../ui/AnimatedSection';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const AboutUs = () => {
   const features = [
@@ -35,21 +34,8 @@ const AboutUs = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-primary mb-4">Über uns</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Seit über 20 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl.
+            Seit über 20 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl in <span className="city-placeholder">Ihrer Stadt</span>.
           </p>
-        </div>
-        
-        <div className="max-w-4xl mx-auto mb-12 rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-[1.01] duration-300">
-          <AspectRatio ratio={4/3}>
-            <img 
-              src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
-              alt="Professioneller Kammerjäger lächelt freundlich" 
-              className="object-cover w-full h-full transition-all duration-700 hover:scale-105"
-              width="1200"
-              height="900"
-              loading="lazy"
-            />
-          </AspectRatio>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
