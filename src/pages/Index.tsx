@@ -38,7 +38,7 @@ const Index = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen!
+                  Willkommen aus <span className="city-welcome">{DEFAULT_CITY}</span>
                 </p>
               </div>
             </div>
