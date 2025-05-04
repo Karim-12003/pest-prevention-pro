@@ -92,7 +92,7 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
-        <main className="flex-grow pt-[120px] md:pt-[140px]">
+        <main className="flex-grow pt-[160px] md:pt-[180px]">
           <Hero cityName={city} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
@@ -104,7 +104,10 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Featured image moved to before About Us section */}
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
+          <MovingLogoBanner />
+          
+          {/* Featured image restored to before About Us section */}
           <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
@@ -121,9 +124,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-          
-          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
-          <MovingLogoBanner />
           
           <AboutUs />
           

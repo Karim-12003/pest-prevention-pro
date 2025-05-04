@@ -36,9 +36,21 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Emergency banner - positioned above navbar */}
+      <div className="bg-red-600 text-white py-3 fixed top-0 w-full z-50 shadow-lg">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-center gap-3">
+            <Bell className="w-5 h-5 animate-pulse text-white" />
+            <p className="text-base font-bold md:text-lg">
+              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 md:py-4',
+          'fixed top-[48px] left-0 right-0 z-40 transition-all duration-300 py-3 md:py-4',
           isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
         )}
       >
@@ -113,18 +125,6 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      
-      {/* Emergency banner - positioned below fixed navbar with appropriate spacing */}
-      <div className="bg-red-600 text-white py-3 fixed top-[60px] md:top-[72px] w-full z-40 shadow-lg">
-        <div className="container mx-auto">
-          <div className="flex items-center justify-center gap-3">
-            <Bell className="w-5 h-5 animate-pulse text-white" />
-            <p className="text-base font-bold md:text-lg">
-              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
