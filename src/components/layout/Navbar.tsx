@@ -59,11 +59,11 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <Logo size={isMobile ? "small" : "medium"} />
+              <Logo size={isMobile ? "medium" : "medium"} className="scale-110" />
               <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2 md:ml-3">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center">
-                  <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-sm sm:text-lg">Kammerjäger</span>
-                  <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-sm sm:text-lg">Adalbert</span>
+                  <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-base sm:text-xl">Kammerjäger</span>
+                  <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-base sm:text-xl">Adalbert</span>
                 </div>
               </div>
             </div>
