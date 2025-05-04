@@ -37,7 +37,7 @@ const CityPage = () => {
     
     // If not present, try from query parameter
     if (!cityValue) {
-      cityValue = searchParams.get('city');
+      cityValue = searchParams.get('city') || searchParams.get('ort');
     }
     
     console.log("Original city parameter:", cityValue);

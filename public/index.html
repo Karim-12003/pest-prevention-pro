@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -75,7 +76,7 @@
       // Make sure this runs before React hydration
       window.addEventListener("DOMContentLoaded", function() {
         const params = new URLSearchParams(window.location.search);
-        let city = params.get("city");
+        let city = params.get("city") || params.get("ort");
         
         function formatCityName(name) {
           return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -89,6 +90,18 @@
             city = formatCityName(city);
           }
           console.log("Initial city parameter detection:", city);
+          
+          // Update city in URL if it's not already there
+          const pathname = window.location.pathname;
+          if (pathname === '/' || pathname === '') {
+            // Only for homepage, not for specific city pages
+            const elements = document.querySelectorAll('.city-placeholder');
+            setTimeout(() => {
+              elements.forEach(el => {
+                if (el) el.textContent = city;
+              });
+            }, 100);
+          }
         } else {
           city = "Ihrer Stadt";
         }

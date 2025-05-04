@@ -32,7 +32,7 @@ const Index = () => {
   
   useEffect(() => {
     // Get city from URL parameter
-    let cityParam = searchParams.get('city');
+    let cityParam = searchParams.get('city') || searchParams.get('ort');
     
     console.log("Original city parameter:", cityParam);
     

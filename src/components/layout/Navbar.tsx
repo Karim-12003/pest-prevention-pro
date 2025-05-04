@@ -37,11 +37,11 @@ const Navbar = () => {
   return (
     <>
       {/* Emergency banner - positioned above navbar */}
-      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50 shadow-lg">
+      <div className="bg-red-600 text-white py-1 md:py-2 fixed top-0 w-full z-50 shadow-lg">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center gap-2">
-            <Bell className="w-4 h-4 md:w-5 md:h-5 animate-pulse text-white" />
-            <p className="text-sm font-bold md:text-lg">
+          <div className="flex items-center justify-center gap-1 md:gap-2">
+            <Bell className="w-3 h-3 md:w-5 md:h-5 animate-pulse text-white" />
+            <p className="text-xs md:text-lg font-bold">
               NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
             </p>
           </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
       
       <header
         className={cn(
-          'fixed top-[40px] md:top-[48px] left-0 right-0 z-40 transition-all duration-300 py-2 md:py-4',
+          'fixed top-[28px] md:top-[48px] left-0 right-0 z-40 transition-all duration-300 py-2 md:py-4',
           isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
         )}
       >
@@ -61,8 +61,8 @@ const Navbar = () => {
               <Logo size={isMobile ? "small" : "medium"} />
               <div className="text-primary font-bold text-xl md:text-2xl lg:text-3xl transition-all ml-2 md:ml-3">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center">
-                  <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-lg sm:text-2xl md:text-2xl">Kammerjäger</span>
-                  <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-lg sm:text-2xl md:text-2xl">Adalbert</span>
+                  <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-base sm:text-2xl md:text-2xl">Kammerjäger</span>
+                  <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-base sm:text-2xl md:text-2xl">Adalbert</span>
                 </div>
               </div>
             </div>
