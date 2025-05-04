@@ -52,28 +52,6 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         </script>
       </Helmet>
       
-      {/* Featured image at the top */}
-      <div className="w-full bg-gradient-to-b from-accent/5 to-white">
-        <div className="container mx-auto px-4 pt-24 pb-6">
-          <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
-            <AspectRatio ratio={21/9}>
-              <img 
-                src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
-                alt="Professioneller Kammerjäger im Einsatz" 
-                className="object-cover w-full h-full"
-                width="1200"
-                height="600"
-              />
-            </AspectRatio>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung in <span className="city-placeholder">{cityName}</span></h2>
-              <p className="text-lg md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       {/* Emergency banner - more attention-grabbing */}
       <div className="bg-red-600 text-white py-3 sticky top-0 left-0 right-0 z-50 shadow-lg">
         <div className="container mx-auto">
@@ -110,7 +88,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                 <PhoneButton 
                   phoneNumber={PHONE_NUMBER} 
                   size="lg"
-                  className="bg-orange-500 hover:bg-orange-600 text-lg py-4 shadow-lg" 
+                  className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
                 />
                 <WhatsAppButton 
                   phoneNumber={PHONE_NUMBER} 
@@ -180,6 +158,28 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
           </div>
         </div>
       </section>
+      
+      {/* Featured image moved below the hero section */}
+      <div className="w-full bg-gradient-to-b from-accent/5 to-white">
+        <div className="container mx-auto px-4 pb-6">
+          <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
+            <AspectRatio ratio={21/9}>
+              <img 
+                src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
+                alt="Professioneller Kammerjäger im Einsatz" 
+                className="object-cover w-full h-full"
+                width="1200"
+                height="600"
+              />
+            </AspectRatio>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung in <span className="city-placeholder">{cityName}</span></h2>
+              <p className="text-lg md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
