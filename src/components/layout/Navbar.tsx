@@ -113,9 +113,9 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-
-      {/* Emergency banner - now positioned correctly below fixed navbar */}
-      <div className="bg-red-600 text-white py-3 relative mt-[60px] shadow-lg">
+      
+      {/* Emergency banner - positioned below fixed navbar with appropriate spacing */}
+      <div className="bg-red-600 text-white py-3 fixed top-[60px] md:top-[72px] w-full z-40 shadow-lg">
         <div className="container mx-auto">
           <div className="flex items-center justify-center gap-3">
             <Bell className="w-5 h-5 animate-pulse text-white" />

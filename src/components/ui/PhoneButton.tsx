@@ -33,7 +33,7 @@ const PhoneButton = ({
     outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md",
     ghost: "text-accent hover:text-accent/80 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
-    fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-xl rounded-full hover:bg-red-700"
+    fixed: "fixed bottom-6 right-6 z-50 bg-blue-600 text-white shadow-xl rounded-full hover:bg-blue-700"
   };
   
   const sizeStyles = {

@@ -52,9 +52,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         </script>
       </Helmet>
       
-      {/* Removed emergency banner from hero - will be added in Navbar.tsx */}
-      
-      <section className="pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden relative">
+      <section className="pb-16 md:pb-20 overflow-hidden relative">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
