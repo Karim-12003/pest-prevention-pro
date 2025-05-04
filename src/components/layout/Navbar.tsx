@@ -42,7 +42,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center gap-2">
             <Bell className="w-4 h-4 md:w-5 md:h-5 animate-pulse text-white" />
             <p className="text-sm font-bold md:text-lg">
-              NOTFALL? <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
+              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
             </p>
           </div>
         </div>
