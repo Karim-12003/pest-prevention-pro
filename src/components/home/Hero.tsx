@@ -52,19 +52,9 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         </script>
       </Helmet>
       
-      {/* Emergency banner - nicht mehr sticky/fixed, unterhalb der Nav */}
-      <div className="bg-red-600 text-white py-3 relative z-10 shadow-lg">
-        <div className="container mx-auto">
-          <div className="flex items-center justify-center gap-3">
-            <Bell className="w-5 h-5 animate-pulse text-white" />
-            <p className="text-base font-bold md:text-lg">
-              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Removed emergency banner from hero - will be added in Navbar.tsx */}
       
-      <section className="pt-16 pb-16 md:pt-20 md:pb-20 overflow-hidden relative">
+      <section className="pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden relative">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">

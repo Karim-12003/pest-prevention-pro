@@ -107,17 +107,19 @@ const Index = () => {
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           
-          {/* Featured image moved before About Us section */}
+          <AboutUs />
+
+          {/* Featured image moved after About Us section with proper formatting */}
           <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
-                <AspectRatio ratio={21/9}>
+                <AspectRatio ratio={16/9}>
                   <img 
                     src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
                     alt="Professioneller Kammerjäger im Einsatz" 
                     className="object-cover w-full h-full"
                     width="1200"
-                    height="600"
+                    height="675"
                   />
                 </AspectRatio>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
@@ -129,7 +131,6 @@ const Index = () => {
             </div>
           </div>
           
-          <AboutUs />
           <Services />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />
           <Certifications />

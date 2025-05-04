@@ -29,9 +29,9 @@ const PhoneButton = ({
   const baseStyles = "inline-flex items-center justify-center font-medium";
   
   const variantStyles = {
-    default: "bg-blue-600 text-white hover:bg-blue-700 rounded-md shadow-lg",
-    outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md hover:shadow-md",
-    ghost: "text-accent hover:bg-accent/10 rounded-md",
+    default: "bg-blue-600 text-white hover:bg-blue-700 rounded-md",
+    outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md",
+    ghost: "text-accent hover:text-accent/80 rounded-md",
     link: "text-accent underline-offset-4 hover:underline",
     fixed: "fixed bottom-6 right-6 z-50 bg-red-600 text-white shadow-xl rounded-full hover:bg-red-700"
   };
@@ -43,7 +43,7 @@ const PhoneButton = ({
   };
   
   const fixedStyles = variant === 'fixed' 
-    ? "w-16 h-16 flex items-center justify-center hover:bg-red-700 transition-colors" 
+    ? "w-16 h-16 flex items-center justify-center transition-colors" 
     : "";
 
   return (
@@ -53,6 +53,7 @@ const PhoneButton = ({
         baseStyles,
         variantStyles[variant],
         variant !== 'fixed' ? sizeStyles[size] : fixedStyles,
+        "transition-colors duration-200", // Simple transition effect
         className
       )}
       aria-label="Rufen Sie uns an"
