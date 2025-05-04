@@ -56,11 +56,11 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
-              <div className="flex justify-center md:justify-start mb-4">
-                <Logo size="large" className="z-20" />
+              <div className="flex justify-center md:justify-start mb-4 relative z-30">
+                <Logo size="large" />
               </div>
               
-              <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in">
+              <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in relative z-10">
                 <span className="break-words">Professionelle Schädlingsbekämpfung</span>
               </div>
               
