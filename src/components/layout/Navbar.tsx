@@ -36,13 +36,12 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Original emergency banner with small animation */}
+      {/* Simple red emergency banner without icons as shown in the image */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center gap-1.5">
-            <Bell size={16} className="animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
+          <div className="flex items-center justify-center">
             <p className="text-sm font-medium">
-              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-bold">{PHONE_NUMBER}</a>
+              24/7 Notfalldienst unter +491782581987
             </p>
           </div>
         </div>
