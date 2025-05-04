@@ -32,7 +32,7 @@ const CityPage = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
-        <main className="flex-grow pt-[140px] md:pt-[170px]">
+        <main className="flex-grow pt-[100px] md:pt-[120px]">
           <Hero cityName={DEFAULT_CITY} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
