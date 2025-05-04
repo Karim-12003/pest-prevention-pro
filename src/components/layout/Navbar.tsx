@@ -36,22 +36,22 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Emergency banner - fixed at top */}
-      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50 shadow-md">
+      {/* Original emergency banner with small animation */}
+      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center gap-2">
-            <Bell className="w-4 h-4 animate-pulse text-white" />
-            <p className="text-sm font-bold">
-              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-extrabold">{PHONE_NUMBER}</a>
+          <div className="flex items-center justify-center gap-1.5">
+            <Bell size={16} className="animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
+            <p className="text-sm font-medium">
+              NOTFALL? 24/7 NOTDIENST UNTER <a href={`tel:${PHONE_NUMBER}`} className="underline font-bold">{PHONE_NUMBER}</a>
             </p>
           </div>
         </div>
       </div>
       
-      {/* Navigation bar - positioned below emergency banner with fixed height */}
+      {/* Navigation bar - positioned below emergency banner */}
       <header
         className={cn(
-          'fixed top-[40px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
+          'fixed top-[36px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
