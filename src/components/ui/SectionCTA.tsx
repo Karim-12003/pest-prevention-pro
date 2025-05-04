@@ -19,7 +19,7 @@ const SectionCTA = ({
           <PhoneButton 
             phoneNumber={phoneNumber} 
             size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transform hover:scale-105 transition-transform"
+            className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transition-colors"
           />
         </div>
       </div>

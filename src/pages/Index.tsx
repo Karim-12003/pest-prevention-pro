@@ -15,6 +15,7 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
@@ -105,6 +106,29 @@ const Index = () => {
           
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
+          
+          {/* Featured image moved before About Us section */}
+          <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
+                <AspectRatio ratio={21/9}>
+                  <img 
+                    src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
+                    alt="Professioneller Kammerjäger im Einsatz" 
+                    className="object-cover w-full h-full"
+                    width="1200"
+                    height="600"
+                  />
+                </AspectRatio>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung in <span className="city-placeholder">{city}</span></h2>
+                  <p className="text-lg md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <AboutUs />
           <Services />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />
