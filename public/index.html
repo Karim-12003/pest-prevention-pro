@@ -75,30 +75,48 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- IP Location Script -->
+    <!-- Google Location Script -->
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        fetch("https://ipinfo.io/json?token=be92bb41ce0694")
-            .then(response => response.json())
-            .then(data => {
-                let city = data.city || "Ihrer Stadt";
+        fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA", {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            const lat = data.location.lat;
+            const lng = data.location.lng;
 
-                // Formatierung: erster Buchstabe groß, Rest klein
-                city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-
-                // Platzhalter oben ersetzen
-                document.querySelectorAll('.city-placeholder').forEach(el => {
-                    el.textContent = city;
+            return fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDrSesAAmJnHIlMlqc4Qdq0ajYWOQDi5sA`);
+        })
+        .then(response => response.json())
+        .then(geoData => {
+            let city = "Ihrer Stadt";
+            if (geoData.results && geoData.results.length > 0) {
+                geoData.results[0].address_components.forEach(component => {
+                    if (component.types.includes("locality")) {
+                        city = component.long_name;
+                    }
                 });
+            }
 
-                // Platzhalter unten ersetzen
-                document.querySelectorAll('.city-welcome').forEach(el => {
-                    el.textContent = city;
-                });
-            })
-            .catch(error => {
-                console.error('Fehler bei der Standortermittlung:', error);
+            city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+            document.querySelectorAll('.city-placeholder').forEach(el => {
+                el.textContent = city;
             });
+            document.querySelectorAll('.city-welcome').forEach(el => {
+                el.textContent = city;
+            });
+        })
+        .catch(error => {
+            console.error('Fehler bei der Standortermittlung:', error);
+            document.querySelectorAll('.city-placeholder').forEach(el => {
+                el.textContent = "Ihrer Stadt";
+            });
+            document.querySelectorAll('.city-welcome').forEach(el => {
+                el.textContent = "Ihrer Stadt";
+            });
+        });
     });
     </script>
   </body>
