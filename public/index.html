@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -78,16 +79,18 @@
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         const params = new URLSearchParams(window.location.search);
-        let city = params.get("city");
+        let kw = params.get("kw");
+        let city = "Ihrer Stadt";
 
-        function formatCityName(name) {
-            return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-        }
+        const cityList = ['Herne', 'Essen', 'Düsseldorf', 'Bocholt', 'Dortmund'];
 
-        if (city && city !== "{Location(City)}" && city !== "") {
-            city = formatCityName(city);
-        } else {
-            city = "Ihrer Stadt";
+        if (kw) {
+            for (let c of cityList) {
+                if (kw.toLowerCase().includes(c.toLowerCase())) {
+                    city = c;
+                    break;
+                }
+            }
         }
 
         document.querySelectorAll('.city-placeholder').forEach(el => {
