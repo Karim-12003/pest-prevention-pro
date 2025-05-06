@@ -82,7 +82,44 @@
         let kw = params.get("kw");
         let city = "Ihrer Stadt";
 
-        const cityList = ['Herne', 'Essen', 'Düsseldorf', 'Bocholt', 'Dortmund'];
+        const cityList = [
+            'Essen', 'Dortmund', 'Duisburg', 'Bochum', 'Herne', 'Gelsenkirchen', 'Oberhausen', 
+            'Bottrop', 'Mülheim-an-der-Ruhr', 'Hagen', 'Recklinghausen', 'Marl', 'Castrop-Rauxel', 
+            'Gladbeck', 'Dorsten', 'Herten', 'Oer-Erkenschwick', 'Haltern-am-See', 'Datteln', 
+            'Waltrop', 'Iserlohn', 'Lüdenscheid', 'Menden', 'Werdohl', 'Plettenberg', 'Altena', 
+            'Neuenrade', 'Meinerzhagen', 'Balve', 'Schalksmühle', 'Moers', 'Wesel', 'Dinslaken', 
+            'Kamp-Lintfort', 'Xanten', 'Rheinberg', 'Alpen', 'Voerde', 'Hamminkeln', 'Hünxe', 
+            'Köln', 'Leverkusen', 'Bergisch-Gladbach', 'Frechen', 'Hürth', 'Brühl', 'Pulheim', 
+            'Kerpen', 'Bergheim', 'Wesseling', 'Bonn', 'Sankt-Augustin', 'Siegburg', 'Troisdorf', 
+            'Niederkassel', 'Königswinter', 'Bad-Honnef', 'Bornheim', 'Alfter', 'Meckenheim', 
+            'Aachen', 'Eschweiler', 'Stolberg', 'Herzogenrath', 'Würselen', 'Alsdorf', 
+            'Baesweiler', 'Monschau', 'Simmerath', 'Roetgen', 'Krefeld', 'Mönchengladbach', 
+            'Viersen', 'Willich', 'Neuss', 'Grevenbroich', 'Dormagen', 'Meerbusch', 'Ratingen', 
+            'Mettmann', 'Münster', 'Greven', 'Emsdetten', 'Rheine', 'Steinfurt', 'Ibbenbüren', 
+            'Ochtrup', 'Lengerich', 'Altenberge', 'Hörstel', 'Coesfeld', 'Dülmen', 
+            'Lüdinghausen', 'Nottuln', 'Senden', 'Olfen', 'Ascheberg', 'Havixbeck', 
+            'Billerbeck', 'Rosendahl', 'Warendorf', 'Oelde', 'Beckum', 'Ahlen', 'Ennigerloh', 
+            'Telgte', 'Sassenberg', 'Ostbevern', 'Wadersloh', 'Sendenhorst', 'Borken', 
+            'Ahaus', 'Gescher', 'Stadtlohn', 'Vreden', 'Heek', 'Südlohn', 'Rhede', 
+            'Isselburg', 'Raesfeld', 'Bielefeld', 'Gütersloh', 'Herford', 'Bad-Salzuflen', 
+            'Detmold', 'Lage', 'Lemgo', 'Oerlinghausen', 'Schloß-Holte-Stukenbrock', 'Verl', 
+            'Paderborn', 'Delbrück', 'Salzkotten', 'Büren', 'Bad-Wünnenberg', 'Borchen', 
+            'Hövelhof', 'Bad-Lippspringe', 'Lichtenau', 'Altenbeken', 'Minden', 
+            'Porta-Westfalica', 'Bad-Oeynhausen', 'Lübbecke', 'Espelkamp', 'Petershagen', 
+            'Preußisch-Oldendorf', 'Hille', 'Hüllhorst', 'Stemwede', 'Höxter', 'Brakel', 
+            'Warburg', 'Beverungen', 'Nieheim', 'Steinheim', 'Borgentreich', 'Willebadessen', 
+            'Marienmünster', 'Bad-Driburg', 'Wuppertal', 'Remscheid', 'Solingen', 'Velbert', 
+            'Heiligenhaus', 'Haan', 'Hilden', 'Erkrath', 'Monheim-am-Rhein', 'Langenfeld', 
+            'Gummersbach', 'Wiehl', 'Bergneustadt', 'Waldbröl', 'Engelskirchen', 'Marienheide', 
+            'Radevormwald', 'Hückeswagen', 'Morsbach', 'Wipperfürth', 'Overath', 'Rösrath', 
+            'Kürten', 'Odenthal', 'Leichlingen', 'Burscheid', 'Wermelskirchen', 'Much', 
+            'Lindlar', 'Kaarst', 'Korschenbroich', 'Jüchen', 'Arnsberg', 'Meschede', 'Brilon', 
+            'Olsberg', 'Winterberg', 'Sundern', 'Schmallenberg', 'Bestwig', 'Eslohe', 
+            'Hallenberg', 'Siegen', 'Netphen', 'Kreuztal', 'Freudenberg', 'Hilchenbach', 
+            'Bad-Laasphe', 'Burbach', 'Erndtebrück', 'Wilnsdorf', 'Neunkirchen', 'Olpe', 
+            'Lennestadt', 'Attendorn', 'Drolshagen', 'Wenden', 'Finnentrop', 'Kirchhundem', 
+            'Heggen', 'Oberveischede', 'Bocholt', 'Düsseldorf'
+        ];
 
         if (kw) {
             for (let c of cityList) {
