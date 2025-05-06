@@ -7,6 +7,7 @@ import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import MoneyBackBadge from '../ui/MoneyBackBadge';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -73,22 +74,33 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
-                <PhoneButton 
-                  phoneNumber={PHONE_NUMBER} 
-                  size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
-                />
-                <WhatsAppButton 
-                  phoneNumber={PHONE_NUMBER} 
-                  size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-lg py-4 shadow-lg"
-                />
-                <a 
-                  href="#contact" 
-                  className="inline-flex items-center justify-center px-6 py-4 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-lg shadow-lg"
-                >
-                  Kostenlose Beratung
-                </a>
+                <div className="relative">
+                  <PhoneButton 
+                    phoneNumber={PHONE_NUMBER} 
+                    size="lg"
+                    className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
+                  />
+                  <MoneyBackBadge variant="floating" />
+                </div>
+                
+                <div className="relative">
+                  <WhatsAppButton 
+                    phoneNumber={PHONE_NUMBER} 
+                    size="lg"
+                    className="bg-green-600 hover:bg-green-700 text-lg py-4 shadow-lg"
+                  />
+                  <MoneyBackBadge variant="floating" />
+                </div>
+                
+                <div className="relative">
+                  <a 
+                    href="#contact" 
+                    className="inline-flex items-center justify-center px-6 py-4 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-lg shadow-lg"
+                  >
+                    Kostenlose Beratung
+                  </a>
+                  <MoneyBackBadge variant="floating" />
+                </div>
               </div>
               
               <div className="mt-6 bg-red-50 text-red-600 rounded-lg py-3 px-4 border border-red-200 shadow-sm flex items-center justify-center md:justify-start gap-2 animate-pulse-subtle animate-fade-in" style={{ animationDelay: '400ms' }}>
