@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Bell } from 'lucide-react';
+import { Menu, X, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Badge } from '@/components/ui/badge';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -36,13 +37,17 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Simple red emergency banner without icons as shown in the image */}
+      {/* Emergency banner with availability badge */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center flex-col">
             <p className="text-sm font-medium">
               24/7 Notfalldienst unter +491782581987
             </p>
+            <Badge className="bg-white text-green-600 hover:bg-white font-medium mt-1 flex items-center gap-1 px-2 py-0.5">
+              <Circle className="w-3 h-3 fill-green-500 text-green-500" />
+              Zur Zeit verfügbar
+            </Badge>
           </div>
         </div>
       </div>
