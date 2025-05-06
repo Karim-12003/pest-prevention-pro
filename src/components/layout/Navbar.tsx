@@ -61,8 +61,8 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-3 md:px-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
+            {/* Logo - adjusted with additional padding-top */}
+            <div className="flex items-center pt-1">
               <Logo size={isMobile ? "medium" : "medium"} className="scale-110" />
               <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2 md:ml-3">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center">
