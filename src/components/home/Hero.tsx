@@ -73,33 +73,36 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                 Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
-                <div className="relative">
-                  <PhoneButton 
-                    phoneNumber={PHONE_NUMBER} 
-                    size="lg"
-                    className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
-                  />
-                  <MoneyBackBadge variant="floating" />
+              <div className="flex flex-col gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <div>
+                    <PhoneButton 
+                      phoneNumber={PHONE_NUMBER} 
+                      size="lg"
+                      className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
+                    />
+                  </div>
+                  
+                  <div>
+                    <WhatsAppButton 
+                      phoneNumber={PHONE_NUMBER} 
+                      size="lg"
+                      className="bg-green-600 hover:bg-green-700 text-lg py-4 shadow-lg"
+                    />
+                  </div>
+                  
+                  <div>
+                    <a 
+                      href="#contact" 
+                      className="inline-flex items-center justify-center px-6 py-4 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-lg shadow-lg"
+                    >
+                      Kostenlose Beratung
+                    </a>
+                  </div>
                 </div>
                 
-                <div className="relative">
-                  <WhatsAppButton 
-                    phoneNumber={PHONE_NUMBER} 
-                    size="lg"
-                    className="bg-green-600 hover:bg-green-700 text-lg py-4 shadow-lg"
-                  />
-                  <MoneyBackBadge variant="floating" />
-                </div>
-                
-                <div className="relative">
-                  <a 
-                    href="#contact" 
-                    className="inline-flex items-center justify-center px-6 py-4 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-lg shadow-lg"
-                  >
-                    Kostenlose Beratung
-                  </a>
-                  <MoneyBackBadge variant="floating" />
+                <div className="flex justify-center md:justify-start">
+                  <MoneyBackBadge />
                 </div>
               </div>
               

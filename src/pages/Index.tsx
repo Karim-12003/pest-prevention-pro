@@ -44,7 +44,6 @@ const Index = () => {
             </div>
           </div>
           
-          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           
           {/* Featured image restored to before About Us section */}
@@ -67,6 +66,7 @@ const Index = () => {
           
           <AboutUs />
           
+          <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <Services />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schädlingsproblem? Wir helfen sofort!" />
           <Certifications />

@@ -17,15 +17,13 @@ const SectionCTA = ({
       <div className="container mx-auto text-center">
         <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg border border-accent/20 relative">
           <p className="text-xl md:text-2xl mb-6 text-accent font-bold">{text}</p>
-          <div className="flex flex-col sm:flex-row items-center gap-3 justify-center">
-            <div className="relative">
-              <PhoneButton 
-                phoneNumber={phoneNumber} 
-                size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transition-colors"
-              />
-              <MoneyBackBadge variant="floating" />
-            </div>
+          <div className="flex flex-col items-center gap-4">
+            <PhoneButton 
+              phoneNumber={phoneNumber} 
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transition-colors"
+            />
+            <MoneyBackBadge />
           </div>
         </div>
       </div>
