@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <>
       {/* Emergency banner with availability badge */}
-      <div className="bg-red-600 text-white py-3 fixed top-0 w-full z-50">
+      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto">
           <div className="flex items-center justify-center flex-col">
             <p className="text-sm font-medium">
@@ -52,10 +52,10 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Navigation bar - positioned below emergency banner with increased top margin */}
+      {/* Navigation bar - positioned below emergency banner with adjusted top margin */}
       <header
         className={cn(
-          'fixed top-[48px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
+          'fixed top-[40px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
@@ -88,10 +88,6 @@ const Navbar = () => {
               </ul>
               <PhoneButton phoneNumber={PHONE_NUMBER} size="default" />
               <WhatsAppButton phoneNumber={PHONE_NUMBER} size="default" />
-              <Badge className="bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 font-medium flex items-center gap-1 px-2 py-0.5">
-                <CalendarCheck className="w-3 h-3 text-blue-500" />
-                Termine heute noch frei
-              </Badge>
             </nav>
 
             {/* Mobile Menu Button */}
