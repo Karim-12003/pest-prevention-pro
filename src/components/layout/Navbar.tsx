@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Circle } from 'lucide-react';
+import { Menu, X, Circle, CalendarCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <>
       {/* Emergency banner with availability badge */}
-      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
+      <div className="bg-red-600 text-white py-3 fixed top-0 w-full z-50">
         <div className="container mx-auto">
           <div className="flex items-center justify-center flex-col">
             <p className="text-sm font-medium">
@@ -52,10 +52,10 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Navigation bar - positioned below emergency banner */}
+      {/* Navigation bar - positioned below emergency banner with increased top margin */}
       <header
         className={cn(
-          'fixed top-[36px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
+          'fixed top-[48px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
@@ -88,9 +88,9 @@ const Navbar = () => {
               </ul>
               <PhoneButton phoneNumber={PHONE_NUMBER} size="default" />
               <WhatsAppButton phoneNumber={PHONE_NUMBER} size="default" />
-              <Badge className="bg-white text-green-600 border border-green-200 hover:bg-white font-medium flex items-center gap-1 px-2 py-0.5">
-                <Circle className="w-3 h-3 fill-green-500 text-green-500" />
-                Zur Zeit verfügbar
+              <Badge className="bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 font-medium flex items-center gap-1 px-2 py-0.5">
+                <CalendarCheck className="w-3 h-3 text-blue-500" />
+                Termine heute noch frei
               </Badge>
             </nav>
 
@@ -130,6 +130,12 @@ const Navbar = () => {
                   </a>
                 </li>
               ))}
+              <li>
+                <Badge className="bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 font-medium flex items-center gap-1 px-2 py-1 mt-2 inline-flex">
+                  <CalendarCheck className="w-4 h-4 text-blue-500" />
+                  Termine heute noch frei
+                </Badge>
+              </li>
             </ul>
           </div>
         </div>
