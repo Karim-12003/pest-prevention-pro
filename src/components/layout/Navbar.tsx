@@ -37,11 +37,15 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Simple emergency banner matching the image */}
+      {/* Emergency banner with availability badge */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
             <span className="text-sm font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
+            <Badge variant="outline" className="bg-white/95 text-green-600 border-none ml-2 font-medium py-0.5 px-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 mr-1 inline-block"></span>
+              <span className="text-xs">Jetzt erreichbar</span>
+            </Badge>
           </div>
         </div>
       </div>
@@ -69,14 +73,6 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Availability badge - visible on all screen sizes - centered in navbar */}
-            <div className="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
-              <Badge variant="outline" className="bg-green-50 text-green-700 border border-green-200 font-medium flex items-center gap-1.5 py-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500 mr-1"></span>
-                <span>Jetzt verfügbar</span>
-              </Badge>
-            </div>
-
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-3">
               <ul className="flex gap-5">
@@ -99,11 +95,6 @@ const Navbar = () => {
 
             {/* Mobile Menu and Action Buttons */}
             <div className="md:hidden flex items-center gap-2">
-              {/* Mobile availability badge */}
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-none text-xs py-0.5 px-2 mr-1">
-                <span className="w-2 h-2 rounded-full bg-green-500 mr-1 inline-block"></span>
-                <span>Verfügbar</span>
-              </Badge>
               <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent p-1" />
               <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600 p-1" />
               <button
