@@ -55,14 +55,14 @@ const Navbar = () => {
       {/* Navigation bar - positioned below emergency banner with adjusted top margin */}
       <header
         className={cn(
-          'fixed top-[40px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
+          'fixed top-[60px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
         <div className="container mx-auto px-3 md:px-4">
           <div className="flex items-center justify-between">
-            {/* Logo - adjusted with additional padding-top */}
-            <div className="flex items-center pt-1">
+            {/* Logo - with vertical alignment adjustment */}
+            <div className="flex items-center pt-2">
               <Logo size={isMobile ? "medium" : "medium"} className="scale-110" />
               <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2 md:ml-3">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center">
