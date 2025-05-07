@@ -44,6 +44,11 @@ const Navbar = () => {
             <div className="flex items-center gap-2">
               <PhoneCall size={18} className="animate-pulse" />
               <span className="text-sm font-medium">24/7 Notfalldienst</span>
+              {/* Availability badge placed in the emergency banner */}
+              <Badge variant="outline" className="bg-white/95 text-green-600 border-none ml-2 font-medium py-0.5 px-2">
+                <Circle className="w-2 h-2 fill-green-500 text-green-500 mr-1" />
+                <span className="text-xs">Jetzt verfügbar</span>
+              </Badge>
             </div>
             <a href={`tel:${PHONE_NUMBER}`} className="font-bold text-sm hover:underline">{PHONE_NUMBER}</a>
           </div>
@@ -73,14 +78,6 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Availability badge - visible on all screen sizes */}
-            <div className="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
-              <Badge variant="outline" className="bg-green-50 text-green-700 border border-green-200 font-medium flex items-center gap-1.5 py-1.5">
-                <Circle className="w-2.5 h-2.5 fill-green-500 text-green-500" />
-                <span>Jetzt verfügbar</span>
-              </Badge>
-            </div>
-
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-3">
               <ul className="flex gap-5">
@@ -103,11 +100,6 @@ const Navbar = () => {
 
             {/* Mobile Menu and Action Buttons */}
             <div className="md:hidden flex items-center gap-2">
-              {/* Mobile availability badge */}
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-none text-xs py-0.5 px-2 mr-1">
-                <Circle className="w-2 h-2 fill-green-500 text-green-500 mr-1" />
-                <span>Verfügbar</span>
-              </Badge>
               <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent p-1" />
               <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600 p-1" />
               <button
