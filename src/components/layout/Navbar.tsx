@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Circle, CalendarCheck } from 'lucide-react';
+import { Menu, X, Circle, PhoneCall } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
@@ -39,64 +39,75 @@ const Navbar = () => {
     <>
       {/* Emergency banner with availability badge */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
-        <div className="container mx-auto">
-          <div className="flex items-center justify-center flex-col">
-            <p className="text-sm font-medium">
-              24/7 Notfalldienst unter +491782581987
-            </p>
-            <Badge className="bg-white text-green-600 hover:bg-white font-medium mt-1 flex items-center gap-1 px-2 py-0.5">
-              <Circle className="w-3 h-3 fill-green-500 text-green-500" />
-              Zur Zeit verfügbar
-            </Badge>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <PhoneCall size={18} className="animate-pulse" />
+              <span className="text-sm font-medium">24/7 Notfalldienst</span>
+            </div>
+            <a href={`tel:${PHONE_NUMBER}`} className="font-bold text-sm hover:underline">{PHONE_NUMBER}</a>
           </div>
         </div>
       </div>
       
-      {/* Navigation bar - positioned below emergency banner with adjusted top margin */}
+      {/* Navigation bar - redesigned for better proportions */}
       <header
         className={cn(
-          'fixed top-[60px] left-0 right-0 z-40 transition-all duration-300 py-3 border-b',
+          'fixed top-10 left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
-        <div className="container mx-auto px-3 md:px-4">
-          <div className="flex items-center justify-between">
-            {/* Logo - with vertical alignment adjustment */}
-            <div className="flex items-center pt-2">
-              <Logo size={isMobile ? "medium" : "medium"} className="scale-110" />
-              <div className="text-primary font-bold text-xl md:text-2xl transition-all ml-2 md:ml-3">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center">
-                  <span className="text-[#9b87f5] whitespace-nowrap leading-tight text-base sm:text-xl">Kammerjäger</span>
-                  <span className="font-light whitespace-nowrap ml-0 sm:ml-2 leading-tight text-base sm:text-xl">Adalbert</span>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo and company name with improved alignment */}
+            <div className="flex items-center h-full">
+              <Logo size={isMobile ? "small" : "medium"} className="mr-2" />
+              <div className="font-bold text-primary">
+                <div className={cn(
+                  "flex flex-col justify-center",
+                  isMobile ? "gap-0" : "gap-0.5"
+                )}>
+                  <span className="text-[#9b87f5] leading-none text-lg md:text-xl">Kammerjäger</span>
+                  <span className="font-light leading-none text-sm md:text-lg">Adalbert</span>
                 </div>
               </div>
             </div>
 
+            {/* Availability badge - desktop only */}
+            <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
+              <Badge variant="outline" className="bg-green-50 text-green-700 border border-green-200 font-medium flex items-center gap-1.5 py-1.5">
+                <Circle className="w-2.5 h-2.5 fill-green-500 text-green-500" />
+                <span>Jetzt verfügbar</span>
+              </Badge>
+            </div>
+
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-4">
-              <ul className="flex space-x-6">
+            <nav className="hidden md:flex items-center gap-3">
+              <ul className="flex gap-5">
                 {navLinks.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-primary/80 hover:text-[#9b87f5] transition-colors py-2 text-base font-medium"
+                      className="text-primary/80 hover:text-[#9b87f5] transition-colors py-2 text-sm font-medium"
                     >
                       {link.name}
                     </a>
                   </li>
                 ))}
               </ul>
-              <PhoneButton phoneNumber={PHONE_NUMBER} size="default" />
-              <WhatsAppButton phoneNumber={PHONE_NUMBER} size="default" />
+              <div className="flex items-center gap-2 ml-2">
+                <PhoneButton phoneNumber={PHONE_NUMBER} size="sm" />
+                <WhatsAppButton phoneNumber={PHONE_NUMBER} size="sm" />
+              </div>
             </nav>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-1">
-              <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent" />
-              <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600" />
+            {/* Mobile Menu and Action Buttons */}
+            <div className="md:hidden flex items-center gap-2">
+              <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent p-1" />
+              <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600 p-1" />
               <button
                 onClick={toggleMenu}
-                className="text-primary p-1 rounded-md hover:bg-secondary transition-colors"
+                className="text-primary p-1.5 rounded-md hover:bg-secondary transition-colors"
                 aria-expanded={isMenuOpen}
                 aria-label="Toggle menu"
               >
@@ -114,22 +125,22 @@ const Navbar = () => {
           )}
         >
           <div className="container mx-auto px-4 py-4">
-            <ul className="flex flex-col space-y-4">
+            <ul className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-2 font-medium"
+                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-2 font-medium text-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
-              <li>
-                <Badge className="bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 font-medium flex items-center gap-1 px-2 py-1 mt-2 inline-flex">
-                  <CalendarCheck className="w-4 h-4 text-blue-500" />
-                  Termine heute noch frei
+              <li className="pt-2">
+                <Badge className="bg-green-50 text-green-700 border border-green-200 font-normal inline-flex items-center gap-1.5 py-1">
+                  <Circle className="w-2.5 h-2.5 fill-green-500 text-green-500" />
+                  Jetzt verfügbar
                 </Badge>
               </li>
             </ul>
