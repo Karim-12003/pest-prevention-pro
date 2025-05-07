@@ -32,7 +32,7 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
-        <main className="flex-grow pt-28 md:pt-28">
+        <main className="flex-grow pt-32 md:pt-32">
           <Hero cityName={DEFAULT_CITY} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">

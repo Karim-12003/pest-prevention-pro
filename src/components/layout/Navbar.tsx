@@ -73,8 +73,8 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Availability badge - desktop only */}
-            <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
+            {/* Availability badge - visible on all screen sizes */}
+            <div className="flex items-center absolute left-1/2 transform -translate-x-1/2">
               <Badge variant="outline" className="bg-green-50 text-green-700 border border-green-200 font-medium flex items-center gap-1.5 py-1.5">
                 <Circle className="w-2.5 h-2.5 fill-green-500 text-green-500" />
                 <span>Jetzt verfügbar</span>
@@ -137,12 +137,7 @@ const Navbar = () => {
                   </a>
                 </li>
               ))}
-              <li className="pt-2">
-                <Badge className="bg-green-50 text-green-700 border border-green-200 font-normal inline-flex items-center gap-1.5 py-1">
-                  <Circle className="w-2.5 h-2.5 fill-green-500 text-green-500" />
-                  Jetzt verfügbar
-                </Badge>
-              </li>
+              {/* Removed duplicate badge from mobile menu */}
             </ul>
           </div>
         </div>
