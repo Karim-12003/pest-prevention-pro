@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -87,27 +86,18 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- City Detection Script -->
+    <!-- City Detection Script - Improved -->
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
+      // Diese Variable global machen, damit React darauf zugreifen kann
+      window.detectedCity = "Ihrer Stadt";
+      
+      document.addEventListener("DOMContentLoaded", function() {
         // Verbesserte Stadt-Erkennung
         function detectCity() {
+            console.log("Stadt-Erkennungsfunktion wird ausgeführt...");
             const params = new URLSearchParams(window.location.search);
             let kw = params.get("kw");
             let city = "Ihrer Stadt";
-
-            // URL-Pfad prüfen (für direkte Stadt-URLs)
-            const pathParts = window.location.pathname.split('/').filter(Boolean);
-            if (pathParts.length > 0) {
-                const potentialCity = pathParts[0];
-                // Prüfen, ob der Pfad eine Stadt ist
-                if (cityList.some(c => c.toLowerCase() === potentialCity.toLowerCase())) {
-                    city = potentialCity;
-                    console.log("Stadt aus URL-Pfad erkannt:", city);
-                    updateCityElements(city);
-                    return;
-                }
-            }
             
             const cityList = [
                 'Essen', 'Dortmund', 'Duisburg', 'Bochum', 'Herne', 'Gelsenkirchen', 'Oberhausen', 
@@ -147,52 +137,92 @@
                 'Lennestadt', 'Attendorn', 'Drolshagen', 'Wenden', 'Finnentrop', 'Kirchhundem', 
                 'Heggen', 'Oberveischede', 'Bocholt', 'Düsseldorf'
             ];
-
-            // Erkennung über kw Parameter
+            
+            // Überprüfen, ob ein kw-Parameter existiert (Werbekampagnen)
             if (kw) {
                 try {
                     kw = decodeURIComponent(kw);
                     console.log("Suchbegriff gefunden:", kw);
                     
-                    // Direkte Stadt-Prüfung
+                    // Stadt im kw-Parameter suchen
                     for (let c of cityList) {
                         if (kw.toLowerCase().includes(c.toLowerCase())) {
                             city = c;
-                            console.log("Stadt gefunden im Parameter:", city);
+                            console.log("*** Stadt gefunden im kw-Parameter:", city);
                             break;
                         }
                     }
                 } catch (e) {
-                    console.error("Fehler beim Dekodieren des kw Parameters:", e);
+                    console.error("Fehler beim Dekodieren des kw-Parameters:", e);
                 }
-            } else {
-                // Prüfen, ob der vollständige URL eine Stadt enthält
+            }
+            
+            // Wenn keine Stadt im kw gefunden, dann URL-Pfad prüfen
+            if (city === "Ihrer Stadt") {
+                const pathSegments = window.location.pathname.split('/').filter(Boolean);
+                if (pathSegments.length > 0) {
+                    const potentialCity = pathSegments[0];
+                    console.log("Prüfe Pfadsegment:", potentialCity);
+                    
+                    // Prüfen, ob der Pfad eine Stadt ist
+                    for (let c of cityList) {
+                        if (c.toLowerCase() === potentialCity.toLowerCase()) {
+                            city = c;
+                            console.log("*** Stadt im URL-Pfad gefunden:", city);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Falls immer noch keine Stadt gefunden, vollständige URL prüfen
+            if (city === "Ihrer Stadt") {
                 const fullUrl = window.location.href.toLowerCase();
+                console.log("Prüfe vollständige URL auf Stadt-Erwähnung");
+                
                 for (let c of cityList) {
                     if (fullUrl.includes(c.toLowerCase())) {
                         city = c;
-                        console.log("Stadt in URL gefunden:", city);
+                        console.log("*** Stadt in URL gefunden:", city);
                         break;
                     }
                 }
             }
             
+            console.log("Erkannte Stadt:", city);
+            // Speichern der erkannten Stadt als globale Variable
+            window.detectedCity = city;
+            
             updateCityElements(city);
+            return city;
         }
 
         function updateCityElements(city) {
+            // Alle city-placeholder Elemente aktualisieren
             document.querySelectorAll('.city-placeholder').forEach(el => {
                 el.textContent = city;
+                console.log("city-placeholder Element aktualisiert:", el);
             });
+            
+            // Alle city-welcome Elemente aktualisieren
             document.querySelectorAll('.city-welcome').forEach(el => {
                 el.textContent = city;
+                console.log("city-welcome Element aktualisiert:", el);
             });
-            console.log("Stadt-Elemente aktualisiert mit:", city);
+            
+            console.log("Alle Stadt-Elemente aktualisiert mit:", city);
         }
         
         // Stadt-Erkennung sofort ausführen
         detectCity();
-    });
+        
+        // Nach einer kurzen Verzögerung nochmal ausführen, um sicherzustellen,
+        // dass alle DOM-Elemente geladen sind
+        setTimeout(function() {
+            console.log("Stadt-Erkennung wird erneut ausgeführt nach Timeout...");
+            detectCity();
+        }, 1000);
+      });
     </script>
   </body>
 </html>

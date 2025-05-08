@@ -16,20 +16,28 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  // Effekt zum Überprüfen, ob die Elemente korrekt aktualisiert wurden
+  // Effekt zur Überprüfung der Stadt-Platzhalter
   useEffect(() => {
-    const checkCityElements = () => {
-      const cityElements = document.querySelectorAll('.city-placeholder');
-      if (cityElements.length > 0) {
-        console.log("Hero city-placeholder Elemente gefunden:", cityElements.length);
-      } else {
-        console.warn("Keine city-placeholder Elemente im Hero-Komponenten gefunden!");
-      }
-    };
+    // Nach kurzer Verzögerung ausführen, um DOM-Aktualisierungen zu ermöglichen
+    const timeoutId = setTimeout(() => {
+      const cityPlaceholders = document.querySelectorAll('.city-placeholder');
+      console.log(`Hero: ${cityPlaceholders.length} city-placeholder Elemente gefunden`);
+      
+      cityPlaceholders.forEach((el, index) => {
+        console.log(`Hero: city-placeholder Element ${index + 1} enthält:`, el.textContent);
+      });
+      
+      // Aktualisieren der Platzhalter mit dem aktuellen cityName
+      cityPlaceholders.forEach(el => {
+        if (el.textContent !== cityName) {
+          console.log(`Hero: Aktualisiere Platzhalter von "${el.textContent}" zu "${cityName}"`);
+          el.textContent = cityName;
+        }
+      });
+    }, 300);
     
-    // Nach kurzer Verzögerung prüfen, um sicherzustellen, dass DOM geladen ist
-    setTimeout(checkCityElements, 500);
-  }, []);
+    return () => clearTimeout(timeoutId);
+  }, [cityName]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -81,11 +89,11 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
               </div>
               
               <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder">{cityName}</span>
+                Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold text-accent">{cityName}</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
-                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+                Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-medium">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
               <div className="flex flex-col gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

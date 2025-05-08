@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -19,32 +19,33 @@ const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  // Effekt zum Überprüfen, ob die Stadterkennungsfunktion ausgeführt wurde
+  const [cityName, setCityName] = useState(DEFAULT_CITY);
+  
+  // Effekt zum Erkennen der Stadt und Aktualisieren des Zustands
   useEffect(() => {
-    // Prüfen, ob wir einen Stadtnamen aus der URL oder dem kw-Parameter erkennen können
-    const checkUrlForCity = () => {
-      const params = new URLSearchParams(window.location.search);
-      const kw = params.get("kw");
+    const checkCity = () => {
+      // Überprüfen, ob die globale detectedCity Variable existiert
+      const detectedCity = (window as any).detectedCity || DEFAULT_CITY;
+      console.log("Index: Erkannte Stadt aus globalem Objekt:", detectedCity);
       
-      if (kw) {
-        console.log("Index: kw Parameter gefunden:", kw);
-      }
-      
-      // Überprüfen, ob die Stadt-Platzhalter korrekt aktualisiert wurden
-      const cityElements = document.querySelectorAll('.city-placeholder');
-      console.log("Index: Anzahl der city-placeholder Elemente:", cityElements.length);
-      
-      if (cityElements.length > 0) {
-        console.log("Index: Inhalt des ersten city-placeholder Elements:", cityElements[0].textContent);
+      // Zustand aktualisieren, nur wenn eine andere Stadt erkannt wurde
+      if (detectedCity !== DEFAULT_CITY) {
+        setCityName(detectedCity);
+        console.log("Index: Stadt im Zustand aktualisiert auf:", detectedCity);
       }
     };
     
-    // Nach kurzer Verzögerung ausführen, um sicherzustellen, dass DOM vollständig geladen ist
-    setTimeout(checkUrlForCity, 1000);
+    // Direkt ausführen
+    checkCity();
+    
+    // Nach kurzer Verzögerung nochmal ausführen
+    const timeoutId = setTimeout(checkCity, 500);
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 
-  const pageTitle = "Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung";
-  const pageDescription = "Sofortige Hilfe bei Schädlingsbefall. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.";
+  const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${cityName}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
@@ -57,12 +58,12 @@ const Index = () => {
         <Navbar />
         
         <main className="flex-grow pt-28 md:pt-28">
-          <Hero cityName={DEFAULT_CITY} />
+          <Hero cityName={cityName} />
           <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-welcome">{DEFAULT_CITY}</span>
+                  Willkommen aus <span className="city-welcome">{cityName}</span>
                 </p>
               </div>
             </div>
@@ -81,7 +82,7 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung {cityName !== DEFAULT_CITY && `in ${cityName}`}</h2>
                   <p className="text-lg md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
                 </div>
               </div>
