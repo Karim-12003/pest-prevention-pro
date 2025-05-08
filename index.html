@@ -134,6 +134,7 @@
         ];
 
         if (kw) {
+            kw = decodeURIComponent(kw); // Neu: Dekodierung des URL-Parameters
             for (let c of cityList) {
                 if (kw.toLowerCase().includes(c.toLowerCase())) {
                     city = c;
