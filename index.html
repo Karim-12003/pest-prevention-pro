@@ -90,65 +90,108 @@
     <!-- City Detection Script -->
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const params = new URLSearchParams(window.location.search);
-        let kw = params.get("kw");
-        let city = "Ihrer Stadt";
+        // Verbesserte Stadt-Erkennung
+        function detectCity() {
+            const params = new URLSearchParams(window.location.search);
+            let kw = params.get("kw");
+            let city = "Ihrer Stadt";
 
-        const cityList = [
-            'Essen', 'Dortmund', 'Duisburg', 'Bochum', 'Herne', 'Gelsenkirchen', 'Oberhausen', 
-            'Bottrop', 'Mülheim-an-der-Ruhr', 'Hagen', 'Recklinghausen', 'Marl', 'Castrop-Rauxel', 
-            'Gladbeck', 'Dorsten', 'Herten', 'Oer-Erkenschwick', 'Haltern-am-See', 'Datteln', 
-            'Waltrop', 'Iserlohn', 'Lüdenscheid', 'Menden', 'Werdohl', 'Plettenberg', 'Altena', 
-            'Neuenrade', 'Meinerzhagen', 'Balve', 'Schalksmühle', 'Moers', 'Wesel', 'Dinslaken', 
-            'Kamp-Lintfort', 'Xanten', 'Rheinberg', 'Alpen', 'Voerde', 'Hamminkeln', 'Hünxe', 
-            'Köln', 'Leverkusen', 'Bergisch-Gladbach', 'Frechen', 'Hürth', 'Brühl', 'Pulheim', 
-            'Kerpen', 'Bergheim', 'Wesseling', 'Bonn', 'Sankt-Augustin', 'Siegburg', 'Troisdorf', 
-            'Niederkassel', 'Königswinter', 'Bad-Honnef', 'Bornheim', 'Alfter', 'Meckenheim', 
-            'Aachen', 'Eschweiler', 'Stolberg', 'Herzogenrath', 'Würselen', 'Alsdorf', 
-            'Baesweiler', 'Monschau', 'Simmerath', 'Roetgen', 'Krefeld', 'Mönchengladbach', 
-            'Viersen', 'Willich', 'Neuss', 'Grevenbroich', 'Dormagen', 'Meerbusch', 'Ratingen', 
-            'Mettmann', 'Münster', 'Greven', 'Emsdetten', 'Rheine', 'Steinfurt', 'Ibbenbüren', 
-            'Ochtrup', 'Lengerich', 'Altenberge', 'Hörstel', 'Coesfeld', 'Dülmen', 
-            'Lüdinghausen', 'Nottuln', 'Senden', 'Olfen', 'Ascheberg', 'Havixbeck', 
-            'Billerbeck', 'Rosendahl', 'Warendorf', 'Oelde', 'Beckum', 'Ahlen', 'Ennigerloh', 
-            'Telgte', 'Sassenberg', 'Ostbevern', 'Wadersloh', 'Sendenhorst', 'Borken', 
-            'Ahaus', 'Gescher', 'Stadtlohn', 'Vreden', 'Heek', 'Südlohn', 'Rhede', 
-            'Isselburg', 'Raesfeld', 'Bielefeld', 'Gütersloh', 'Herford', 'Bad-Salzuflen', 
-            'Detmold', 'Lage', 'Lemgo', 'Oerlinghausen', 'Schloß-Holte-Stukenbrock', 'Verl', 
-            'Paderborn', 'Delbrück', 'Salzkotten', 'Büren', 'Bad-Wünnenberg', 'Borchen', 
-            'Hövelhof', 'Bad-Lippspringe', 'Lichtenau', 'Altenbeken', 'Minden', 
-            'Porta-Westfalica', 'Bad-Oeynhausen', 'Lübbecke', 'Espelkamp', 'Petershagen', 
-            'Preußisch-Oldendorf', 'Hille', 'Hüllhorst', 'Stemwede', 'Höxter', 'Brakel', 
-            'Warburg', 'Beverungen', 'Nieheim', 'Steinheim', 'Borgentreich', 'Willebadessen', 
-            'Marienmünster', 'Bad-Driburg', 'Wuppertal', 'Remscheid', 'Solingen', 'Velbert', 
-            'Heiligenhaus', 'Haan', 'Hilden', 'Erkrath', 'Monheim-am-Rhein', 'Langenfeld', 
-            'Gummersbach', 'Wiehl', 'Bergneustadt', 'Waldbröl', 'Engelskirchen', 'Marienheide', 
-            'Radevormwald', 'Hückeswagen', 'Morsbach', 'Wipperfürth', 'Overath', 'Rösrath', 
-            'Kürten', 'Odenthal', 'Leichlingen', 'Burscheid', 'Wermelskirchen', 'Much', 
-            'Lindlar', 'Kaarst', 'Korschenbroich', 'Jüchen', 'Arnsberg', 'Meschede', 'Brilon', 
-            'Olsberg', 'Winterberg', 'Sundern', 'Schmallenberg', 'Bestwig', 'Eslohe', 
-            'Hallenberg', 'Siegen', 'Netphen', 'Kreuztal', 'Freudenberg', 'Hilchenbach', 
-            'Bad-Laasphe', 'Burbach', 'Erndtebrück', 'Wilnsdorf', 'Neunkirchen', 'Olpe', 
-            'Lennestadt', 'Attendorn', 'Drolshagen', 'Wenden', 'Finnentrop', 'Kirchhundem', 
-            'Heggen', 'Oberveischede', 'Bocholt', 'Düsseldorf'
-        ];
-
-        if (kw) {
-            kw = decodeURIComponent(kw); // Neu: Dekodierung des URL-Parameters
-            for (let c of cityList) {
-                if (kw.toLowerCase().includes(c.toLowerCase())) {
-                    city = c;
-                    break;
+            // URL-Pfad prüfen (für direkte Stadt-URLs)
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            if (pathParts.length > 0) {
+                const potentialCity = pathParts[0];
+                // Prüfen, ob der Pfad eine Stadt ist
+                if (cityList.some(c => c.toLowerCase() === potentialCity.toLowerCase())) {
+                    city = potentialCity;
+                    console.log("Stadt aus URL-Pfad erkannt:", city);
+                    updateCityElements(city);
+                    return;
                 }
             }
+            
+            const cityList = [
+                'Essen', 'Dortmund', 'Duisburg', 'Bochum', 'Herne', 'Gelsenkirchen', 'Oberhausen', 
+                'Bottrop', 'Mülheim-an-der-Ruhr', 'Hagen', 'Recklinghausen', 'Marl', 'Castrop-Rauxel', 
+                'Gladbeck', 'Dorsten', 'Herten', 'Oer-Erkenschwick', 'Haltern-am-See', 'Datteln', 
+                'Waltrop', 'Iserlohn', 'Lüdenscheid', 'Menden', 'Werdohl', 'Plettenberg', 'Altena', 
+                'Neuenrade', 'Meinerzhagen', 'Balve', 'Schalksmühle', 'Moers', 'Wesel', 'Dinslaken', 
+                'Kamp-Lintfort', 'Xanten', 'Rheinberg', 'Alpen', 'Voerde', 'Hamminkeln', 'Hünxe', 
+                'Köln', 'Leverkusen', 'Bergisch-Gladbach', 'Frechen', 'Hürth', 'Brühl', 'Pulheim', 
+                'Kerpen', 'Bergheim', 'Wesseling', 'Bonn', 'Sankt-Augustin', 'Siegburg', 'Troisdorf', 
+                'Niederkassel', 'Königswinter', 'Bad-Honnef', 'Bornheim', 'Alfter', 'Meckenheim', 
+                'Aachen', 'Eschweiler', 'Stolberg', 'Herzogenrath', 'Würselen', 'Alsdorf', 
+                'Baesweiler', 'Monschau', 'Simmerath', 'Roetgen', 'Krefeld', 'Mönchengladbach', 
+                'Viersen', 'Willich', 'Neuss', 'Grevenbroich', 'Dormagen', 'Meerbusch', 'Ratingen', 
+                'Mettmann', 'Münster', 'Greven', 'Emsdetten', 'Rheine', 'Steinfurt', 'Ibbenbüren', 
+                'Ochtrup', 'Lengerich', 'Altenberge', 'Hörstel', 'Coesfeld', 'Dülmen', 
+                'Lüdinghausen', 'Nottuln', 'Senden', 'Olfen', 'Ascheberg', 'Havixbeck', 
+                'Billerbeck', 'Rosendahl', 'Warendorf', 'Oelde', 'Beckum', 'Ahlen', 'Ennigerloh', 
+                'Telgte', 'Sassenberg', 'Ostbevern', 'Wadersloh', 'Sendenhorst', 'Borken', 
+                'Ahaus', 'Gescher', 'Stadtlohn', 'Vreden', 'Heek', 'Südlohn', 'Rhede', 
+                'Isselburg', 'Raesfeld', 'Bielefeld', 'Gütersloh', 'Herford', 'Bad-Salzuflen', 
+                'Detmold', 'Lage', 'Lemgo', 'Oerlinghausen', 'Schloß-Holte-Stukenbrock', 'Verl', 
+                'Paderborn', 'Delbrück', 'Salzkotten', 'Büren', 'Bad-Wünnenberg', 'Borchen', 
+                'Hövelhof', 'Bad-Lippspringe', 'Lichtenau', 'Altenbeken', 'Minden', 
+                'Porta-Westfalica', 'Bad-Oeynhausen', 'Lübbecke', 'Espelkamp', 'Petershagen', 
+                'Preußisch-Oldendorf', 'Hille', 'Hüllhorst', 'Stemwede', 'Höxter', 'Brakel', 
+                'Warburg', 'Beverungen', 'Nieheim', 'Steinheim', 'Borgentreich', 'Willebadessen', 
+                'Marienmünster', 'Bad-Driburg', 'Wuppertal', 'Remscheid', 'Solingen', 'Velbert', 
+                'Heiligenhaus', 'Haan', 'Hilden', 'Erkrath', 'Monheim-am-Rhein', 'Langenfeld', 
+                'Gummersbach', 'Wiehl', 'Bergneustadt', 'Waldbröl', 'Engelskirchen', 'Marienheide', 
+                'Radevormwald', 'Hückeswagen', 'Morsbach', 'Wipperfürth', 'Overath', 'Rösrath', 
+                'Kürten', 'Odenthal', 'Leichlingen', 'Burscheid', 'Wermelskirchen', 'Much', 
+                'Lindlar', 'Kaarst', 'Korschenbroich', 'Jüchen', 'Arnsberg', 'Meschede', 'Brilon', 
+                'Olsberg', 'Winterberg', 'Sundern', 'Schmallenberg', 'Bestwig', 'Eslohe', 
+                'Hallenberg', 'Siegen', 'Netphen', 'Kreuztal', 'Freudenberg', 'Hilchenbach', 
+                'Bad-Laasphe', 'Burbach', 'Erndtebrück', 'Wilnsdorf', 'Neunkirchen', 'Olpe', 
+                'Lennestadt', 'Attendorn', 'Drolshagen', 'Wenden', 'Finnentrop', 'Kirchhundem', 
+                'Heggen', 'Oberveischede', 'Bocholt', 'Düsseldorf'
+            ];
+
+            // Erkennung über kw Parameter
+            if (kw) {
+                try {
+                    kw = decodeURIComponent(kw);
+                    console.log("Suchbegriff gefunden:", kw);
+                    
+                    // Direkte Stadt-Prüfung
+                    for (let c of cityList) {
+                        if (kw.toLowerCase().includes(c.toLowerCase())) {
+                            city = c;
+                            console.log("Stadt gefunden im Parameter:", city);
+                            break;
+                        }
+                    }
+                } catch (e) {
+                    console.error("Fehler beim Dekodieren des kw Parameters:", e);
+                }
+            } else {
+                // Prüfen, ob der vollständige URL eine Stadt enthält
+                const fullUrl = window.location.href.toLowerCase();
+                for (let c of cityList) {
+                    if (fullUrl.includes(c.toLowerCase())) {
+                        city = c;
+                        console.log("Stadt in URL gefunden:", city);
+                        break;
+                    }
+                }
+            }
+            
+            updateCityElements(city);
         }
 
-        document.querySelectorAll('.city-placeholder').forEach(el => {
-            el.textContent = city;
-        });
-        document.querySelectorAll('.city-welcome').forEach(el => {
-            el.textContent = city;
-        });
+        function updateCityElements(city) {
+            document.querySelectorAll('.city-placeholder').forEach(el => {
+                el.textContent = city;
+            });
+            document.querySelectorAll('.city-welcome').forEach(el => {
+                el.textContent = city;
+            });
+            console.log("Stadt-Elemente aktualisiert mit:", city);
+        }
+        
+        // Stadt-Erkennung sofort ausführen
+        detectCity();
     });
     </script>
   </body>

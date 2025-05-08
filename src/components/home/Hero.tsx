@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Home, Zap, Calendar, Bell } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -16,6 +16,21 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
+  // Effekt zum Überprüfen, ob die Elemente korrekt aktualisiert wurden
+  useEffect(() => {
+    const checkCityElements = () => {
+      const cityElements = document.querySelectorAll('.city-placeholder');
+      if (cityElements.length > 0) {
+        console.log("Hero city-placeholder Elemente gefunden:", cityElements.length);
+      } else {
+        console.warn("Keine city-placeholder Elemente im Hero-Komponenten gefunden!");
+      }
+    };
+    
+    // Nach kurzer Verzögerung prüfen, um sicherzustellen, dass DOM geladen ist
+    setTimeout(checkCityElements, 500);
+  }, []);
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
