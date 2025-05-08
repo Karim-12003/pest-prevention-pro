@@ -86,13 +86,13 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- City Detection Script - Improved -->
+    <!-- City Detection Script - Advanced -->
     <script>
       // Diese Variable global machen, damit React darauf zugreifen kann
       window.detectedCity = "Ihrer Stadt";
       
       document.addEventListener("DOMContentLoaded", function() {
-        // Verbesserte Stadt-Erkennung
+        // Verbesserte Stadt-Erkennung mit detailliertem Logging
         function detectCity() {
             console.log("Stadt-Erkennungsfunktion wird ausgeführt...");
             const params = new URLSearchParams(window.location.search);
@@ -137,27 +137,42 @@
                 'Lennestadt', 'Attendorn', 'Drolshagen', 'Wenden', 'Finnentrop', 'Kirchhundem', 
                 'Heggen', 'Oberveischede', 'Bocholt', 'Düsseldorf'
             ];
-            
-            // Überprüfen, ob ein kw-Parameter existiert (Werbekampagnen)
+
+            // PRIMÄRE ERKENNUNGSMETHODE: KW-Parameter
             if (kw) {
                 try {
-                    kw = decodeURIComponent(kw);
-                    console.log("Suchbegriff gefunden:", kw);
+                    const decodedKw = decodeURIComponent(kw);
+                    console.log("Suchbegriff gefunden:", decodedKw);
                     
-                    // Stadt im kw-Parameter suchen
+                    // Verbesserte Erkennung: Wörter im kw-Parameter einzeln prüfen
+                    const kwWords = decodedKw.toLowerCase().split(/\s+/);
+                    console.log("Aufgeteilte Suchbegriffe:", kwWords);
+                    
                     for (let c of cityList) {
-                        if (kw.toLowerCase().includes(c.toLowerCase())) {
+                        const cityLower = c.toLowerCase();
+                        if (decodedKw.toLowerCase().includes(cityLower)) {
                             city = c;
-                            console.log("*** Stadt gefunden im kw-Parameter:", city);
+                            console.log("*** Stadt gefunden im kompletten kw-Parameter:", city);
                             break;
                         }
+                        
+                        // Einzelwort-Vergleich für präzisere Erkennung
+                        for (let word of kwWords) {
+                            if (word === cityLower || cityLower.includes(word)) {
+                                city = c;
+                                console.log("*** Stadt gefunden in einzelnem kw-Wort:", city, "aus:", word);
+                                break;
+                            }
+                        }
+                        
+                        if (city !== "Ihrer Stadt") break;
                     }
                 } catch (e) {
                     console.error("Fehler beim Dekodieren des kw-Parameters:", e);
                 }
             }
             
-            // Wenn keine Stadt im kw gefunden, dann URL-Pfad prüfen
+            // SEKUNDÄRE ERKENNUNGSMETHODE: URL-Pfad
             if (city === "Ihrer Stadt") {
                 const pathSegments = window.location.pathname.split('/').filter(Boolean);
                 if (pathSegments.length > 0) {
@@ -175,13 +190,14 @@
                 }
             }
             
-            // Falls immer noch keine Stadt gefunden, vollständige URL prüfen
+            // TERTIÄRE ERKENNUNGSMETHODE: Vollständige URL
             if (city === "Ihrer Stadt") {
                 const fullUrl = window.location.href.toLowerCase();
                 console.log("Prüfe vollständige URL auf Stadt-Erwähnung");
                 
                 for (let c of cityList) {
-                    if (fullUrl.includes(c.toLowerCase())) {
+                    const cityLower = c.toLowerCase();
+                    if (fullUrl.includes(cityLower)) {
                         city = c;
                         console.log("*** Stadt in URL gefunden:", city);
                         break;
@@ -189,7 +205,7 @@
                 }
             }
             
-            console.log("Erkannte Stadt:", city);
+            console.log("FINAL: Erkannte Stadt:", city);
             // Speichern der erkannten Stadt als globale Variable
             window.detectedCity = city;
             
@@ -198,30 +214,40 @@
         }
 
         function updateCityElements(city) {
+            console.log("Aktualisiere alle Stadt-Elemente mit:", city);
+            
             // Alle city-placeholder Elemente aktualisieren
-            document.querySelectorAll('.city-placeholder').forEach(el => {
+            const placeholders = document.querySelectorAll('.city-placeholder');
+            console.log(`${placeholders.length} city-placeholder Elemente gefunden`);
+            placeholders.forEach((el, i) => {
+                console.log(`city-placeholder ${i+1} vorher:`, el.textContent);
                 el.textContent = city;
-                console.log("city-placeholder Element aktualisiert:", el);
+                console.log(`city-placeholder ${i+1} nachher:`, el.textContent);
             });
             
             // Alle city-welcome Elemente aktualisieren
-            document.querySelectorAll('.city-welcome').forEach(el => {
+            const welcomeElements = document.querySelectorAll('.city-welcome');
+            console.log(`${welcomeElements.length} city-welcome Elemente gefunden`);
+            welcomeElements.forEach((el, i) => {
+                console.log(`city-welcome ${i+1} vorher:`, el.textContent);
                 el.textContent = city;
-                console.log("city-welcome Element aktualisiert:", el);
+                console.log(`city-welcome ${i+1} nachher:`, el.textContent);
             });
-            
-            console.log("Alle Stadt-Elemente aktualisiert mit:", city);
         }
         
         // Stadt-Erkennung sofort ausführen
         detectCity();
         
-        // Nach einer kurzen Verzögerung nochmal ausführen, um sicherzustellen,
-        // dass alle DOM-Elemente geladen sind
-        setTimeout(function() {
-            console.log("Stadt-Erkennung wird erneut ausgeführt nach Timeout...");
-            detectCity();
-        }, 1000);
+        // Nach einer kurzen Verzögerung nochmal ausführen (für dynamisch geladene Elemente)
+        setTimeout(detectCity, 500);
+        
+        // Nochmal nach längerer Verzögerung ausführen (für React-gerenderte Elemente)
+        setTimeout(detectCity, 1500);
+        
+        // Event-Listener für React Router Navigationsänderungen
+        window.addEventListener('popstate', function() {
+            setTimeout(detectCity, 300);
+        });
       });
     </script>
   </body>

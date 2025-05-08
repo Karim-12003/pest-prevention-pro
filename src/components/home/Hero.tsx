@@ -16,27 +16,39 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  // Effekt zur Überprüfung der Stadt-Platzhalter
+  // Effekt zur Überprüfung der Stadt-Platzhalter mit mehr Logging
   useEffect(() => {
-    // Nach kurzer Verzögerung ausführen, um DOM-Aktualisierungen zu ermöglichen
-    const timeoutId = setTimeout(() => {
+    console.log("Hero wird gerendert mit cityName:", cityName);
+    
+    const updateCityPlaceholders = () => {
       const cityPlaceholders = document.querySelectorAll('.city-placeholder');
-      console.log(`Hero: ${cityPlaceholders.length} city-placeholder Elemente gefunden`);
+      console.log(`Hero useEffect: ${cityPlaceholders.length} city-placeholder Elemente gefunden`);
       
       cityPlaceholders.forEach((el, index) => {
-        console.log(`Hero: city-placeholder Element ${index + 1} enthält:`, el.textContent);
-      });
-      
-      // Aktualisieren der Platzhalter mit dem aktuellen cityName
-      cityPlaceholders.forEach(el => {
-        if (el.textContent !== cityName) {
-          console.log(`Hero: Aktualisiere Platzhalter von "${el.textContent}" zu "${cityName}"`);
+        const oldText = el.textContent;
+        console.log(`Hero useEffect: city-placeholder Element ${index + 1} enthält:`, oldText);
+        
+        // Aktualisieren der Platzhalter mit dem aktuellen cityName
+        if (oldText !== cityName) {
           el.textContent = cityName;
+          console.log(`Hero useEffect: Platzhalter ${index + 1} von "${oldText}" zu "${cityName}" aktualisiert`);
         }
       });
-    }, 300);
+    };
     
-    return () => clearTimeout(timeoutId);
+    // Direkt ausführen
+    updateCityPlaceholders();
+    
+    // Nach kurzer Verzögerung nochmal ausführen
+    const timeoutId = setTimeout(updateCityPlaceholders, 300);
+    
+    // Nach längerer Verzögerung nochmal ausführen für dynamisch nachgeladene Elemente
+    const longTimeoutId = setTimeout(updateCityPlaceholders, 1000);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(longTimeoutId);
+    };
   }, [cityName]);
 
   const structuredData = {

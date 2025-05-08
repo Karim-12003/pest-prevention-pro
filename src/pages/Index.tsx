@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
+import { toast } from "sonner";
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
@@ -21,17 +22,17 @@ const DEFAULT_CITY = "Ihrer Stadt";
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   
-  // Effekt zum Erkennen der Stadt und Aktualisieren des Zustands
+  // Verbesserte Stadt-Erkennung mit mehr Debugging
   useEffect(() => {
     const checkCity = () => {
       // Überprüfen, ob die globale detectedCity Variable existiert
       const detectedCity = (window as any).detectedCity || DEFAULT_CITY;
-      console.log("Index: Erkannte Stadt aus globalem Objekt:", detectedCity);
+      console.log("Index Component: Erkannte Stadt aus globalem Objekt:", detectedCity);
       
-      // Zustand aktualisieren, nur wenn eine andere Stadt erkannt wurde
-      if (detectedCity !== DEFAULT_CITY) {
+      // Zustand aktualisieren
+      if (detectedCity !== cityName) {
+        console.log("Index Component: Stadt im Zustand aktualisiert von", cityName, "zu", detectedCity);
         setCityName(detectedCity);
-        console.log("Index: Stadt im Zustand aktualisiert auf:", detectedCity);
       }
     };
     
@@ -39,10 +40,29 @@ const Index = () => {
     checkCity();
     
     // Nach kurzer Verzögerung nochmal ausführen
-    const timeoutId = setTimeout(checkCity, 500);
+    const shortTimeout = setTimeout(checkCity, 300);
     
-    return () => clearTimeout(timeoutId);
-  }, []);
+    // Nach längerer Verzögerung nochmal ausführen, falls die Stadt-Erkennung verzögert ist
+    const mediumTimeout = setTimeout(checkCity, 800);
+    
+    // Nach noch längerer Verzögerung für ggf. nachgeladene Skripts
+    const longTimeout = setTimeout(checkCity, 1500);
+    
+    // Event-Listener für URL-Änderungen hinzufügen
+    const handleUrlChange = () => {
+      console.log("URL hat sich geändert, führe Stadt-Erkennung erneut durch");
+      setTimeout(checkCity, 300);
+    };
+    
+    window.addEventListener('popstate', handleUrlChange);
+    
+    return () => {
+      clearTimeout(shortTimeout);
+      clearTimeout(mediumTimeout);
+      clearTimeout(longTimeout);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
+  }, [cityName]);
 
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -63,7 +83,7 @@ const Index = () => {
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
                 <p className="text-sm font-medium md:text-base">
-                  Willkommen aus <span className="city-welcome">{cityName}</span>
+                  Willkommen aus <span className="city-welcome font-bold">{cityName}</span>
                 </p>
               </div>
             </div>
