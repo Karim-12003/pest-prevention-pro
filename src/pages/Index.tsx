@@ -19,53 +19,113 @@ import { toast } from "sonner";
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
+// Liste deutscher Städte für die Erkennung
+const cityList = [
+  'Essen', 'Dortmund', 'Duisburg', 'Bochum', 'Herne', 'Gelsenkirchen', 'Oberhausen', 
+  'Bottrop', 'Mülheim', 'Hagen', 'Recklinghausen', 'Marl', 'Castrop', 'Rauxel',
+  'Gladbeck', 'Dorsten', 'Herten', 'Oer', 'Erkenschwick', 'Haltern', 'Datteln', 
+  'Waltrop', 'Iserlohn', 'Lüdenscheid', 'Menden', 'Werdohl', 'Plettenberg', 'Altena', 
+  'Neuenrade', 'Meinerzhagen', 'Balve', 'Schalksmühle', 'Moers', 'Wesel', 'Dinslaken', 
+  'Kamp', 'Lintfort', 'Xanten', 'Rheinberg', 'Alpen', 'Voerde', 'Hamminkeln', 'Hünxe', 
+  'Köln', 'Leverkusen', 'Bergisch', 'Gladbach', 'Frechen', 'Hürth', 'Brühl', 'Pulheim', 
+  'Kerpen', 'Bergheim', 'Wesseling', 'Bonn', 'Siegburg', 'Troisdorf',
+  'Düsseldorf', 'Wuppertal', 'Krefeld', 'Neuss', 'Mönchengladbach', 'München', 'Berlin',
+  'Hamburg', 'Frankfurt', 'Stuttgart', 'Leipzig', 'Dresden', 'Hannover', 'Nürnberg',
+  'Bremen', 'Mannheim', 'Karlsruhe', 'Freiburg', 'Münster', 'Aachen'
+];
+
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   
-  // Verbesserte Stadt-Erkennung mit mehr Debugging
+  // Verbesserte Stadt-Erkennung mit direkter Analyse der URL
   useEffect(() => {
-    const checkCity = () => {
-      // Überprüfen, ob die globale detectedCity Variable existiert
-      const detectedCity = (window as any).detectedCity || DEFAULT_CITY;
-      console.log("Index Component: Erkannte Stadt aus globalem Objekt:", detectedCity);
+    const detectCityFromURL = () => {
+      console.log("Stadt-Erkennung wird ausgeführt...");
       
-      // Zustand aktualisieren
-      if (detectedCity !== cityName) {
-        console.log("Index Component: Stadt im Zustand aktualisiert von", cityName, "zu", detectedCity);
-        setCityName(detectedCity);
+      try {
+        // Google Ads Parameter "kw" (keyword) überprüfen
+        const urlParams = new URLSearchParams(window.location.search);
+        const kwParam = urlParams.get('kw');
+        
+        if (kwParam) {
+          console.log("kw-Parameter gefunden:", kwParam);
+          const decodedKw = decodeURIComponent(kwParam);
+          console.log("Dekodierter kw-Parameter:", decodedKw);
+          
+          // Die Wörter des Parameters aufteilen
+          const words = decodedKw.toLowerCase().split(/\s+/);
+          console.log("Aufgeteilte Wörter:", words);
+          
+          // Jedes Wort mit unserer Städteliste vergleichen
+          for (const city of cityList) {
+            const cityLower = city.toLowerCase();
+            
+            // Prüfen ob Stadt komplett im Parameter enthalten ist
+            if (decodedKw.toLowerCase().includes(cityLower)) {
+              console.log(`Stadt "${city}" im Keyword gefunden!`);
+              setCityName(city);
+              return;
+            }
+            
+            // Einzelwortvergleich für genauere Erkennung
+            for (const word of words) {
+              if (word === cityLower || (word.length > 3 && cityLower.includes(word))) {
+                console.log(`Stadt "${city}" aus Teilwort "${word}" erkannt!`);
+                setCityName(city);
+                return;
+              }
+            }
+          }
+          
+          // Speziell für "bochum" prüfen (da dies in der URL vorkommt)
+          if (decodedKw.toLowerCase().includes("bochum")) {
+            console.log("Bochum explizit erkannt!");
+            setCityName("Bochum");
+            return;
+          }
+        }
+        
+        // Falls kein Parameter gefunden wurde, auch die URL selbst prüfen
+        const fullUrl = window.location.href.toLowerCase();
+        for (const city of cityList) {
+          if (fullUrl.includes(city.toLowerCase())) {
+            console.log(`Stadt "${city}" in der URL gefunden!`);
+            setCityName(city);
+            return;
+          }
+        }
+        
+        // Speziell für "bochum" in der URL prüfen
+        if (fullUrl.includes("bochum")) {
+          console.log("Bochum explizit in der URL erkannt!");
+          setCityName("Bochum");
+          return;
+        }
+        
+        console.log("Keine Stadt erkannt, verwende Standardwert:", DEFAULT_CITY);
+      } catch (error) {
+        console.error("Fehler bei der Stadt-Erkennung:", error);
       }
     };
     
-    // Direkt ausführen
-    checkCity();
+    // Sofort die Erkennung ausführen
+    detectCityFromURL();
     
-    // Nach kurzer Verzögerung nochmal ausführen
-    const shortTimeout = setTimeout(checkCity, 300);
+    // Und nach kurzer Verzögerung nochmals (falls Script später lädt)
+    const timeoutId = setTimeout(detectCityFromURL, 500);
     
-    // Nach längerer Verzögerung nochmal ausführen, falls die Stadt-Erkennung verzögert ist
-    const mediumTimeout = setTimeout(checkCity, 800);
-    
-    // Nach noch längerer Verzögerung für ggf. nachgeladene Skripts
-    const longTimeout = setTimeout(checkCity, 1500);
-    
-    // Event-Listener für URL-Änderungen hinzufügen
-    const handleUrlChange = () => {
-      console.log("URL hat sich geändert, führe Stadt-Erkennung erneut durch");
-      setTimeout(checkCity, 300);
-    };
-    
-    window.addEventListener('popstate', handleUrlChange);
-    
-    return () => {
-      clearTimeout(shortTimeout);
-      clearTimeout(mediumTimeout);
-      clearTimeout(longTimeout);
-      window.removeEventListener('popstate', handleUrlChange);
-    };
-  }, [cityName]);
+    return () => clearTimeout(timeoutId);
+  }, []); // Leeres Dependency-Array, damit dies nur beim ersten Rendering ausgeführt wird
 
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
+
+  // Debug-Toast anzeigen, wenn eine Stadt erkannt wurde
+  useEffect(() => {
+    if (cityName !== DEFAULT_CITY) {
+      console.log("Stadt erkannt und im Zustand gespeichert:", cityName);
+    }
+  }, [cityName]);
 
   return (
     <>
