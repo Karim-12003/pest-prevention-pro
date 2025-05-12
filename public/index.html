@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -61,6 +62,37 @@
         
         return false;
       }
+    </script>
+    
+    <!-- Fingerprint.js Implementation -->
+    <script>
+      // Initialize the agent on page load.
+      const fpPromise = import('https://fpjscdn.net/v3/GNUytgDk4P9S8cNxwXwz')
+        .then(FingerprintJS => FingerprintJS.load({
+          region: "eu"
+        }))
+
+      // Get the visitorId when you need it.
+      fpPromise
+        .then(fp => fp.get())
+        .then(result => {
+          const visitorId = result.visitorId;
+          console.log("Fingerprint Visitor ID:", visitorId);
+          
+          // Make the visitorId available globally for other scripts
+          window.fpVisitorId = visitorId;
+          
+          // Optional: You can send this ID to your analytics or CRM system
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              'event': 'fp_visitor_identified',
+              'fp_visitor_id': visitorId
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error getting Fingerprint visitor ID:", error);
+        });
     </script>
   </head>
 
