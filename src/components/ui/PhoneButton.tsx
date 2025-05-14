@@ -18,11 +18,21 @@ const PhoneButton = ({
 }: PhoneButtonProps) => {
   const formattedNumber = phoneNumber.replace(/\s/g, '');
   
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    // Call Google Ads conversion tracking function
     // @ts-ignore
     if (typeof gtag_report_conversion === 'function') {
       // @ts-ignore
       gtag_report_conversion();
+      
+      // Add a small delay to ensure tracking fires before navigation
+      if (variant !== 'fixed') {
+        e.preventDefault();
+        setTimeout(() => {
+          window.location.href = `tel:${formattedNumber}`;
+        }, 300);
+        return false;
+      }
     }
   };
   
