@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -18,6 +17,10 @@ const PhoneButton = ({
   size = 'default',
   linkText = "Jetzt anrufen",
 }: PhoneButtonProps) => {
+  // Format the displayed number with spaces as +49 178 2581987
+  const displayNumber = phoneNumber.replace(/(\+\d{2})(\d{3})(\d{7})/, '$1 $2 $3');
+  
+  // Keep the href format without spaces
   const formattedNumber = phoneNumber.replace(/\s/g, '');
   
   const handleClick = (e: React.MouseEvent) => {
@@ -69,9 +72,10 @@ const PhoneButton = ({
           variantStyles[variant],
           fixedStyles,
           "transition-colors duration-200",
+          "call-link",
           className
         )}
-        aria-label={linkText}
+        aria-label={displayNumber}
         onClick={handleClick}
       >
         <div className="relative">
@@ -90,18 +94,19 @@ const PhoneButton = ({
         variantStyles[variant],
         sizeStyles[size],
         "transition-colors duration-200",
+        "call-link",
         className
       )}
-      aria-label={linkText}
+      aria-label={displayNumber}
       onClick={handleClick}
     >
       <PhoneIncoming 
         size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
         className="flex-shrink-0"
       />
-      {/* Show the phone number instead of linkText */}
+      {/* Display the formatted phone number */}
       {variant !== 'ghost' || size !== 'sm' ? (
-        <span className="whitespace-nowrap font-bold">{phoneNumber}</span>
+        <span className="whitespace-nowrap font-bold">{displayNumber}</span>
       ) : null}
     </a>
   );
