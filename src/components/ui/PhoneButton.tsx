@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -8,6 +7,7 @@ interface PhoneButtonProps {
   className?: string;
   variant?: 'default' | 'outline' | 'ghost' | 'link' | 'fixed';
   size?: 'sm' | 'default' | 'lg';
+  linkText?: string;
 }
 
 const PhoneButton = ({
@@ -15,6 +15,7 @@ const PhoneButton = ({
   className,
   variant = 'default',
   size = 'default',
+  linkText = "Jetzt anrufen",
 }: PhoneButtonProps) => {
   const formattedNumber = phoneNumber.replace(/\s/g, '');
   
@@ -56,34 +57,51 @@ const PhoneButton = ({
     ? "w-16 h-16 flex items-center justify-center transition-colors" 
     : "";
 
+  // If we're using the fixed variant button, we'll show only the icon
+  // Otherwise, show the standard button with text and icon
+  if (variant === 'fixed') {
+    return (
+      <a
+        href={`tel:${formattedNumber}`}
+        className={cn(
+          baseStyles,
+          variantStyles[variant],
+          fixedStyles,
+          "transition-colors duration-200",
+          className
+        )}
+        aria-label={linkText}
+        onClick={handleClick}
+      >
+        <div className="relative">
+          <PhoneIncoming size={28} className="text-white" />
+        </div>
+      </a>
+    );
+  }
+
+  // Standard button with text
   return (
     <a
       href={`tel:${formattedNumber}`}
       className={cn(
         baseStyles,
         variantStyles[variant],
-        variant !== 'fixed' ? sizeStyles[size] : fixedStyles,
-        "transition-colors duration-200", // Simple transition effect
+        sizeStyles[size],
+        "transition-colors duration-200",
         className
       )}
-      aria-label="Rufen Sie uns an"
+      aria-label={linkText}
       onClick={handleClick}
     >
-      {variant === 'fixed' ? (
-        <div className="relative">
-          <PhoneIncoming size={28} className="text-white" />
-        </div>
-      ) : (
-        <>
-          <PhoneIncoming 
-            size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
-            className="flex-shrink-0"
-          />
-          {variant !== 'ghost' || size !== 'sm' ? (
-            <span className="whitespace-nowrap font-bold">{phoneNumber}</span>
-          ) : null}
-        </>
-      )}
+      <PhoneIncoming 
+        size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
+        className="flex-shrink-0"
+      />
+      {/* Always show the linkText instead of the phone number */}
+      {variant !== 'ghost' || size !== 'sm' ? (
+        <span className="whitespace-nowrap font-bold">{linkText}</span>
+      ) : null}
     </a>
   );
 };
