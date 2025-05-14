@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -98,9 +99,9 @@ const PhoneButton = ({
         size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
         className="flex-shrink-0"
       />
-      {/* Always show the linkText instead of the phone number */}
+      {/* Show the phone number instead of linkText */}
       {variant !== 'ghost' || size !== 'sm' ? (
-        <span className="whitespace-nowrap font-bold">{linkText}</span>
+        <span className="whitespace-nowrap font-bold">{phoneNumber}</span>
       ) : null}
     </a>
   );
