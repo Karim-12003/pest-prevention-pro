@@ -37,35 +37,35 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Emergency banner with availability badge */}
-      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-center gap-2 text-center">
-            <span className="text-sm font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
-            <Badge variant="outline" className="bg-white/95 text-green-600 border-none ml-2 font-medium py-0.5 px-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 mr-1 inline-block"></span>
-              <span className="text-xs">Jetzt erreichbar</span>
+      {/* Emergency banner with availability badge - optimized for mobile */}
+      <div className="bg-red-600 text-white py-1 fixed top-0 w-full z-50">
+        <div className="container mx-auto px-1">
+          <div className="flex flex-wrap items-center justify-center gap-1 text-center text-xs sm:text-sm sm:gap-2 sm:py-1">
+            <span className="font-medium">24/7 Notdienst: {PHONE_NUMBER}</span>
+            <Badge variant="outline" className="bg-white/95 text-green-600 border-none font-medium py-0 px-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1 inline-block"></span>
+              <span className="text-xs">Erreichbar</span>
             </Badge>
-            <Badge variant="outline" className="bg-white/95 text-[#9b87f5] border-none font-medium py-0.5 px-2">
+            <Badge variant="outline" className="bg-white/95 text-[#9b87f5] border-none font-medium py-0 px-1.5">
               <Calendar className="h-3 w-3 mr-1" />
-              <span className="text-xs">Wochenende & Feiertage ohne Aufpreis</span>
+              <span className="text-xs">Keine Aufpreise an Feiertagen</span>
             </Badge>
           </div>
         </div>
       </div>
       
-      {/* Navigation bar */}
+      {/* Navigation bar - optimized for mobile */}
       <header
         className={cn(
-          'fixed top-10 left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
+          'fixed top-6 left-0 right-0 z-40 transition-all duration-300 py-1 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+        <div className="container mx-auto px-2">
+          <div className="flex items-center justify-between h-14">
             {/* Logo and company name */}
             <div className="flex items-center h-full">
-              <Logo size={isMobile ? "small" : "medium"} className="mr-2" />
+              <Logo size={isMobile ? "small" : "medium"} className="mr-1" />
               <div className="font-bold text-primary">
                 <div className={cn(
                   "flex flex-col justify-center",
@@ -120,13 +120,13 @@ const Navbar = () => {
             isMenuOpen ? 'top-full opacity-100 visible' : '-top-[400px] opacity-0 invisible'
           )}
         >
-          <div className="container mx-auto px-4 py-4">
-            <ul className="flex flex-col space-y-3">
+          <div className="container mx-auto px-4 py-2">
+            <ul className="flex flex-col space-y-2">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-2 font-medium text-sm"
+                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-1.5 font-medium text-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}

@@ -137,12 +137,12 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
         <Navbar />
         
-        <main className="flex-grow pt-28 md:pt-28">
+        <main className="flex-grow pt-20 md:pt-28">
           <Hero cityName={cityName} />
-          <div className="bg-accent text-white py-2">
+          <div className="bg-accent text-white py-1.5">
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
-                <p className="text-sm font-medium md:text-base">
+                <p className="text-xs sm:text-sm font-medium">
                   Willkommen aus <span className="city-welcome font-bold">{cityName}</span>
                 </p>
               </div>
@@ -152,7 +152,7 @@ const Index = () => {
           <MovingLogoBanner />
           
           {/* Featured image restored to before About Us section */}
-          <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
+          <div className="w-full bg-gradient-to-b from-accent/5 to-white py-6">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
                 <img 
@@ -161,9 +161,9 @@ const Index = () => {
                   className="w-full h-auto"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Schädlingsbekämpfung {cityName !== DEFAULT_CITY && `in ${cityName}`}</h2>
-                  <p className="text-lg md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
+                  <h2 className="text-xl md:text-3xl font-bold mb-1 md:mb-2">Schädlingsbekämpfung {cityName !== DEFAULT_CITY && `in ${cityName}`}</h2>
+                  <p className="text-base md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
                 </div>
               </div>
             </div>

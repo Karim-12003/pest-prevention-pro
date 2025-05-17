@@ -3,6 +3,7 @@ import React from 'react';
 import PhoneButton from './PhoneButton';
 import MoneyBackBadge from './MoneyBackBadge';
 import { Calendar } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface SectionCTAProps {
   text?: string;
@@ -13,19 +14,21 @@ const SectionCTA = ({
   text = "Jetzt kostenlos beraten lassen!", 
   phoneNumber 
 }: SectionCTAProps) => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="py-8 bg-gradient-to-r from-accent/5 to-accent/10">
-      <div className="container mx-auto text-center">
-        <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg border border-accent/20 relative">
-          <p className="text-xl md:text-2xl mb-6 text-accent font-bold">{text}</p>
-          <div className="flex flex-col items-center gap-4">
+    <div className="py-6 bg-gradient-to-r from-accent/5 to-accent/10">
+      <div className="container mx-auto text-center px-3">
+        <div className="max-w-3xl mx-auto bg-white p-4 md:p-6 rounded-lg shadow-lg border border-accent/20 relative">
+          <p className={`${isMobile ? 'text-lg' : 'text-xl md:text-2xl'} mb-4 md:mb-6 text-accent font-bold`}>{text}</p>
+          <div className="flex flex-col items-center gap-3 md:gap-4">
             <PhoneButton 
               phoneNumber={phoneNumber} 
-              size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transition-colors"
+              size={isMobile ? "md" : "lg"}
+              className="bg-blue-600 hover:bg-blue-700 text-base md:text-lg py-3 md:py-4 shadow-lg transition-colors"
             />
-            <div className="flex items-center text-sm text-accent font-medium gap-1">
-              <Calendar className="h-4 w-4" />
+            <div className="flex items-center text-xs md:text-sm text-accent font-medium gap-1">
+              <Calendar className="h-3 w-3 md:h-4 md:w-4" />
               <span>An Wochenenden & Feiertagen ohne Aufpreis für Sie da!</span>
             </div>
             <MoneyBackBadge />

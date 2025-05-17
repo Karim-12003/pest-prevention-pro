@@ -88,48 +88,48 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         </script>
       </Helmet>
       
-      <section className="pb-16 md:pb-20 overflow-hidden relative">
-        <div className="container mx-auto">
+      <section className="pb-12 md:pb-20 overflow-hidden relative">
+        <div className="container mx-auto px-2 sm:px-4">
           <div className="flex flex-col md:flex-row items-center">
-            <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
-              <div className="flex justify-center md:justify-start mb-4 relative z-30">
+            <div className="w-full md:w-1/2 mb-8 md:mb-0 text-center md:text-left">
+              <div className="flex justify-center md:justify-start mb-3 relative z-30">
                 <Logo size="large" />
               </div>
               
-              <div className="inline-block rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6 animate-fade-in relative z-10">
+              <div className="inline-block rounded-full bg-accent/10 px-2 py-1 text-xs sm:text-sm font-medium text-accent mb-4 animate-fade-in relative z-10">
                 <span className="break-words">Professionelle Schädlingsbekämpfung</span>
               </div>
               
-              <h1 id="headline" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <h1 id="headline" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
                 Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold text-accent">{cityName}</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <p className="text-base md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
                 Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-medium">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
-              <div className="flex flex-col gap-4 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="flex flex-col gap-3 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                   <div>
                     <PhoneButton 
                       phoneNumber={PHONE_NUMBER} 
-                      size="lg"
-                      className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg" 
+                      size="md"
+                      className="bg-blue-600 hover:bg-blue-700 text-base py-3 shadow-lg" 
                     />
                   </div>
                   
                   <div>
                     <WhatsAppButton 
                       phoneNumber={PHONE_NUMBER} 
-                      size="lg"
-                      className="bg-green-600 hover:bg-green-700 text-lg py-4 shadow-lg"
+                      size="md"
+                      className="bg-green-600 hover:bg-green-700 text-base py-3 shadow-lg"
                     />
                   </div>
                   
                   <div>
                     <a 
                       href="#contact" 
-                      className="inline-flex items-center justify-center px-6 py-4 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-lg shadow-lg"
+                      className="inline-flex items-center justify-center px-4 py-3 rounded-md bg-accent hover:bg-accent/90 text-white font-bold transition-colors text-base shadow-lg"
                     >
                       Kostenlose Beratung
                     </a>
@@ -141,16 +141,16 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                 </div>
               </div>
               
-              <div className="mt-6 bg-red-50 text-red-600 rounded-lg py-3 px-4 border border-red-200 shadow-sm flex items-center justify-center md:justify-start gap-2 animate-pulse-subtle animate-fade-in" style={{ animationDelay: '400ms' }}>
-                <Calendar className="w-5 h-5 animate-pulse" />
-                <p className="text-sm font-medium md:text-base">
+              <div className="mt-5 bg-red-50 text-red-600 rounded-lg py-2 px-3 border border-red-200 shadow-sm flex items-center justify-center md:justify-start gap-2 animate-pulse-subtle animate-fade-in" style={{ animationDelay: '400ms' }}>
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+                <p className="text-xs sm:text-sm font-medium">
                   <span className="font-bold">HEUTE NOCH</span> freie Termine verfügbar!
                 </p>
               </div>
             </div>
             
-            <div className="w-full md:w-1/2 pl-0 md:pl-10">
-              <div className="grid grid-cols-1 gap-5 md:gap-6 max-w-md mx-auto">
+            <div className="w-full md:w-1/2 pl-0 md:pl-6 lg:pl-10">
+              <div className="grid grid-cols-1 gap-3 md:gap-6 max-w-md mx-auto">
                 {[
                   {
                     icon: <Shield className="w-5 h-5 md:w-6 md:h-6 text-accent" />,
@@ -173,18 +173,18 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                 ].map((feature, index) => (
                   <div 
                     key={index}
-                    className="bg-white rounded-xl p-6 shadow-sm border border-primary/10 transition-all duration-300 hover:shadow-md animate-fade-in"
+                    className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-primary/10 transition-all duration-300 hover:shadow-md animate-fade-in"
                     style={{ animationDelay: `${feature.delay}ms` }}
                   >
                     <div className="flex items-start">
-                      <div className="rounded-full bg-accent/10 p-3 mr-4 flex-shrink-0">
+                      <div className="rounded-full bg-accent/10 p-2 md:p-3 mr-3 flex-shrink-0">
                         {feature.icon}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-primary mb-1">
+                        <h3 className="font-semibold text-primary mb-0.5 md:mb-1 text-sm md:text-base">
                           {feature.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs md:text-sm text-muted-foreground">
                           {feature.description}
                         </p>
                       </div>
