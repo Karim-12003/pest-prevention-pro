@@ -2,7 +2,6 @@
 import React from 'react';
 import PhoneButton from './PhoneButton';
 import MoneyBackBadge from './MoneyBackBadge';
-import { Calendar } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface SectionCTAProps {
@@ -27,10 +26,6 @@ const SectionCTA = ({
               size={isMobile ? "default" : "lg"}
               className="bg-blue-600 hover:bg-blue-700 text-base md:text-lg py-3 md:py-4 shadow-lg transition-colors"
             />
-            <div className="flex items-center text-xs md:text-sm text-accent font-medium gap-1">
-              <Calendar className="h-3 w-3 md:h-4 md:w-4" />
-              <span>An Wochenenden & Feiertagen ohne Aufpreis für Sie da!</span>
-            </div>
             <MoneyBackBadge />
           </div>
         </div>
