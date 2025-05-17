@@ -132,6 +132,7 @@ const Index = () => {
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -139,10 +140,10 @@ const Index = () => {
         
         <main className="flex-grow pt-[85px] md:pt-28">
           <Hero cityName={cityName} />
-          <div className="bg-accent text-white py-1.5">
+          <div className="bg-accent text-white py-2">
             <div className="container mx-auto">
               <div className="flex items-center justify-center">
-                <p className="text-xs sm:text-sm font-medium">
+                <p className="text-sm sm:text-base font-medium mobile-text-boost">
                   Willkommen aus <span className="city-welcome font-bold">{cityName}</span>
                 </p>
               </div>
@@ -162,8 +163,8 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
-                  <h2 className="text-xl md:text-3xl font-bold mb-1 md:mb-2">Schädlingsbekämpfung {cityName !== DEFAULT_CITY && `in ${cityName}`}</h2>
-                  <p className="text-base md:text-xl max-w-xl">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 md:mb-2">Schädlingsbekämpfung {cityName !== DEFAULT_CITY && `in ${cityName}`}</h2>
+                  <p className="text-base sm:text-lg md:text-xl max-w-xl mobile-text-boost">Professionelle und diskrete Hilfe bei Schädlingsbefall</p>
                 </div>
               </div>
             </div>

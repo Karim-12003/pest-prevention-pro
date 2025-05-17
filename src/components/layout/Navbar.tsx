@@ -37,12 +37,12 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Emergency banner with availability badge - original style */}
+      {/* Emergency banner with availability badge - improved for mobile */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto px-2">
           <div className="flex items-center justify-between">
-            <span className="font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
-            <Badge variant="outline" className="bg-white/95 text-green-600 border-none font-medium py-0 px-1.5">
+            <span className="font-medium text-sm sm:text-base mobile-text-boost">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
+            <Badge variant="outline" className="bg-white/95 text-green-600 border-none font-medium py-0.5 px-2">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1 inline-block"></span>
               <span className="text-xs">Jetzt erreichbar</span>
             </Badge>
@@ -67,8 +67,8 @@ const Navbar = () => {
                   "flex flex-col justify-center",
                   isMobile ? "gap-0" : "gap-0.5"
                 )}>
-                  <span className="text-[#9b87f5] leading-none text-lg md:text-xl">Kammerjäger</span>
-                  <span className="font-light leading-none text-sm md:text-lg">Adalbert</span>
+                  <span className="text-[#9b87f5] leading-none text-xl md:text-xl">Kammerjäger</span>
+                  <span className="font-light leading-none text-base md:text-lg">Adalbert</span>
                 </div>
               </div>
             </div>
@@ -95,15 +95,15 @@ const Navbar = () => {
 
             {/* Mobile Menu and Action Buttons */}
             <div className="md:hidden flex items-center gap-2">
-              <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent p-1" />
-              <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600 p-1" />
+              <PhoneButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-accent p-1.5" />
+              <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="ghost" size="sm" className="text-green-600 p-1.5" />
               <button
                 onClick={toggleMenu}
                 className="text-primary p-1.5 rounded-md hover:bg-secondary transition-colors"
                 aria-expanded={isMenuOpen}
                 aria-label="Toggle menu"
               >
-                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
             </div>
           </div>
@@ -116,13 +116,13 @@ const Navbar = () => {
             isMenuOpen ? 'top-full opacity-100 visible' : '-top-[400px] opacity-0 invisible'
           )}
         >
-          <div className="container mx-auto px-4 py-2">
-            <ul className="flex flex-col space-y-2">
+          <div className="container mx-auto px-4 py-3">
+            <ul className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-1.5 font-medium text-sm"
+                    className="block text-primary/80 hover:text-[#9b87f5] transition-colors py-2 font-medium text-base mobile-text-boost"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
