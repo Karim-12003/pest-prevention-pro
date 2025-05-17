@@ -50,10 +50,10 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Navigation bar - restored to original */}
+      {/* Navigation bar - adjusted position for mobile */}
       <header
         className={cn(
-          'fixed top-8 left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
+          'fixed top-10 left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
