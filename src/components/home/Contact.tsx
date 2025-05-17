@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
@@ -59,6 +60,9 @@ const Contact = () => {
                   <p>Mo-Fr: 8:00 - 20:00 Uhr</p>
                   <p>Sa: 9:00 - 19:00 Uhr</p>
                   <p className="text-sm text-muted-foreground mt-1">Notfallservice auch außerhalb der Geschäftszeiten</p>
+                  <div className="mt-2 bg-[#E5DEFF] text-accent rounded-md p-2 text-sm font-medium">
+                    An Wochenenden & Feiertagen ohne Aufpreis für Sie da!
+                  </div>
                 </div>
               </div>
             </div>

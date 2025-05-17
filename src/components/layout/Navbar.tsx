@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, PhoneCall } from 'lucide-react';
+import { Menu, X, PhoneCall, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
@@ -40,11 +40,15 @@ const Navbar = () => {
       {/* Emergency banner with availability badge */}
       <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-center">
             <span className="text-sm font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
             <Badge variant="outline" className="bg-white/95 text-green-600 border-none ml-2 font-medium py-0.5 px-2">
               <span className="w-2 h-2 rounded-full bg-green-500 mr-1 inline-block"></span>
               <span className="text-xs">Jetzt erreichbar</span>
+            </Badge>
+            <Badge variant="outline" className="bg-white/95 text-[#9b87f5] border-none font-medium py-0.5 px-2">
+              <Calendar className="h-3 w-3 mr-1" />
+              <span className="text-xs">Wochenende & Feiertage ohne Aufpreis</span>
             </Badge>
           </div>
         </div>

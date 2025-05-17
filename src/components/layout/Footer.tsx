@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
@@ -61,6 +62,7 @@ const Footer = () => {
                   <p>Mo-Fr: 8:00 - 20:00 Uhr</p>
                   <p>Sa: 9:00 - 19:00 Uhr</p>
                   <p>So: 24/7 Notdienst</p>
+                  <p className="text-[#9b87f5] font-medium mt-1">An Wochenenden & Feiertagen ohne Aufpreis für Sie da!</p>
                 </div>
               </li>
             </ul>

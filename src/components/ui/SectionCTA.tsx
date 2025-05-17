@@ -2,6 +2,7 @@
 import React from 'react';
 import PhoneButton from './PhoneButton';
 import MoneyBackBadge from './MoneyBackBadge';
+import { Calendar } from 'lucide-react';
 
 interface SectionCTAProps {
   text?: string;
@@ -23,6 +24,10 @@ const SectionCTA = ({
               size="lg"
               className="bg-blue-600 hover:bg-blue-700 text-lg py-4 shadow-lg transition-colors"
             />
+            <div className="flex items-center text-sm text-accent font-medium gap-1">
+              <Calendar className="h-4 w-4" />
+              <span>An Wochenenden & Feiertagen ohne Aufpreis für Sie da!</span>
+            </div>
             <MoneyBackBadge />
           </div>
         </div>
