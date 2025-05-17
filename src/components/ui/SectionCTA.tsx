@@ -24,7 +24,7 @@ const SectionCTA = ({
           <div className="flex flex-col items-center gap-3 md:gap-4">
             <PhoneButton 
               phoneNumber={phoneNumber} 
-              size={isMobile ? "md" : "lg"}
+              size={isMobile ? "default" : "lg"}
               className="bg-blue-600 hover:bg-blue-700 text-base md:text-lg py-3 md:py-4 shadow-lg transition-colors"
             />
             <div className="flex items-center text-xs md:text-sm text-accent font-medium gap-1">

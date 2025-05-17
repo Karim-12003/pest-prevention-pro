@@ -113,7 +113,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                   <div>
                     <PhoneButton 
                       phoneNumber={PHONE_NUMBER} 
-                      size="md"
+                      size="default"
                       className="bg-blue-600 hover:bg-blue-700 text-base py-3 shadow-lg" 
                     />
                   </div>
@@ -121,7 +121,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                   <div>
                     <WhatsAppButton 
                       phoneNumber={PHONE_NUMBER} 
-                      size="md"
+                      size="default"
                       className="bg-green-600 hover:bg-green-700 text-base py-3 shadow-lg"
                     />
                   </div>
