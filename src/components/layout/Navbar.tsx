@@ -37,27 +37,23 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Emergency banner with availability badge - optimized for mobile */}
-      <div className="bg-red-600 text-white py-1 fixed top-0 w-full z-50">
-        <div className="container mx-auto px-1">
-          <div className="flex flex-wrap items-center justify-center gap-1 text-center text-xs sm:text-sm sm:gap-2 sm:py-1">
-            <span className="font-medium">24/7 Notdienst: {PHONE_NUMBER}</span>
+      {/* Emergency banner with availability badge - original style */}
+      <div className="bg-red-600 text-white py-2 fixed top-0 w-full z-50">
+        <div className="container mx-auto px-2">
+          <div className="flex items-center justify-between">
+            <span className="font-medium">24/7 Notfalldienst unter {PHONE_NUMBER}</span>
             <Badge variant="outline" className="bg-white/95 text-green-600 border-none font-medium py-0 px-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1 inline-block"></span>
-              <span className="text-xs">Erreichbar</span>
-            </Badge>
-            <Badge variant="outline" className="bg-white/95 text-[#9b87f5] border-none font-medium py-0 px-1.5">
-              <Calendar className="h-3 w-3 mr-1" />
-              <span className="text-xs">Keine Aufpreise an Feiertagen</span>
+              <span className="text-xs">Jetzt erreichbar</span>
             </Badge>
           </div>
         </div>
       </div>
       
-      {/* Navigation bar - optimized for mobile */}
+      {/* Navigation bar - restored to original */}
       <header
         className={cn(
-          'fixed top-6 left-0 right-0 z-40 transition-all duration-300 py-1 border-b',
+          'fixed top-8 left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >

@@ -88,7 +88,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
         </script>
       </Helmet>
       
-      <section className="pb-12 md:pb-20 overflow-hidden relative">
+      <section className="pb-16 md:pb-20 overflow-hidden relative">
         <div className="container mx-auto px-2 sm:px-4">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 mb-8 md:mb-0 text-center md:text-left">
@@ -100,11 +100,11 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
                 <span className="break-words">Professionelle Schädlingsbekämpfung</span>
               </div>
               
-              <h1 id="headline" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <h1 id="headline" className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '100ms' }}>
                 Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold text-accent">{cityName}</span>
               </h1>
               
-              <p className="text-base md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in" style={{ animationDelay: '200ms' }}>
                 Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-medium">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
               </p>
               
