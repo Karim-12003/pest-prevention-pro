@@ -15,6 +15,7 @@ import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import { useParams } from 'react-router-dom';
+import SeoKeywords from '../components/seo/SeoKeywords';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
@@ -182,6 +183,9 @@ const CityPage = () => {
           <PaymentOptions />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Fragen zu unseren Zahlungsoptionen?" />
           <Contact />
+          
+          {/* SEO Keywords für Google-Indexierung */}
+          <SeoKeywords />
         </main>
         
         <Footer />

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -15,6 +14,7 @@ import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import { toast } from "sonner";
+import SeoKeywords from '../components/seo/SeoKeywords';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
@@ -182,6 +182,9 @@ const Index = () => {
           <PaymentOptions />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Fragen zu unseren Zahlungsoptionen?" />
           <Contact />
+          
+          {/* SEO Keywords für Google-Indexierung */}
+          <SeoKeywords />
         </main>
         
         <Footer />
