@@ -53,14 +53,14 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span><a href="mailto:info@kammerjaeger-adalbert.de" aria-label="Email senden">info@kammerjaeger-adalbert.de</a></span>
+                <span><a href="mailto:info.kammerjaegeradalbert.de" aria-label="Email senden">info.kammerjaegeradalbert.de</a></span>
               </li>
               
               <li className="flex items-start">
                 <Clock className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
                 <div>
-                  <p>Mo-Fr: 8:00 - 20:00 Uhr</p>
-                  <p>Sa: 9:00 - 19:00 Uhr</p>
+                  <p>Mo-Fr: 7:00 - 20:00 Uhr</p>
+                  <p>Sa: 7:00 - 19:00 Uhr</p>
                   <p>So: 24/7 Notdienst</p>
                   <p className="text-[#9b87f5] font-medium mt-1">An Wochenenden & Feiertagen ohne Aufpreis für Sie da!</p>
                 </div>

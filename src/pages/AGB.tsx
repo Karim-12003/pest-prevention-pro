@@ -109,7 +109,7 @@ const AGB = () => {
               <div className="space-y-2 mb-6">
                 <p>Kammerjäger Adalbert</p>
                 <p>Berliner Straße 26–36, {cityInfo.plz} {cityInfo.city}</p>
-                <p>E-Mail: <a href="mailto:info@kammerjaeger-adalbert.de" className="text-[#9b87f5] hover:underline">info@kammerjaeger-adalbert.de</a></p>
+                <p>E-Mail: <a href="mailto:info.kammerjaegeradalbert.de" className="text-[#9b87f5] hover:underline">info.kammerjaegeradalbert.de</a></p>
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
               </div>
             </section>
