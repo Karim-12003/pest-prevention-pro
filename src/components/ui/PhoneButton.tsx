@@ -62,10 +62,10 @@ const PhoneButton = ({
     ? "w-16 h-16 flex items-center justify-center transition-colors" 
     : "";
 
-  // Add subtle animation classes based on variant with much slower animations
+  // Add extremely subtle animation classes with much slower animations
   const animationStyles = variant === 'fixed' 
-    ? "hover:shadow-accent/50 hover:shadow-2xl transition-shadow duration-700 animate-very-subtle-pulse" 
-    : "hover:shadow-md transition-all duration-500 hover:-translate-y-0.5";
+    ? "hover:shadow-accent/30 hover:shadow-xl transition-shadow duration-1000 animate-ultra-slow-pulse" 
+    : "hover:shadow-sm transition-all duration-700 hover:-translate-y-0.5";
 
   // If we're using the fixed variant button, we'll show only the icon
   // Otherwise, show the standard button with text and icon
@@ -79,7 +79,7 @@ const PhoneButton = ({
           fixedStyles,
           animationStyles,
           "call-link ring-offset-background transition-all",
-          "after:absolute after:inset-0 after:rounded-full after:border-4 after:border-blue-500/50 after:opacity-0 hover:after:opacity-100 after:animate-ping-slow after:animation-delay-300",
+          "after:absolute after:inset-0 after:rounded-full after:border-4 after:border-blue-500/30 after:opacity-0 hover:after:opacity-100 after:animate-ping-very-slow after:animation-delay-500",
           className
         )}
         aria-label={displayNumber}
@@ -101,7 +101,7 @@ const PhoneButton = ({
         variantStyles[variant],
         sizeStyles[size],
         animationStyles,
-        "transition-all duration-500 hover:shadow",
+        "transition-all duration-700 hover:shadow",
         "call-link",
         className
       )}
