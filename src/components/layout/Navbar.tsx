@@ -50,10 +50,10 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Navigation bar - positioned to match the screenshot exactly */}
+      {/* Navigation bar - position fixed to top with precise positioning to eliminate gap */}
       <header
         className={cn(
-          'fixed top-[43px] left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
+          'fixed top-[39px] left-0 right-0 z-40 transition-all duration-300 py-2 border-b',
           isScrolled ? 'bg-white shadow-sm' : 'bg-white'
         )}
       >
