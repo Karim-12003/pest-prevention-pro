@@ -9,39 +9,39 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const reviews = [
   {
     name: "Markus Schmidt",
-    location: "",
+    location: "Hamburg",
     rating: 5,
-    text: "Fantastischer Service! Hatte einen Wespenbefall im Gartenhaus, das Team war innerhalb von 24 Stunden vor Ort und hat das Problem professionell gelöst. Sehr freundliches Personal und faire Preise.",
+    text: "Fantastischer Service! Innerhalb von nur 24 Stunden war das Team bei mir vor Ort und hat den Wespenbefall in meinem Gartenhaus professionell beseitigt. Die Experten erklärten mir jeden Schritt genau und setzten dabei auf umweltfreundliche Methoden. Der Preis war absolut fair und transparent - keine versteckten Kosten.",
   },
   {
     name: "Sabine Müller",
-    location: "",
+    location: "München",
     rating: 5,
-    text: "Nach wochenlangem Kampf gegen Bettwanzen endlich eine Lösung! Die Experten haben eine gründliche Behandlung durchgeführt und mir wertvolle Tipps zur Vorbeugung gegeben. Sehr empfehlenswert!",
+    text: "Nach wochenlangem vergeblichem Kampf gegen Bettwanzen bin ich so froh, dass ich Kammerjäger Adalbert gefunden habe! Die Fachleute führten eine gründliche Hitzebehandlung durch, die alle Bettwanzen beseitigte. Seit 6 Monaten kein einziger Stich mehr! Die ausführliche Nachbetreuung und präventiven Tipps waren unbezahlbar. 100% Weiterempfehlung!",
   },
   {
     name: "Thomas Weber",
-    location: "",
+    location: "Berlin",
     rating: 5,
-    text: "Absolut zuverlässiger Service. Terminvereinbarung war unkompliziert, der Techniker pünktlich und kompetent. Das Mäuseproblem in unserem Keller wurde schnell und effektiv beseitigt. Vielen Dank!",
+    text: "Absolut zuverlässiger und diskreter Service. Von der ersten Kontaktaufnahme bis zur vollständigen Beseitigung des Mäuseproblems in unserem Keller vergingen nur 48 Stunden. Der Techniker kam pünktlich zum vereinbarten Termin, arbeitete äußerst sorgfältig und hinterließ alles sauber. Die kostenlose Nachkontrolle nach 2 Wochen bestätigte: Problem dauerhaft gelöst!",
   },
   {
     name: "Claudia Fischer",
-    location: "",
+    location: "Köln",
     rating: 5,
-    text: "Hervorragende Arbeit bei der Bekämpfung von Ameisen in unserem Haus. Besonders beeindruckt hat mich die umweltfreundliche Herangehensweise und die ausführliche Beratung. Ein Jahr später immer noch keine Probleme.",
+    text: "Hervorragende Arbeit bei der Bekämpfung eines hartnäckigen Ameisenbefalls in unserem Haus. Die umweltfreundliche Herangehensweise war mir besonders wichtig, da wir kleine Kinder haben. Der Experte nahm sich Zeit für eine detaillierte Beratung und zeigte uns präventive Maßnahmen. Ein Jahr später ist das Problem nicht wieder aufgetreten - das nenne ich nachhaltige Schädlingsbekämpfung!",
   },
   {
     name: "Jürgen Hoffmann",
     location: "St. Pauli",
     rating: 4,
-    text: "Guter und schneller Service bei akutem Schädlingsbefall. Die kostenlose Anfahrt war ein großer Pluspunkt. Einziger kleiner Kritikpunkt: Die Nachkontrolle musste ich selbst anstoßen, sonst top!",
+    text: "Schneller und professioneller Service bei akutem Silberfischbefall in meiner Wohnung. Die kostenlose Anfahrt und die transparente Preisgestaltung waren ein großer Pluspunkt. Die Behandlung war wirkungsvoll und die Fachberatung sehr kompetent. Einziger kleiner Kritikpunkt: Die Nachkontrolle musste ich selbst anstoßen, aber sie wurde dann prompt und gründlich durchgeführt.",
   },
   {
     name: "Monika Becker",
-    location: "",
+    location: "Frankfurt",
     rating: 5,
-    text: "Sehr professionelles Unternehmen! Der Kammerjäger hat unser Taubenproblem auf dem Dachboden schnell in den Griff bekommen. Auch die präventiven Maßnahmen funktionieren bis heute einwandfrei. Danke für die tolle Arbeit!",
+    text: "Sehr professionelles Unternehmen mit IHK-zertifizierten Fachkräften! Der Kammerjäger hat unser jahrelanges Taubenproblem auf dem Dachboden endlich gelöst. Er installierte tierschutzgerechte Vergrämungsmaßnahmen und beseitigte alle Nistplätze fachgerecht. Die telefonische Beratung war ausführlich und die Preise fair. Die präventiven Maßnahmen funktionieren bis heute einwandfrei. Großes Lob!",
   },
 ];
 
