@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
@@ -6,7 +5,11 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-const reviews = [
+interface ReviewsProps {
+  cityName?: string;
+}
+
+const defaultReviews = [
   {
     name: "Markus Schmidt",
     location: "Hamburg",
@@ -45,7 +48,7 @@ const reviews = [
   },
 ];
 
-const ReviewCard = ({ review, index }: { review: typeof reviews[0], index: number }) => {
+const ReviewCard = ({ review, index }: { review: typeof defaultReviews[0], index: number }) => {
   return (
     <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 relative">
       <CardContent className="pt-6">
@@ -93,8 +96,14 @@ const ReviewCard = ({ review, index }: { review: typeof reviews[0], index: numbe
   );
 };
 
-const Reviews = () => {
+const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
   const isMobile = useIsMobile();
+  
+  // Create a copy of the reviews with the dynamic city
+  const reviews = defaultReviews.map(review => ({
+    ...review,
+    location: cityName !== "Ihrer Stadt" ? cityName : review.location
+  }));
   
   return (
     <AnimatedSection id="reviews" className="bg-secondary/50">
@@ -122,7 +131,7 @@ const Reviews = () => {
             </a>
           </div>
           <p className="section-subheading mb-0">
-            Erfahren Sie, was unsere Kunden über unsere Schädlingsbekämpfungsdienste sagen.
+            Erfahren Sie, was unsere Kunden über unsere Schädlingsbekämpfungsdienste {cityName !== "Ihrer Stadt" && `in ${cityName}`} sagen.
           </p>
         </div>
 
@@ -146,7 +155,7 @@ const Reviews = () => {
               4.9/5 Durchschnittsbewertung
             </p>
             <p className="text-sm text-muted-foreground">
-              Basierend auf über 487 verifizierten Bewertungen auf ProvenExpert
+              Basierend auf über 487 verifizierten Bewertungen {cityName !== "Ihrer Stadt" && `in ${cityName}`} auf ProvenExpert
             </p>
           </div>
         </div>
