@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
-const EMAIL = "info@kammerjaegeradalbert.de";
+const EMAIL = "info.kammerjaegeradalbert@gmail.com";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

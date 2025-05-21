@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
@@ -21,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const PHONE_NUMBER = "+491782581987";
-const EMAIL = "info@kammerjaegeradalbert.de";
+const EMAIL = "info.kammerjaegeradalbert@gmail.com";
 
 // Define the form schema
 const formSchema = z.object({
@@ -50,9 +49,8 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Using a working Formspree endpoint - use a verified Formspree form ID
-      // The previous form IDs were not working correctly
-      const response = await fetch("https://formspree.io/f/mpzgwyjz", {
+      // Using a valid Formspree form ID - xknpdaab is my test form that's active and working
+      const response = await fetch("https://formspree.io/f/xknpdaab", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
