@@ -43,7 +43,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Silberfisch- & Papierfischbekämpfung",
     description: "Effektive Bekämpfung von Silberfischen und Papierfischen für ein gesundes Raumklima ohne Schädlinge.",
-    image: "https://ardap.de/cdn/shop/articles/ofenfischchen_a454c276-fce2-4a2a-9e50-95f0e23de197.jpg?v=1744916439://www.maler-raschke.de/wp-content/uploads/2015/08/schimmelsanierung_22.jpg",
+    image: "https://ardap.de/cdn/shop/articles/ofenfischchen_a454c276-fce2-4a2a-9e50-95f0e23de197.jpg?v=1744916439",
     alt: "Spezialisierte Bekämpfung von Silberfischen und Papierfischen",
     keywords: ["Silberfischbekämpfung", "Papierfischbekämpfung", "Feuchtigkeit bekämpfen"]
   },
@@ -103,6 +103,7 @@ const Services = () => {
               width="840"
               height="473"
               loading="lazy"
+              decoding="async"
             />
           </AspectRatio>
           <div className="bg-white p-4 text-center text-sm text-muted-foreground">
@@ -127,6 +128,13 @@ const Services = () => {
                     width="400"
                     height="225"
                     loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      // Fallback for image loading errors
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = '/placeholder.svg';
+                    }}
                   />
                 </AspectRatio>
               </div>

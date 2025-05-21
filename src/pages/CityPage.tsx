@@ -120,7 +120,7 @@ const CityPage = () => {
     // Sofort die Erkennung ausführen
     detectCityFromURL();
     
-    // Und nach kurzer Verzögerung nochmals (falls Script später lädt)
+    // Nach kurzer Verzögerung nochmals (falls Script später lädt)
     const timeoutId = setTimeout(detectCityFromURL, 500);
     
     return () => clearTimeout(timeoutId);
@@ -134,6 +134,10 @@ const CityPage = () => {
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
+        <link rel="preconnect" href="https://storage.googleapis.com" />
+        <link rel="preconnect" href="https://www.immoportal.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -154,7 +158,7 @@ const CityPage = () => {
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           
-          {/* Featured image restored to before About Us section */}
+          {/* Featured image with loading optimization */}
           <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
@@ -162,6 +166,10 @@ const CityPage = () => {
                   src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
                   alt="Professioneller Kammerjäger im Einsatz" 
                   className="w-full h-auto"
+                  loading="eager"
+                  width="900"
+                  height="719"
+                  fetchpriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
