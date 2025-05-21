@@ -49,10 +49,11 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Using a valid Formspree form ID - xknpdaab is my test form that's active and working
-      const response = await fetch("https://formspree.io/f/xknpdaab", {
+      // Using the official Formspree endpoint format
+      const response = await fetch("https://formspree.io/f/mvojdyek", {
         method: "POST",
         headers: {
+          "Accept": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -60,8 +61,6 @@ const Contact = () => {
           email: data.email,
           phone: data.phone,
           message: data.message,
-          _replyto: data.email,
-          _subject: `Neue Anfrage von ${data.name} über Kammerjaeger-Website`,
         }),
       });
       
@@ -69,8 +68,7 @@ const Contact = () => {
         toast.success("Ihre Anfrage wurde erfolgreich gesendet!");
         form.reset();
       } else {
-        const errorData = await response.json();
-        console.error("Form submission error:", errorData);
+        console.error("Form submission error:", response);
         toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
       }
     } catch (error) {
