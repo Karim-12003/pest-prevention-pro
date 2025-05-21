@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -158,7 +157,7 @@ const CityPage = () => {
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <MovingLogoBanner />
           
-          {/* Featured image with loading optimization */}
+          {/* Featured image with loading optimization - fixed the fetchPriority capitalization */}
           <div className="w-full bg-gradient-to-b from-accent/5 to-white py-8">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
@@ -169,7 +168,7 @@ const CityPage = () => {
                   loading="eager"
                   width="900"
                   height="719"
-                  fetchpriority="high"
+                  fetchPriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
