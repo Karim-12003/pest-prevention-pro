@@ -39,13 +39,17 @@ const Impressum = () => {
   
   useEffect(() => {
     const detectCity = () => {
+      console.log("Impressum: City detection running...");
+      
       // First check route parameter
       if (routeCity) {
+        console.log("Impressum: Route city found:", routeCity);
         const foundCity = cityList.find(item => 
           item.city.toLowerCase() === routeCity.toLowerCase()
         );
         
         if (foundCity) {
+          console.log("Impressum: City matched from route:", foundCity);
           setCityInfo(foundCity);
           return;
         }
@@ -56,11 +60,13 @@ const Impressum = () => {
       const kwParam = urlParams.get('kw');
       
       if (kwParam) {
+        console.log("Impressum: kw param found:", kwParam);
         const decodedKw = decodeURIComponent(kwParam).toLowerCase();
         
-        for (const city of cityList) {
-          if (decodedKw.includes(city.city.toLowerCase())) {
-            setCityInfo(city);
+        for (const cityData of cityList) {
+          if (decodedKw.includes(cityData.city.toLowerCase())) {
+            console.log("Impressum: City matched from kw param:", cityData);
+            setCityInfo(cityData);
             return;
           }
         }
@@ -68,15 +74,18 @@ const Impressum = () => {
       
       // Check full URL for city name
       const fullUrl = window.location.href.toLowerCase();
-      for (const city of cityList) {
-        if (fullUrl.includes(city.city.toLowerCase())) {
-          setCityInfo(city);
+      console.log("Impressum: Checking full URL:", fullUrl);
+      
+      for (const cityData of cityList) {
+        if (fullUrl.includes(cityData.city.toLowerCase())) {
+          console.log("Impressum: City matched from URL:", cityData);
+          setCityInfo(cityData);
           return;
         }
       }
       
       // Default if no city is found
-      console.log("No city detected, using default:", DEFAULT_CITY);
+      console.log("Impressum: No city detected, using default:", DEFAULT_CITY);
     };
     
     detectCity();
@@ -109,7 +118,6 @@ const Impressum = () => {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Kontakt</h2>
               <div className="space-y-2">
-                
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
                 <p>E-Mail: <a href="mailto:info@kammerjaeger-adalbert.de" className="text-[#9b87f5] hover:underline">info@kammerjaeger-adalbert.de</a></p>
               </div>
