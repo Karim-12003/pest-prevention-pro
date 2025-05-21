@@ -5,6 +5,7 @@ import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
+const EMAIL = "info@kammerjaegeradalbert.de";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -53,7 +54,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5 text-[#9b87f5]" />
-                <span><a href="mailto:info.kammerjaegeradalbert.de" aria-label="Email senden">info.kammerjaegeradalbert.de</a></span>
+                <span><a href={`mailto:${EMAIL}`} aria-label="Email senden">{EMAIL}</a></span>
               </li>
               
               <li className="flex items-start">

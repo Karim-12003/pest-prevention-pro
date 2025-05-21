@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const PHONE_NUMBER = "+491782581987";
-const EMAIL = "info.kammerjaegeradalbert.de";
+const EMAIL = "info@kammerjaegeradalbert.de";
 
 // Define the form schema
 const formSchema = z.object({
@@ -50,8 +50,9 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Create a simple email message using EmailJS, Formspree or other email API
-      const response = await fetch("https://formspree.io/f/xwkgkjpo", {
+      // Updated to use a direct email service with correct format
+      // Replace with your actual Formspree form ID - the previous one "xwkgkjpo" was not found
+      const response = await fetch("https://formspree.io/f/myyragjo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +62,8 @@ const Contact = () => {
           email: data.email,
           phone: data.phone,
           message: data.message,
-          to: EMAIL // Where to send the email
+          _replyto: data.email, // Formspree specific field for reply-to
+          _subject: `Neue Anfrage von ${data.name} über Kammerjaeger-Website`, // Custom subject line
         }),
       });
       
@@ -69,6 +71,8 @@ const Contact = () => {
         toast.success("Ihre Anfrage wurde erfolgreich gesendet!");
         form.reset();
       } else {
+        const errorData = await response.json();
+        console.error("Form submission error:", errorData);
         toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
       }
     } catch (error) {
