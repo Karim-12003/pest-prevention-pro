@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
@@ -35,16 +36,16 @@ const defaultReviews = [
     text: "Hervorragende Arbeit bei der Bekämpfung eines hartnäckigen Ameisenbefalls in unserem Haus. Die umweltfreundliche Herangehensweise war mir besonders wichtig, da wir kleine Kinder haben. Der Experte nahm sich Zeit für eine detaillierte Beratung und zeigte uns präventive Maßnahmen. Ein Jahr später ist das Problem nicht wieder aufgetreten - das nenne ich nachhaltige Schädlingsbekämpfung!",
   },
   {
-    name: "Jürgen Hoffmann",
-    location: "St. Pauli",
-    rating: 4,
-    text: "Schneller und professioneller Service bei akutem Silberfischbefall in meiner Wohnung. Die kostenlose Anfahrt und die transparente Preisgestaltung waren ein großer Pluspunkt. Die Behandlung war wirkungsvoll und die Fachberatung sehr kompetent. Einziger kleiner Kritikpunkt: Die Nachkontrolle musste ich selbst anstoßen, aber sie wurde dann prompt und gründlich durchgeführt.",
-  },
-  {
     name: "Monika Becker",
     location: "Frankfurt",
     rating: 5,
     text: "Sehr professionelles Unternehmen mit IHK-zertifizierten Fachkräften! Der Kammerjäger hat unser jahrelanges Taubenproblem auf dem Dachboden endlich gelöst. Er installierte tierschutzgerechte Vergrämungsmaßnahmen und beseitigte alle Nistplätze fachgerecht. Die telefonische Beratung war ausführlich und die Preise fair. Die präventiven Maßnahmen funktionieren bis heute einwandfrei. Großes Lob!",
+  },
+  {
+    name: "Jürgen Hoffmann",
+    location: "St. Pauli",
+    rating: 5,
+    text: "Schneller und professioneller Service bei akutem Silberfischbefall in meiner Wohnung. Die kostenlose Anfahrt und die transparente Preisgestaltung waren ein großer Pluspunkt. Die Behandlung war wirkungsvoll und die Fachberatung sehr kompetent. Die Nachkontrolle wurde prompt und gründlich durchgeführt. Ich bin rundum zufrieden mit dem Service!",
   },
 ];
 

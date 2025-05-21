@@ -1,19 +1,92 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
+import { useParams, useLocation } from 'react-router-dom';
 
 const PHONE_NUMBER = "+491782581987";
+const DEFAULT_CITY = "Hagen";
+const DEFAULT_PLZ = "58135";
+
+// Liste deutscher Städte für die Erkennung
+const cityList = [
+  { city: 'Essen', plz: '45127' },
+  { city: 'Dortmund', plz: '44137' },
+  { city: 'Duisburg', plz: '47051' },
+  { city: 'Bochum', plz: '44787' },
+  { city: 'Herne', plz: '44623' },
+  { city: 'Gelsenkirchen', plz: '45879' },
+  { city: 'Oberhausen', plz: '46045' },
+  { city: 'Bottrop', plz: '46236' },
+  { city: 'Mülheim', plz: '45468' },
+  { city: 'Hagen', plz: '58135' },
+  { city: 'Recklinghausen', plz: '45657' },
+  { city: 'Köln', plz: '50667' },
+  { city: 'Berlin', plz: '10115' },
+  { city: 'Hamburg', plz: '20095' },
+  { city: 'München', plz: '80331' },
+  { city: 'Frankfurt', plz: '60311' },
+  { city: 'Stuttgart', plz: '70173' },
+];
 
 const Impressum = () => {
+  const { city: routeCity } = useParams();
+  const location = useLocation();
+  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+  
+  useEffect(() => {
+    const detectCity = () => {
+      // First check route parameter
+      if (routeCity) {
+        const foundCity = cityList.find(item => 
+          item.city.toLowerCase() === routeCity.toLowerCase()
+        );
+        
+        if (foundCity) {
+          setCityInfo(foundCity);
+          return;
+        }
+      }
+      
+      // Then check URL for kw parameter
+      const urlParams = new URLSearchParams(location.search);
+      const kwParam = urlParams.get('kw');
+      
+      if (kwParam) {
+        const decodedKw = decodeURIComponent(kwParam).toLowerCase();
+        
+        for (const city of cityList) {
+          if (decodedKw.includes(city.city.toLowerCase())) {
+            setCityInfo(city);
+            return;
+          }
+        }
+      }
+      
+      // Check full URL for city name
+      const fullUrl = window.location.href.toLowerCase();
+      for (const city of cityList) {
+        if (fullUrl.includes(city.city.toLowerCase())) {
+          setCityInfo(city);
+          return;
+        }
+      }
+      
+      // Default if no city is found
+      console.log("No city detected, using default:", DEFAULT_CITY);
+    };
+    
+    detectCity();
+  }, [routeCity, location]);
+
   return (
     <>
       <Helmet>
         <title>Impressum - Kammerjäger Adalbert</title>
-        <meta name="description" content="Impressum und rechtliche Informationen zu Kammerjäger Adalbert." />
+        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Adalbert in ${cityInfo.city}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -28,7 +101,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Adalbert</p>
                 <p>Berliner Straße 26–36</p>
-                <p>58135 Hagen</p>
+                <p>{cityInfo.plz} {cityInfo.city}</p>
                 <p>Deutschland</p>
               </div>
             </section>
