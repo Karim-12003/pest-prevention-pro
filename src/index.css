@@ -112,6 +112,25 @@
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   
+  .animate-subtle-pulse {
+    animation: subtle-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 15px 20px -3px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .animation-delay-75 {
+    animation-delay: 75ms;
+  }
+  
   @keyframes pulse {
     0%, 100% {
       opacity: 1;

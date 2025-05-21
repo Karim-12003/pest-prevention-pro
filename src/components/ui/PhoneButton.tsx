@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { PhoneIncoming } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -61,6 +62,11 @@ const PhoneButton = ({
     ? "w-16 h-16 flex items-center justify-center transition-colors" 
     : "";
 
+  // Add subtle animation classes based on variant
+  const animationStyles = variant === 'fixed' 
+    ? "hover:shadow-accent/50 hover:shadow-2xl transition-shadow duration-300 animate-subtle-pulse" 
+    : "hover:shadow-md transition-all duration-300 hover:-translate-y-0.5";
+
   // If we're using the fixed variant button, we'll show only the icon
   // Otherwise, show the standard button with text and icon
   if (variant === 'fixed') {
@@ -71,8 +77,9 @@ const PhoneButton = ({
           baseStyles,
           variantStyles[variant],
           fixedStyles,
-          "transition-colors duration-200",
-          "call-link",
+          animationStyles,
+          "call-link ring-offset-background transition-all",
+          "after:absolute after:inset-0 after:rounded-full after:border-4 after:border-blue-500/50 after:opacity-0 hover:after:opacity-100 after:animate-ping after:animation-delay-75",
           className
         )}
         aria-label={displayNumber}
@@ -93,7 +100,8 @@ const PhoneButton = ({
         baseStyles,
         variantStyles[variant],
         sizeStyles[size],
-        "transition-colors duration-200",
+        animationStyles,
+        "transition-all duration-200 hover:shadow",
         "call-link",
         className
       )}
