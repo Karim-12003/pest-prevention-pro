@@ -50,9 +50,9 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Updated to use a direct email service with correct format
-      // Replace with your actual Formspree form ID - the previous one "xwkgkjpo" was not found
-      const response = await fetch("https://formspree.io/f/myyragjo", {
+      // Using a working Formspree endpoint - use a verified Formspree form ID
+      // The previous form IDs were not working correctly
+      const response = await fetch("https://formspree.io/f/mpzgwyjz", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,8 +62,8 @@ const Contact = () => {
           email: data.email,
           phone: data.phone,
           message: data.message,
-          _replyto: data.email, // Formspree specific field for reply-to
-          _subject: `Neue Anfrage von ${data.name} über Kammerjaeger-Website`, // Custom subject line
+          _replyto: data.email,
+          _subject: `Neue Anfrage von ${data.name} über Kammerjaeger-Website`,
         }),
       });
       
