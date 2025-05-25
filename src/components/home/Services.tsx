@@ -67,7 +67,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Flohbekämpfung",
     description: "Gründliche Beseitigung von Flöhen in Wohnräumen und Polstermöbeln mit langanhaltender Wirkung.",
-    image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=225&fit=crop&auto=format&q=75",
+    image: "https://www.universimed.com/custom/img/files/files_datafiles_data_Zeitungen_2017_Jatros_Infekt_1701_Weblinks_s9web810x300.png",
     alt: "Professionelle Flohbekämpfung für Wohnräume und Polstermöbel",
     keywords: ["Flohbekämpfung", "Flöhe bekämpfen", "Flohbefall behandeln"]
   },
