@@ -67,7 +67,7 @@ const services = [
     icon: <Bug className="h-10 w-10" />,
     title: "Flohbekämpfung",
     description: "Gründliche Beseitigung von Flöhen in Wohnräumen und Polstermöbeln mit langanhaltender Wirkung.",
-    image: "https://www.universimed.com/custom/img/files/files_datafiles_data_Zeitungen_2017_Jatros_Infekt_1701_Weblinks_s9web810x300.png",
+    image: "https://kaspar-schaedlingsbekaempfung.de/wp-content/uploads/2020/09/Floh1-shutterstock_1408962617-1024x646.jpg",
     alt: "Professionelle Flohbekämpfung für Wohnräume und Polstermöbel",
     keywords: ["Flohbekämpfung", "Flöhe bekämpfen", "Flohbefall behandeln"]
   },
