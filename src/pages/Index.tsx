@@ -196,7 +196,7 @@ const Index = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto relative rounded-xl overflow-hidden shadow-xl">
                 <img 
-                  src="https://storage.googleapis.com/media-hero-de-9411/DE-AT-CH/Anwendungen/_900x719_crop_center-center_82_line/hero-schaedlingsbekaempfung-software.png" 
+                  src="https://kammerjaeger-wolfgang.de/wp-content/uploads/2025/04/norbert_wolframm_cousin.jpg" 
                   alt="Professioneller Kammerjäger im Einsatz" 
                   className="w-full h-auto"
                 />
