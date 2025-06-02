@@ -87,7 +87,7 @@ const Services = () => {
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="section-heading">
-            Unsere Schädlingsbekämpfung-Dienstleistungen in NRW
+            Unsere Schädlingsbekämpfung-Dienstleistungen
           </h2>
           <p className="section-subheading">
             Wir bekämpfen gezielt Ratten, Mäuse, Marder, Ameisen, Silberfische, Papierfische, Wespen, Bettwanzen und Flöhe mit professionellen und nachhaltigen Methoden.
