@@ -368,7 +368,6 @@ const cityKeywords: string[] = [
   "Marienheide",
   "Marl",
   "Marsberg",
-  "Meckenheim",
   "Medebach",
   "Meerbusch",
   "Meinerzhagen",
@@ -479,6 +478,22 @@ function getParam(name: string): string | null {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+// Debug-Funktion: Alle URL-Parameter ausgeben
+function debugAllParams(): void {
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log('[CityDetection] === ALL URL PARAMETERS ===');
+  console.log('[CityDetection] Full URL:', window.location.href);
+  
+  for (const [key, value] of urlParams.entries()) {
+    console.log(`[CityDetection] Parameter: ${key} = ${value}`);
+  }
+  
+  if (urlParams.size === 0) {
+    console.log('[CityDetection] No URL parameters found');
+  }
+  console.log('[CityDetection] === END PARAMETERS ===');
+}
+
 // 1) normalizeText: ä→a, ü→u etc., alles lower-case  
 function normalizeText(str: string): string {
   return str
@@ -512,8 +527,38 @@ const cityRegex = new RegExp('\\b(' + normalizedKeys.join('|') + ')\\b');
 
 export function detectCity(): string {
   console.log('[CityDetection] start');
+  
+  // Debug: Alle Parameter ausgeben
+  debugAllParams();
+  
   const kwParam = getParam('kw');
-  const locId   = getParam('loc_physical_ms');
+  let locId = getParam('loc_physical_ms');
+  
+  // Alternative Parameter-Namen prüfen falls loc_physical_ms leer ist
+  if (!locId || locId === '{location_target_id}') {
+    console.log('[CityDetection] loc_physical_ms ist leer oder Platzhalter, prüfe Alternativen...');
+    
+    // Verschiedene mögliche Parameter-Namen testen
+    const alternativeParams = [
+      'location_target_id',
+      'locationtargetid', 
+      'loc_id',
+      'location_id',
+      'target_id',
+      'geo_id',
+      'location'
+    ];
+    
+    for (const paramName of alternativeParams) {
+      const value = getParam(paramName);
+      if (value && value !== '{location_target_id}') {
+        console.log(`[CityDetection] Alternative Parameter gefunden: ${paramName} = ${value}`);
+        locId = value;
+        break;
+      }
+    }
+  }
+  
   let city: string | null = null;
 
   // 1) Keyword-Pfad
@@ -536,12 +581,15 @@ export function detectCity(): string {
   if (!city && locId && geoIdToCity[locId]) {
     city = geoIdToCity[locId];
     console.log('[CityDetection] via Geo-ID:', locId, '→', city);
+  } else if (locId) {
+    console.log('[CityDetection] Geo-ID nicht in Mapping gefunden:', locId);
   }
 
-  // 3) Fallback
+  // 3) Fallback mit Hinweis
   if (!city) {
     city = 'Ihrer Stadt';
     console.log('[CityDetection] fallback:', city);
+    console.log('[CityDetection] PROBLEM: Kein kw-Parameter und keine gültige loc_physical_ms gefunden');
   }
 
   return city;
