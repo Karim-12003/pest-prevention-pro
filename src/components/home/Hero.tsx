@@ -8,6 +8,7 @@ import Logo from '../ui/Logo';
 import { Helmet } from 'react-helmet-async';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import MoneyBackBadge from '../ui/MoneyBackBadge';
+import { updateCityPlaceholders } from '../../utils/hybridCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -16,34 +17,16 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  // Effekt zur Überprüfung der Stadt-Platzhalter mit mehr Logging
+  // Effekt zur Aktualisierung der Stadt-Platzhalter mit dem neuen Hybrid-System
   useEffect(() => {
     console.log("Hero wird gerendert mit cityName:", cityName);
     
-    const updateCityPlaceholders = () => {
-      const cityPlaceholders = document.querySelectorAll('.city-placeholder');
-      console.log(`Hero useEffect: ${cityPlaceholders.length} city-placeholder Elemente gefunden`);
-      
-      cityPlaceholders.forEach((el, index) => {
-        const oldText = el.textContent;
-        console.log(`Hero useEffect: city-placeholder Element ${index + 1} enthält:`, oldText);
-        
-        // Aktualisieren der Platzhalter mit dem aktuellen cityName
-        if (oldText !== cityName) {
-          el.textContent = cityName;
-          console.log(`Hero useEffect: Platzhalter ${index + 1} von "${oldText}" zu "${cityName}" aktualisiert`);
-        }
-      });
-    };
+    // Verwende das neue Hybrid-System zur Aktualisierung aller Platzhalter
+    updateCityPlaceholders(cityName);
     
-    // Direkt ausführen
-    updateCityPlaceholders();
-    
-    // Nach kurzer Verzögerung nochmal ausführen
-    const timeoutId = setTimeout(updateCityPlaceholders, 300);
-    
-    // Nach längerer Verzögerung nochmal ausführen für dynamisch nachgeladene Elemente
-    const longTimeoutId = setTimeout(updateCityPlaceholders, 1000);
+    // Nach kurzer Verzögerung nochmal ausführen für dynamisch nachgeladene Elemente
+    const timeoutId = setTimeout(() => updateCityPlaceholders(cityName), 300);
+    const longTimeoutId = setTimeout(() => updateCityPlaceholders(cityName), 1000);
     
     return () => {
       clearTimeout(timeoutId);

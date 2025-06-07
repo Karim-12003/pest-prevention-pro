@@ -14,147 +14,38 @@ import { Helmet } from 'react-helmet-async';
 import SectionCTA from '../components/ui/SectionCTA';
 import AboutUs from '../components/home/AboutUs';
 import MovingLogoBanner from '../components/home/MovingLogoBanner';
-import { toast } from "sonner";
 import SeoKeywords from '../components/seo/SeoKeywords';
+import { detectCity } from '../utils/hybridCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
-// Erweiterte Liste deutscher Städte für die Erkennung
-const cityList = [
-  'Aachen', 'Ahaus', 'Ahlen', 'Alfter', 'Altena', 'Altenbeken', 'Anröchte',
-  'Arnsberg', 'Ascheberg', 'Attendorn', 'Augustdorf', 
-  'Bad Berleburg', 'Bad Honnef', 'Bad Laasphe', 'Bad Oeynhausen', 'Bad Salzuflen', 
-  'Beckum', 'Bedburg', 'Bergheim', 'Bergisch Gladbach', 'Bergkamen', 'Bergneustadt',
-  'Berlin', 'Bestwig', 'Beverungen', 'Bielefeld', 'Billerbeck', 'Bocholt', 'Bochum', 
-  'Bonn', 'Borchen', 'Borgentreich', 'Borgholzhausen', 'Borken', 'Bornheim', 'Bottrop', 
-  'Brakel', 'Bremen', 'Brühl', 'Bünde', 'Burbach', 'Burscheid', 
-  'Castrop-Rauxel', 'Coesfeld', 
-  'Datteln', 'Delbrück', 'Detmold', 'Dinslaken', 'Dormagen', 'Dorsten', 'Dortmund', 
-  'Dresden', 'Drolshagen', 'Duisburg', 'Dülmen', 'Düsseldorf', 
-  'Emmerich', 'Emsdetten', 'Enge', 'Enger', 'Engelskirchen', 'Ennepetal', 'Ennigerloh', 
-  'Erftstadt', 'Erkenschwick', 'Erkrath', 'Erndtebrück', 'Erzgebirge', 'Eschweiler', 'Essen', 'Eslohe', 
-  'Espelkamp', 'Essen', 'Extertal', 
-  'Frankfurt', 'Frechen', 'Freiburg', 'Freudenberg', 
-  'Gelsenkirchen', 'Gescher', 'Geseke', 'Gevelsberg', 'Gladbeck', 'Greven', 'Grevenbroich', 
-  'Gütersloh', 'Gummersbach', 
-  'Haan', 'Hagen', 'Haltern', 'Haltern am See', 'Halver', 'Hamburg', 'Hamm', 'Hamminkeln', 'Hannover', 
-  'Harsewinkel', 'Hattingen', 'Havixbeck', 'Heek', 'Heiligenhaus', 'Herdecke', 'Herford', 'Herne', 'Herten', 
-  'Herzogenrath', 'Hilchenbach', 'Hilden', 'Hille', 'Horn-Bad Meinberg', 'Hörstel', 'Hövel', 'Hövelhof', 
-  'Höxter', 'Hückeswagen', 'Hünxe', 'Hürth', 'Hüllhorst', 
-  'Ibbenbüren', 'Iserlohn', 'Isselburg', 
-  'Jüchen', 
-  'Kaarst', 'Kamen', 'Kamp-Lintfort', 'Karlsruhe', 'Kerpen', 'Kierspe', 'Kirchhundem', 'Kleve', 'Köln', 
-  'Königswinter', 'Korschenbroich', 'Krefeld', 'Kreuztal', 'Kürten', 
-  'Lage', 'Langenfeld', 'Leipzig', 'Leichlingen', 'Lemgo', 'Lengerich', 'Lennestadt', 
-  'Leverkusen', 'Lichtenau', 'Lindlar', 'Lippspringe', 'Lippstadt', 'Lübbecke', 'Lüdenscheid', 
-  'Lüdinghausen', 'Lünen', 
-  'Mannheim', 'Marienmünster', 'Marienheide', 'Marl', 'Marsberg', 'Medebach', 'Meerbusch', 
-  'Meinerzhagen', 'Menden', 'Meckenheim', 'Meschede', 'Mettmann', 'Minden', 'Moers', 'Monheim', 
-  'Monheim am Rhein', 'Monschau', 'Mönchengladbach', 'Morsbach', 'Much', 'München', 'Münster', 
-  'Netphen', 'Neuenrade', 'Neunkirchen', 'Neuss', 'Neustadt', 'Niederkassel', 'Nieheim', 
-  'Nottuln', 'Nümbrecht', 'Nürnberg', 'Neukirchen-Vluyn',
-  'Oberhausen', 'Oberveischede', 'Ochtrup', 'Odenthal', 'Oelde', 'Oer-Erkenschwick', 'Olfen', 
-  'Olpe', 'Olsberg', 'Ostbevern', 'Overath', 
-  'Paderborn', 'Petershagen', 'Plettenberg', 'Porta Westfalica', 'Preußisch Oldendorf', 'Pulheim', 
-  'Radevormwald', 'Raesfeld', 'Ratingen', 'Recklinghausen', 'Rees', 'Reichshof', 'Remscheid', 
-  'Rheda-Wiedenbrück', 'Rhede', 'Rheinberg', 'Rheine', 'Rietberg', 'Roetgen', 'Rommerskirchen', 
-  'Rosendahl', 'Rösrath', 'Rüthen', 
-  'Salzkotten', 'Sankt Augustin', 'Sassenberg', 'Schalksmühle', 'Schermbeck', 'Schieder-Schwalenberg', 
-  'Schloß Holte-Stukenbrock', 'Schmallenberg', 'Schwelm', 'Schwerte', 'Selm', 'Senden', 'Sendenhorst', 
-  'Siegburg', 'Siegen', 'Simmerath', 'Soest', 'Solingen', 'Sprockhövel', 'Stadtlohn', 'Steinfurt', 
-  'Steinhagen', 'Steinheim', 'Stemwede', 'Stolberg', 'Stuttgart', 'Südlohn', 'Sundern', 
-  'Telgte', 'Troisdorf', 
-  'Unna', 
-  'Velbert', 'Verl', 'Viersen', 'Voerde', 'Vreden', 
-  'Wadersloh', 'Waldbröl', 'Waltrop', 'Warendorf', 'Warburg', 'Warstein', 'Wenden', 'Werl', 
-  'Wermelskirchen', 'Wesel', 'Wesseling', 'Westerkappeln', 'Wetter', 'Wickede', 'Wiehl', 'Willebadessen', 
-  'Willich', 'Wilnsdorf', 'Winterberg', 'Wipperfürth', 'Witten', 'Wuppertal', 'Würselen', 
-  'Xanten'
-];
-
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   
-  // Verbesserte Stadt-Erkennung mit direkter Analyse der URL
+  // Hybrid Stadt-Erkennung mit dem neuen Skript
   useEffect(() => {
-    const detectCityFromURL = () => {
-      console.log("Stadt-Erkennung wird ausgeführt...");
+    const runCityDetection = () => {
+      console.log("Hybrid Stadt-Erkennung wird ausgeführt...");
       
       try {
-        // Google Ads Parameter "kw" (keyword) überprüfen
-        const urlParams = new URLSearchParams(window.location.search);
-        const kwParam = urlParams.get('kw');
-        
-        if (kwParam) {
-          console.log("kw-Parameter gefunden:", kwParam);
-          const decodedKw = decodeURIComponent(kwParam);
-          console.log("Dekodierter kw-Parameter:", decodedKw);
-          
-          // Die Wörter des Parameters aufteilen
-          const words = decodedKw.toLowerCase().split(/\s+/);
-          console.log("Aufgeteilte Wörter:", words);
-          
-          // Jedes Wort mit unserer Städteliste vergleichen
-          for (const city of cityList) {
-            const cityLower = city.toLowerCase();
-            
-            // Prüfen ob Stadt komplett im Parameter enthalten ist
-            if (decodedKw.toLowerCase().includes(cityLower)) {
-              console.log(`Stadt "${city}" im Keyword gefunden!`);
-              setCityName(city);
-              return;
-            }
-            
-            // Einzelwortvergleich für genauere Erkennung
-            for (const word of words) {
-              if (word === cityLower || (word.length > 3 && cityLower.includes(word))) {
-                console.log(`Stadt "${city}" aus Teilwort "${word}" erkannt!`);
-                setCityName(city);
-                return;
-              }
-            }
-          }
-          
-          // Speziell für "bochum" prüfen (da dies in der URL vorkommt)
-          if (decodedKw.toLowerCase().includes("bochum")) {
-            console.log("Bochum explizit erkannt!");
-            setCityName("Bochum");
-            return;
-          }
-        }
-        
-        // Falls kein Parameter gefunden wurde, auch die URL selbst prüfen
-        const fullUrl = window.location.href.toLowerCase();
-        for (const city of cityList) {
-          if (fullUrl.includes(city.toLowerCase())) {
-            console.log(`Stadt "${city}" in der URL gefunden!`);
-            setCityName(city);
-            return;
-          }
-        }
-        
-        // Speziell für "bochum" in der URL prüfen
-        if (fullUrl.includes("bochum")) {
-          console.log("Bochum explizit in der URL erkannt!");
-          setCityName("Bochum");
-          return;
-        }
-        
-        console.log("Keine Stadt erkannt, verwende Standardwert:", DEFAULT_CITY);
+        const detectedCity = detectCity();
+        console.log("Erkannte Stadt:", detectedCity);
+        setCityName(detectedCity);
       } catch (error) {
         console.error("Fehler bei der Stadt-Erkennung:", error);
+        setCityName(DEFAULT_CITY);
       }
     };
     
     // Sofort die Erkennung ausführen
-    detectCityFromURL();
+    runCityDetection();
     
     // Und nach kurzer Verzögerung nochmals (falls Script später lädt)
-    const timeoutId = setTimeout(detectCityFromURL, 500);
+    const timeoutId = setTimeout(runCityDetection, 500);
     
     return () => clearTimeout(timeoutId);
-  }, []); // Leeres Dependency-Array, damit dies nur beim ersten Rendering ausgeführt wird
+  }, []);
 
   const pageTitle = `Kammerjäger Adalbert - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
