@@ -29,7 +29,7 @@ const geoIdToCity: Record<string, string> = {
   "1004771": "Xanten",
   "9048844": "Waltrop",
   "9048281": "Dinslaken",
-  "1004625": "Essen",
+  "9043934": "Essen",
   "9062603": "Schermbeck",
   "1004605": "Castrop-Rauxel",
   "1004651": "Herne",
