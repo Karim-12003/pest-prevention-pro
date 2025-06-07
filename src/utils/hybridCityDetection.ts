@@ -1,3 +1,4 @@
+
 // ─── Hybrid City Detection ──────────────────────────────────────────────────
 
 // 1) Lookup-Tabelle: Geo-ID → Stadtname
@@ -494,6 +495,20 @@ function debugAllParams(): void {
   console.log('[CityDetection] === END PARAMETERS ===');
 }
 
+// Google Ads Kampagnen-ID zu Stadt Mapping (basierend auf Kampagnen-Setup)
+function getCityFromCampaignId(campaignId: string): string | null {
+  console.log('[CityDetection] Prüfe Kampagnen-ID:', campaignId);
+  
+  // Hier könnten Sie spezifische Kampagnen-IDs zu Städten zuordnen
+  // Beispiel (Sie müssen das an Ihre Kampagnen anpassen):
+  const campaignMapping: Record<string, string> = {
+    "22474471919": "Düsseldorf", // Beispiel-Zuordnung
+    // Fügen Sie hier weitere Kampagnen-ID -> Stadt Zuordnungen hinzu
+  };
+  
+  return campaignMapping[campaignId] || null;
+}
+
 // 1) normalizeText: ä→a, ü→u etc., alles lower-case  
 function normalizeText(str: string): string {
   return str
@@ -534,8 +549,15 @@ export function detectCity(): string {
   const kwParam = getParam('kw');
   let locId = getParam('loc_physical_ms');
   
+  // *** WICHTIG: Prüfen ob loc_physical_ms ein Platzhalter ist ***
+  if (locId && (locId.includes('{') || locId.includes('}'))) {
+    console.log('[CityDetection] WARNUNG: loc_physical_ms enthält Platzhalter:', locId);
+    console.log('[CityDetection] Google Ads hat den Parameter nicht ersetzt!');
+    locId = null; // Als ungültig behandeln
+  }
+  
   // Alternative Parameter-Namen prüfen falls loc_physical_ms leer ist
-  if (!locId || locId === '{location_target_id}') {
+  if (!locId) {
     console.log('[CityDetection] loc_physical_ms ist leer oder Platzhalter, prüfe Alternativen...');
     
     // Verschiedene mögliche Parameter-Namen testen
@@ -551,7 +573,7 @@ export function detectCity(): string {
     
     for (const paramName of alternativeParams) {
       const value = getParam(paramName);
-      if (value && value !== '{location_target_id}') {
+      if (value && !value.includes('{') && !value.includes('}')) {
         console.log(`[CityDetection] Alternative Parameter gefunden: ${paramName} = ${value}`);
         locId = value;
         break;
@@ -585,11 +607,40 @@ export function detectCity(): string {
     console.log('[CityDetection] Geo-ID nicht in Mapping gefunden:', locId);
   }
 
-  // 3) Fallback mit Hinweis
+  // 3) NEUE Fallback-Strategie: Google Ads Kampagnen-ID verwenden
+  if (!city) {
+    const campaignId = getParam('gad_campaignid');
+    if (campaignId) {
+      const cityFromCampaign = getCityFromCampaignId(campaignId);
+      if (cityFromCampaign) {
+        city = cityFromCampaign;
+        console.log('[CityDetection] via Kampagnen-ID:', campaignId, '→', city);
+      }
+    }
+  }
+
+  // 4) Fallback mit detaillierter Problemanalyse
   if (!city) {
     city = 'Ihrer Stadt';
     console.log('[CityDetection] fallback:', city);
-    console.log('[CityDetection] PROBLEM: Kein kw-Parameter und keine gültige loc_physical_ms gefunden');
+    
+    // Detaillierte Problemanalyse
+    const locPhysical = getParam('loc_physical_ms');
+    const campaignId = getParam('gad_campaignid');
+    const gclid = getParam('gclid');
+    
+    console.log('[CityDetection] ===== PROBLEMANALYSE =====');
+    console.log('[CityDetection] loc_physical_ms:', locPhysical);
+    console.log('[CityDetection] gad_campaignid:', campaignId);
+    console.log('[CityDetection] gclid:', gclid);
+    
+    if (locPhysical && (locPhysical.includes('{') || locPhysical.includes('}'))) {
+      console.log('[CityDetection] HAUPTPROBLEM: Google Ads Parameter wurde nicht ersetzt!');
+      console.log('[CityDetection] LÖSUNG: Prüfen Sie Ihre Google Ads Tracking-Template Konfiguration');
+    } else if (!locPhysical && !kwParam) {
+      console.log('[CityDetection] PROBLEM: Keine Stadt-Parameter gefunden');
+    }
+    console.log('[CityDetection] =========================');
   }
 
   return city;
