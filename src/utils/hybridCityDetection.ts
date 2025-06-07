@@ -1,4 +1,3 @@
-
 // ─── Hybrid City Detection ──────────────────────────────────────────────────
 
 // 1) Lookup-Tabelle: Geo-ID → Stadtname
@@ -478,6 +477,21 @@ function getParam(name: string): string | null {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+// Hilfsfunktion: ersten Buchstaben jedes Wortes großschreiben
+function capitalizeWords(str: string): string {
+  return str.split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+// Wandelt „ä" → „a", „ü" → „u" etc. für robustes Matching
+function normalizeText(str: string): string {
+  return str
+    .normalize('NFD')               // Unicode normalisieren
+    .replace(/[\u0300-\u036f]/g, '')// diakritische Zeichen entfernen
+    .toLowerCase();
+}
+
 // Core-Funktion zur Stadterkennung
 export function detectCity(): string {
   console.log("[CityDetection] start");
@@ -487,15 +501,18 @@ export function detectCity(): string {
 
   // 1) Wenn kw vorhanden → Keyword-Match (höchste Priorität)
   if (kw) {
-    const kwLower = decodeURIComponent(kw).toLowerCase();
-    console.log("[CityDetection] kw:", kwLower);
-    for (const name of cityKeywords) {
-      if (kwLower.includes(name)) {
-        // Erstes, das matched, capitalized
-        city = name.charAt(0).toUpperCase() + name.slice(1);
-        console.log("[CityDetection] via keyword:", city);
-        break;
-      }
+    const kwNorm = normalizeText(decodeURIComponent(kw));
+    console.log("[CityDetection] kw:", kwNorm);
+    
+    // Regex aller Keywords, z.B. /\b(aachen|dusseldorf|essen|...)\b/
+    const cityRegex = new RegExp('\\b(' + cityKeywords.join('|') + ')\\b');
+    const match = kwNorm.match(cityRegex);
+    
+    if (match) {
+      city = capitalizeWords(match[1]);
+      console.log("[CityDetection] via keyword:", city);
+    } else {
+      console.log("[CityDetection] kein Keyword-Match für:", kwNorm);
     }
   }
 
