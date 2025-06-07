@@ -1,7 +1,8 @@
+
 // ─── Hybrid City Detection ──────────────────────────────────────────────────
 
 // 1) Lookup-Tabelle: Geo-ID → Stadtname
-const geoIdToCity = {
+const geoIdToCity: Record<string, string> = {
   "1004618": "Ennepetal",
   "1004592": "Bergkamen",
   "1004596": "Bochum",
@@ -236,8 +237,8 @@ const geoIdToCity = {
   "1004760": "Werl",
 };
 
-// 2) Keyword-Liste: alle Städte (kleinbuchstabiert) für Keyword-Matching
-const cityKeywords = [
+// 2) Keyword-Liste: alle Städte für Keyword-Matching
+const cityKeywords: string[] = [
   "59969",
   "Aachen",
   "Ahaus",
