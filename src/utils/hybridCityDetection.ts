@@ -1,4 +1,3 @@
-
 // ─── Hybrid City Detection ──────────────────────────────────────────────────
 
 // 1) Lookup-Tabelle: Geo-ID → Stadtname
@@ -548,15 +547,48 @@ export function detectCity(): string {
   return city;
 }
 
-// Funktion zum Aktualisieren aller Platzhalter-Elemente
+// Funktion zum Aktualisieren aller Platzhalter-Elemente - verbessert
 export function updateCityPlaceholders(city: string): void {
-  // 4) Alle Platzhalter-Elemente befüllen
-  document.querySelectorAll(".city-placeholder, .city-welcome, .cityname")
-          .forEach(el => {
-            if (el instanceof HTMLElement) {
-              el.textContent = city;
-            }
-          });
+  console.log('[CityDetection] Updating all city placeholders to:', city);
+  
+  // Alle möglichen Selektoren für Stadt-Platzhalter
+  const selectors = [
+    '.city-placeholder',
+    '.city-welcome', 
+    '.cityname',
+    '[data-city-placeholder]'
+  ];
+  
+  selectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    console.log(`[CityDetection] Found ${elements.length} elements for selector ${selector}`);
+    
+    elements.forEach((el, index) => {
+      if (el instanceof HTMLElement) {
+        console.log(`[CityDetection] Updating element ${index + 1}/${elements.length} (${selector}):`, el.textContent, '→', city);
+        el.textContent = city;
+      }
+    });
+  });
+
+  // Zusätzlich: React State Events für bessere Integration
+  const customEvent = new CustomEvent('cityDetected', { 
+    detail: { city },
+    bubbles: true 
+  });
+  document.dispatchEvent(customEvent);
+  
+  // Force update nach kurzer Verzögerung für dynamisch geladene Elemente
+  setTimeout(() => {
+    selectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => {
+        if (el instanceof HTMLElement && el.textContent !== city) {
+          console.log('[CityDetection] Force updating delayed element:', el.textContent, '→', city);
+          el.textContent = city;
+        }
+      });
+    });
+  }, 100);
 }
 
 // Initialisierung für Browser-Umgebung
