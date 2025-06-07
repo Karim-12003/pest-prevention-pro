@@ -548,6 +548,7 @@ export function detectCity(): string {
     
     // Verschiedene mögliche Parameter-Namen testen
     const alternativeParams = [
+      'city_id',
       'location_target_id',
       'locationtargetid', 
       'loc_id',
