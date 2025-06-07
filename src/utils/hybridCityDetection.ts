@@ -495,20 +495,6 @@ function debugAllParams(): void {
   console.log('[CityDetection] === END PARAMETERS ===');
 }
 
-// Google Ads Kampagnen-ID zu Stadt Mapping (basierend auf Kampagnen-Setup)
-function getCityFromCampaignId(campaignId: string): string | null {
-  console.log('[CityDetection] Prüfe Kampagnen-ID:', campaignId);
-  
-  // Hier könnten Sie spezifische Kampagnen-IDs zu Städten zuordnen
-  // Beispiel (Sie müssen das an Ihre Kampagnen anpassen):
-  const campaignMapping: Record<string, string> = {
-    "22474471919": "Düsseldorf", // Beispiel-Zuordnung
-    // Fügen Sie hier weitere Kampagnen-ID -> Stadt Zuordnungen hinzu
-  };
-  
-  return campaignMapping[campaignId] || null;
-}
-
 // 1) normalizeText: ä→a, ü→u etc., alles lower-case  
 function normalizeText(str: string): string {
   return str
@@ -607,31 +593,17 @@ export function detectCity(): string {
     console.log('[CityDetection] Geo-ID nicht in Mapping gefunden:', locId);
   }
 
-  // 3) NEUE Fallback-Strategie: Google Ads Kampagnen-ID verwenden
-  if (!city) {
-    const campaignId = getParam('gad_campaignid');
-    if (campaignId) {
-      const cityFromCampaign = getCityFromCampaignId(campaignId);
-      if (cityFromCampaign) {
-        city = cityFromCampaign;
-        console.log('[CityDetection] via Kampagnen-ID:', campaignId, '→', city);
-      }
-    }
-  }
-
-  // 4) Fallback mit detaillierter Problemanalyse
+  // 3) Fallback mit detaillierter Problemanalyse
   if (!city) {
     city = 'Ihrer Stadt';
     console.log('[CityDetection] fallback:', city);
     
     // Detaillierte Problemanalyse
     const locPhysical = getParam('loc_physical_ms');
-    const campaignId = getParam('gad_campaignid');
     const gclid = getParam('gclid');
     
     console.log('[CityDetection] ===== PROBLEMANALYSE =====');
     console.log('[CityDetection] loc_physical_ms:', locPhysical);
-    console.log('[CityDetection] gad_campaignid:', campaignId);
     console.log('[CityDetection] gclid:', gclid);
     
     if (locPhysical && (locPhysical.includes('{') || locPhysical.includes('}'))) {
