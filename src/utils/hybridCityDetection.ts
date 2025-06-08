@@ -84,6 +84,8 @@ const geoIdToCity: Record<string, string> = {
   "1004709": "Niederkassel",
   "1004589": "Bedburg",
   "1004733": "Siegburg",
+  "9043934": "Essen",
+
   "1004597": "Bonn",
   "1004738": "Sankt Augustin",
   "1004607": "Köln",
