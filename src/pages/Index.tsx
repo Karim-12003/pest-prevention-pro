@@ -17,7 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { detectCity } from '../utils/hybridCityDetection';
+import { detectCity } from '../utils/modernCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
@@ -25,13 +25,13 @@ const DEFAULT_CITY = "Ihrer Stadt";
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   
-  // Hybrid Stadt-Erkennung mit dem neuen Skript
+  // Moderne Stadt-Erkennung mit dem neuen System
   useEffect(() => {
-    const runCityDetection = () => {
-      console.log("Hybrid Stadt-Erkennung wird ausgeführt...");
+    const runCityDetection = async () => {
+      console.log("Moderne Stadt-Erkennung wird ausgeführt...");
       
       try {
-        const detectedCity = detectCity();
+        const detectedCity = await detectCity();
         console.log("Erkannte Stadt:", detectedCity);
         setCityName(detectedCity);
       } catch (error) {

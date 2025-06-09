@@ -1,9 +1,8 @@
-
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
 import HeroFeatures from './HeroFeatures';
-import { updateCityPlaceholders } from '../../utils/hybridCityDetection';
+import { updateCityPlaceholders } from '../../utils/modernCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -12,11 +11,11 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  // Effekt zur Aktualisierung der Stadt-Platzhalter mit dem neuen Hybrid-System
+  // Effekt zur Aktualisierung der Stadt-Platzhalter mit dem neuen System
   useEffect(() => {
     console.log("Hero wird gerendert mit cityName:", cityName);
     
-    // Verwende das neue Hybrid-System zur Aktualisierung aller Platzhalter
+    // Verwende das neue moderne System zur Aktualisierung aller Platzhalter
     updateCityPlaceholders(cityName);
     
     // Nach kurzer Verzögerung nochmal ausführen für dynamisch nachgeladene Elemente
