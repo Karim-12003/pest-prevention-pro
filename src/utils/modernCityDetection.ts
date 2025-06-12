@@ -1,4 +1,3 @@
-
 // ─── Modern City Detection System ───────────────────────────────────────────
 
 // URL der Mapping-Tabelle
@@ -83,8 +82,16 @@ export async function detectCity(): Promise<string> {
   }
   
   const kwParam = getParam('kw');
-  // Zuerst 'loc' prüfen (Standard Google Ads), dann 'loc_physical_ms' als Fallback
-  let locId = getParam('loc') || getParam('loc_physical_ms');
+  
+  // Haupt-Location-Parameter prüfen (Priorität: loc > loc_physical_ms)
+  let locId = getParam('loc');
+  console.log('[ModernCityDetection] Checking primary loc parameter:', locId);
+  
+  if (!locId || isPlaceholder(locId)) {
+    console.log('[ModernCityDetection] Primary loc parameter empty or placeholder, checking loc_physical_ms...');
+    locId = getParam('loc_physical_ms');
+    console.log('[ModernCityDetection] loc_physical_ms parameter:', locId);
+  }
   
   // *** WICHTIG: Prüfen ob der Location-Parameter ein Platzhalter ist ***
   if (isPlaceholder(locId)) {
@@ -97,10 +104,8 @@ export async function detectCity(): Promise<string> {
   if (!locId) {
     console.log('[ModernCityDetection] Haupt-Location-Parameter sind leer oder Platzhalter, prüfe Alternativen...');
     
-    // Verschiedene mögliche Parameter-Namen testen (loc als erste Alternative)
+    // Verschiedene mögliche Parameter-Namen testen (ohne loc und loc_physical_ms, da bereits geprüft)
     const alternativeParams = [
-      'loc',
-      'loc_physical_ms',
       'city_id',
       'location_target_id',
       'locationtargetid', 
@@ -138,7 +143,7 @@ export async function detectCity(): Promise<string> {
     }
   }
 
-  // 2) Geo-ID Lookup (Priorität: loc > loc_physical_ms)
+  // 2) Geo-ID Lookup (mit dem gefundenen locId)
   if (!city && locId && idToCity[locId]) {
     city = idToCity[locId];
     console.log('[ModernCityDetection] Found city via Geo-ID:', locId, '→', city);
