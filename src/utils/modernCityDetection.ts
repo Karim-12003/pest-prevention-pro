@@ -83,21 +83,24 @@ export async function detectCity(): Promise<string> {
   }
   
   const kwParam = getParam('kw');
-  let locId = getParam('loc_physical_ms');
+  // Zuerst 'loc' prüfen (Standard Google Ads), dann 'loc_physical_ms' als Fallback
+  let locId = getParam('loc') || getParam('loc_physical_ms');
   
-  // *** WICHTIG: Prüfen ob loc_physical_ms ein Platzhalter ist ***
+  // *** WICHTIG: Prüfen ob der Location-Parameter ein Platzhalter ist ***
   if (isPlaceholder(locId)) {
-    console.log('[ModernCityDetection] WARNUNG: loc_physical_ms enthält Platzhalter:', locId);
+    console.log('[ModernCityDetection] WARNUNG: Location-Parameter enthält Platzhalter:', locId);
     console.log('[ModernCityDetection] Google Ads hat den Parameter nicht ersetzt!');
     locId = null; // Als ungültig behandeln
   }
   
-  // Alternative Parameter-Namen prüfen falls loc_physical_ms leer ist
+  // Alternative Parameter-Namen prüfen falls beide Haupt-Parameter leer sind
   if (!locId) {
-    console.log('[ModernCityDetection] loc_physical_ms ist leer oder Platzhalter, prüfe Alternativen...');
+    console.log('[ModernCityDetection] Haupt-Location-Parameter sind leer oder Platzhalter, prüfe Alternativen...');
     
-    // Verschiedene mögliche Parameter-Namen testen
+    // Verschiedene mögliche Parameter-Namen testen (loc als erste Alternative)
     const alternativeParams = [
+      'loc',
+      'loc_physical_ms',
       'city_id',
       'location_target_id',
       'locationtargetid', 
@@ -135,7 +138,7 @@ export async function detectCity(): Promise<string> {
     }
   }
 
-  // 2) Geo-ID Lookup
+  // 2) Geo-ID Lookup (Priorität: loc > loc_physical_ms)
   if (!city && locId && idToCity[locId]) {
     city = idToCity[locId];
     console.log('[ModernCityDetection] Found city via Geo-ID:', locId, '→', city);
@@ -160,17 +163,19 @@ export async function detectCity(): Promise<string> {
     console.log('[ModernCityDetection] Using fallback:', city);
     
     // Detaillierte Problemanalyse
+    const locParam = getParam('loc');
     const locPhysical = getParam('loc_physical_ms');
     const gclid = getParam('gclid');
     
     console.log('[ModernCityDetection] ===== PROBLEMANALYSE =====');
+    console.log('[ModernCityDetection] loc:', locParam);
     console.log('[ModernCityDetection] loc_physical_ms:', locPhysical);
     console.log('[ModernCityDetection] gclid:', gclid);
     
-    if (isPlaceholder(locPhysical)) {
+    if (isPlaceholder(locParam) || isPlaceholder(locPhysical)) {
       console.log('[ModernCityDetection] HAUPTPROBLEM: Google Ads Parameter wurde nicht ersetzt!');
       console.log('[ModernCityDetection] LÖSUNG: Prüfen Sie Ihre Google Ads Tracking-Template Konfiguration');
-    } else if (!locPhysical && !kwParam) {
+    } else if (!locParam && !locPhysical && !kwParam) {
       console.log('[ModernCityDetection] PROBLEM: Keine Stadt-Parameter gefunden');
     }
     console.log('[ModernCityDetection] =========================');
