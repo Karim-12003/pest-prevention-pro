@@ -1,10 +1,10 @@
-
 import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Bug, Rat, Sprout, Bed, BugOff, Stethoscope, Mouse } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card, CardContent } from '@/components/ui/card';
+import EmergencyWaspBadge from '../ui/EmergencyWaspBadge';
 
 const services = [
   {
@@ -112,51 +112,65 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {services.map((service, index) => (
-            <Card
-              key={index}
-              className={cn(
-                "border border-primary/10 transition-all duration-300 hover:shadow-md hover:translate-y-[-5px]"
-              )}
-            >
-              <div className="mb-5 rounded-lg overflow-hidden">
-                <AspectRatio ratio={16/9}>
-                  <img 
-                    src={service.image} 
-                    alt={service.alt} 
-                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                    width="400"
-                    height="225"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      // Fallback for image loading errors
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = '/placeholder.svg';
-                    }}
-                  />
-                </AspectRatio>
-              </div>
-              
-              <CardContent className="pt-6">
-                <div className="rounded-full bg-accent/10 p-4 inline-flex mb-5 text-accent">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
+          {services.map((service, index) => {
+            // Wespenbekämpfung ist der 6. Service (Index 5)
+            const isWaspService = service.title === "Wespenbekämpfung";
+            
+            return (
+              <Card
+                key={index}
+                className={cn(
+                  "border transition-all duration-300 hover:shadow-md hover:translate-y-[-5px] relative",
+                  isWaspService ? "border-red-500 border-2" : "border-primary/10"
+                )}
+              >
+                {/* Notdienst-Badge nur für Wespenbekämpfung */}
+                {isWaspService && (
+                  <EmergencyWaspBadge variant="service-highlight" />
+                )}
                 
-                <div className="sr-only">
-                  <h4>Stichworte zur {service.title}</h4>
-                  <ul>
-                    {service.keywords.map((keyword, idx) => (
-                      <li key={idx}>{keyword}</li>
-                    ))}
-                  </ul>
+                <div className="mb-5 rounded-lg overflow-hidden">
+                  <AspectRatio ratio={16/9}>
+                    <img 
+                      src={service.image} 
+                      alt={service.alt} 
+                      className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+                      width="400"
+                      height="225"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        // Fallback for image loading errors
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = '/placeholder.svg';
+                      }}
+                    />
+                  </AspectRatio>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                
+                <CardContent className="pt-6">
+                  <div className={cn(
+                    "rounded-full p-4 inline-flex mb-5",
+                    isWaspService ? "bg-red-100 text-red-600" : "bg-accent/10 text-accent"
+                  )}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground">{service.description}</p>
+                  
+                  <div className="sr-only">
+                    <h4>Stichworte zur {service.title}</h4>
+                    <ul>
+                      {service.keywords.map((keyword, idx) => (
+                        <li key={idx}>{keyword}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="mt-16 text-center">

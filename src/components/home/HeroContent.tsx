@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
 import WhatsAppButton from '../ui/WhatsAppButton';
 import Logo from '../ui/Logo';
 import MoneyBackBadge from '../ui/MoneyBackBadge';
+import EmergencyWaspBadge from '../ui/EmergencyWaspBadge';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -26,6 +26,11 @@ const HeroContent = ({ cityName }: HeroContentProps) => {
       <h1 id="headline" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in mobile-spacing-boost" style={{ animationDelay: '100ms' }}>
         Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold text-accent">{cityName}</span>
       </h1>
+      
+      {/* Wespen-Notdienst Badge direkt unter dem Haupttitel */}
+      <div className="flex justify-center md:justify-start mb-4 animate-fade-in" style={{ animationDelay: '150ms' }}>
+        <EmergencyWaspBadge variant="hero" />
+      </div>
       
       <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-5 sm:mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in mobile-text-boost" style={{ animationDelay: '200ms' }}>
         Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-medium">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
