@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -34,6 +33,12 @@ const Index = () => {
         const detectedCity = await detectCity();
         console.log("Erkannte Stadt:", detectedCity);
         setCityName(detectedCity);
+        
+        // Stadt im sessionStorage speichern für andere Seiten (z.B. Impressum)
+        if (detectedCity !== DEFAULT_CITY) {
+          sessionStorage.setItem('detectedCity', detectedCity);
+          console.log("Stadt im sessionStorage gespeichert:", detectedCity);
+        }
       } catch (error) {
         console.error("Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);

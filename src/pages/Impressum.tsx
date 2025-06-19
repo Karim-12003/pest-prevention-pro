@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -48,8 +47,23 @@ const Impressum = () => {
       console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
       
       try {
-        const detectedCity = await detectCity();
-        console.log("Impressum: Erkannte Stadt:", detectedCity);
+        // Erst versuchen, Stadt aus URL-Parametern zu erkennen
+        let detectedCity = await detectCity();
+        console.log("Impressum: Stadt aus URL-Parametern:", detectedCity);
+        
+        // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
+        if (detectedCity === "Ihrer Stadt") {
+          const storedCity = sessionStorage.getItem('detectedCity');
+          if (storedCity && storedCity !== "Ihrer Stadt") {
+            detectedCity = storedCity;
+            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity);
+          }
+        } else {
+          // Stadt in sessionStorage speichern für andere Seiten
+          sessionStorage.setItem('detectedCity', detectedCity);
+        }
+        
+        console.log("Impressum: Finale erkannte Stadt:", detectedCity);
         
         // PLZ für erkannte Stadt finden - mit mehreren Varianten
         let plz = DEFAULT_PLZ;
