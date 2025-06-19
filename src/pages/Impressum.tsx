@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -11,7 +12,7 @@ const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Hagen";
 const DEFAULT_PLZ = "58135";
 
-// PLZ-Zuordnung für bekannte Städte
+// Erweiterte PLZ-Zuordnung für bekannte Städte
 const cityToPLZ: Record<string, string> = {
   'Essen': '45127',
   'Dortmund': '44137',
@@ -32,6 +33,9 @@ const cityToPLZ: Record<string, string> = {
   'Stuttgart': '70173',
   'Altenessen-Nord': '45329',
   'Altenessen Nord': '45329',
+  'Altenessen': '45329',
+  'Ihre Stadt': '58135',
+  'Ihrer Stadt': '58135',
 };
 
 const Impressum = () => {
@@ -41,17 +45,33 @@ const Impressum = () => {
   
   useEffect(() => {
     const runCityDetection = async () => {
-      console.log("Impressum: Moderne Stadt-Erkennung wird ausgeführt...");
+      console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
       
       try {
         const detectedCity = await detectCity();
         console.log("Impressum: Erkannte Stadt:", detectedCity);
         
-        // PLZ für erkannte Stadt finden
-        const plz = cityToPLZ[detectedCity] || DEFAULT_PLZ;
+        // PLZ für erkannte Stadt finden - mit mehreren Varianten
+        let plz = DEFAULT_PLZ;
+        
+        // Zuerst exakte Übereinstimmung
+        if (cityToPLZ[detectedCity]) {
+          plz = cityToPLZ[detectedCity];
+        } else {
+          // Dann nach ähnlichen Namen suchen
+          const cityKey = Object.keys(cityToPLZ).find(key => 
+            key.toLowerCase().includes(detectedCity.toLowerCase()) ||
+            detectedCity.toLowerCase().includes(key.toLowerCase())
+          );
+          if (cityKey) {
+            plz = cityToPLZ[cityKey];
+          }
+        }
+        
+        console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
         
         setCityInfo({ 
-          city: detectedCity === "Ihrer Stadt" ? DEFAULT_CITY : detectedCity, 
+          city: detectedCity, 
           plz 
         });
       } catch (error) {
@@ -60,10 +80,10 @@ const Impressum = () => {
       }
     };
     
-    // Sofort die Erkennung ausführen
+    // Sofort ausführen
     runCityDetection();
     
-    // Und nach kurzer Verzögerung nochmals (falls Script später lädt)
+    // Und nach Verzögerung nochmals
     const timeoutId = setTimeout(runCityDetection, 500);
     
     return () => clearTimeout(timeoutId);
