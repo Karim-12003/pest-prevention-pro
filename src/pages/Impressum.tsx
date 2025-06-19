@@ -109,7 +109,7 @@ const Impressum = () => {
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Angaben gemäß § 5 TMG</h2>
               <div className="space-y-2">
                 <p>Kammerjäger Adalbert</p>
-                <p>Berliner Straße 26–36</p>
+                <p>Hauptstraße 26–36</p>
                 <p>{cityInfo.plz} {cityInfo.city}</p>
                 <p>Deutschland</p>
               </div>
