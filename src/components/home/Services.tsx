@@ -32,7 +32,7 @@ const services = [
     description: "Professionelle Beseitigung von Ratten in Wohnhäusern, Gärten und Betrieben mit nachhaltigen Lösungen.",
     image: "https://www.das-tierlexikon.de/wp-content/uploads/2018/08/mongolische-rennmaeuse.jpg",
     alt: "Effektive Rattenbekämpfung durch Fachexperten",
-    keywords: ["Rattenbekämpfung", "Rattenbefall", "Rattennest entfernen"]
+    keywords: ["Rattenbekämpfung", "Rattenbefall", "Rattenplage entfernen"]
   },
 
    {
