@@ -7,6 +7,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import EmergencyWaspBadge from '../ui/EmergencyWaspBadge';
 
 const services = [
+ {
+    icon: <Bug className="h-10 w-10" />,
+    title: "Wespenbekämpfung",
+    description: "Sichere und fachgerechte Entfernung von Wespennestern und Insektenschwärmen an Ihrem Gebäude.",
+    image: "https://www.bund-niedersachsen.de/fileadmin/niedersachsen/bilder/artenschutz/wespen/wespennest_wasp-nest-gba3281439_1920_pixabay_com_wespennest-wespen-waben-nest-335984_kundennote_com.jpg",
+    alt: "Professionelle Wespenbekämpfung und Nestentfernung",
+    keywords: ["Wespenbekämpfung", "Wespennest entfernen", "Wespenplage"]
+  },
+
+    {
+    icon: <Bug className="h-10 w-10" />,
+    title: "Ameisenbekämpfung",
+    description: "Gezielte und nachhaltige Bekämpfung von Ameisen in Wohnräumen, Gärten und Terrassen.",
+    image: "https://www.swr.de/swr1/swr1leute/1724937119340%2Cameisen-schaedling-oder-chance-ewiges-leben-susanne-foitzik-100~_v-16x9@2dL_-6c42aff4e68b43c7868c3240d3ebfa29867457da.jpg",
+    alt: "Professionelle Ameisenbekämpfung im Innen- und Außenbereich",
+    keywords: ["Ameisenbekämpfung", "Ameisennest entfernen", "Ameisen loswerden"]
+  },
+
+
   {
     icon: <Rat className="h-10 w-10" />,
     title: "Rattenbekämpfung",
@@ -15,14 +34,16 @@ const services = [
     alt: "Effektive Rattenbekämpfung durch Fachexperten",
     keywords: ["Rattenbekämpfung", "Rattenbefall", "Rattennest entfernen"]
   },
-  {
-    icon: <Mouse className="h-10 w-10" />,
-    title: "Mäusebekämpfung",
-    description: "Effektive Entfernung von Mäusen und anderen Nagetieren aus Ihrem Zuhause oder Geschäftsräumen.",
-    image: "https://bk-schaedling.de/wp-content/uploads/2019/12/Maus-am-Kabel-WEB.jpg",
-    alt: "Professionelle Mäusebekämpfung durch zertifizierte Kammerjäger",
-    keywords: ["Mäusebekämpfung", "Mäusebefall", "Mäusenest entfernen"]
+
+   {
+    icon: <Bed className="h-10 w-10" />,
+    title: "Bettwanzenbekämpfung",
+    description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern in Wohn- und Schlafräumen.",
+    image: "https://farmers-cat.de/media/wysiwyg/Bettwanzen/shutterstock_2236348135_.jpg",
+    alt: "Spezialisierte Bettwanzenbekämpfung durch qualifizierte Kammerjäger",
+    keywords: ["Bettwanzenbekämpfung", "Bettwanzen Behandlung", "Bettwanzen loswerden"]
   },
+
   {
     icon: <BugOff className="h-10 w-10" />,
     title: "Marderbekämpfung",
@@ -31,14 +52,17 @@ const services = [
     alt: "Marderbekämpfung für Dachböden und Wohnräume durch zertifizierte Experten",
     keywords: ["Marderbekämpfung", "Marderschutz", "Marder Dachboden"]
   },
+
   {
-    icon: <Bug className="h-10 w-10" />,
-    title: "Ameisenbekämpfung",
-    description: "Gezielte und nachhaltige Bekämpfung von Ameisen in Wohnräumen, Gärten und Terrassen.",
-    image: "https://www.swr.de/swr1/swr1leute/1724937119340%2Cameisen-schaedling-oder-chance-ewiges-leben-susanne-foitzik-100~_v-16x9@2dL_-6c42aff4e68b43c7868c3240d3ebfa29867457da.jpg",
-    alt: "Professionelle Ameisenbekämpfung im Innen- und Außenbereich",
-    keywords: ["Ameisenbekämpfung", "Ameisennest entfernen", "Ameisen loswerden"]
+    icon: <Mouse className="h-10 w-10" />,
+    title: "Mäusebekämpfung",
+    description: "Effektive Entfernung von Mäusen und anderen Nagetieren aus Ihrem Zuhause oder Geschäftsräumen.",
+    image: "https://bk-schaedling.de/wp-content/uploads/2019/12/Maus-am-Kabel-WEB.jpg",
+    alt: "Professionelle Mäusebekämpfung durch zertifizierte Kammerjäger",
+    keywords: ["Mäusebekämpfung", "Mäusebefall", "Mäusenest entfernen"]
   },
+
+
   {
     icon: <Bug className="h-10 w-10" />,
     title: "Silberfisch- & Papierfischbekämpfung",
@@ -47,22 +71,8 @@ const services = [
     alt: "Spezialisierte Bekämpfung von Silberfischen und Papierfischen",
     keywords: ["Silberfischbekämpfung", "Papierfischbekämpfung", "Feuchtigkeit bekämpfen"]
   },
-  {
-    icon: <Bug className="h-10 w-10" />,
-    title: "Wespenbekämpfung",
-    description: "Sichere und fachgerechte Entfernung von Wespennestern und Insektenschwärmen an Ihrem Gebäude.",
-    image: "https://www.bund-niedersachsen.de/fileadmin/niedersachsen/bilder/artenschutz/wespen/wespennest_wasp-nest-gba3281439_1920_pixabay_com_wespennest-wespen-waben-nest-335984_kundennote_com.jpg",
-    alt: "Professionelle Wespenbekämpfung und Nestentfernung",
-    keywords: ["Wespenbekämpfung", "Wespennest entfernen", "Wespenplage"]
-  },
-  {
-    icon: <Bed className="h-10 w-10" />,
-    title: "Bettwanzenbekämpfung",
-    description: "Spezialisierte Behandlung zur vollständigen Beseitigung von Bettwanzen und deren Eiern in Wohn- und Schlafräumen.",
-    image: "https://farmers-cat.de/media/wysiwyg/Bettwanzen/shutterstock_2236348135_.jpg",
-    alt: "Spezialisierte Bettwanzenbekämpfung durch qualifizierte Kammerjäger",
-    keywords: ["Bettwanzenbekämpfung", "Bettwanzen Behandlung", "Bettwanzen loswerden"]
-  },
+ 
+ 
   {
     icon: <Bug className="h-10 w-10" />,
     title: "Flohbekämpfung",
