@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -32,6 +31,9 @@
       document.head.appendChild(script);
     </script>
     <!-- End ClickCease script -->
+
+    <!-- ClickGuard Script -->
+    <script defer type="application/javascript" src="https://pulse.clickguard.com/s/acc2YZmZhzAh0/ast8opYYNBVAe"></script>
     
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -698,80 +700,4 @@
             console.log("Keyword-Parameter:", keyword);
             console.log("Location ID-Parameter:", locId);
 
-            // 1. Keyword-basierte Erkennung (Priorität)
-            if (keyword) {
-                console.log("Keyword-basierte Erkennung wird ausgeführt...");
-                const keywordLower = decodeURIComponent(keyword).toLowerCase();
-                console.log("Dekodiertes Keyword:", keywordLower);
-                
-                for (const name of Object.values(locationMapping)) {
-                    if (keywordLower.includes(name.toLowerCase())) {
-                        city = name;
-                        console.log("*** Stadt aus Keyword erkannt:", city);
-                        break;
-                    }
-                }
-            }
-            
-            // 2. Fallback auf Location ID
-            if (city === "Ihrer Stadt" && locId && locationMapping[locId]) {
-                city = locationMapping[locId];
-                console.log("*** Stadt aus Location ID erkannt:", city, "für ID:", locId);
-            }
-
-            console.log("FINAL: Erkannte Stadt:", city);
-            // Speichern der erkannten Stadt als globale Variable
-            window.detectedCity = city;
-            
-            updateCityElements(city);
-            return city;
-        }
-
-        function updateCityElements(city) {
-            console.log("Aktualisiere alle Stadt-Elemente mit:", city);
-            
-            // Alle city-placeholder Elemente aktualisieren
-            const placeholders = document.querySelectorAll('.city-placeholder');
-            console.log(`${placeholders.length} city-placeholder Elemente gefunden`);
-            placeholders.forEach((el, i) => {
-                console.log(`city-placeholder ${i+1} vorher:`, el.textContent);
-                el.textContent = city;
-                console.log(`city-placeholder ${i+1} nachher:`, el.textContent);
-            });
-            
-            // Alle city-welcome Elemente aktualisieren
-            const welcomeElements = document.querySelectorAll('.city-welcome');
-            console.log(`${welcomeElements.length} city-welcome Elemente gefunden`);
-            welcomeElements.forEach((el, i) => {
-                console.log(`city-welcome ${i+1} vorher:`, el.textContent);
-                el.textContent = city;
-                console.log(`city-welcome ${i+1} nachher:`, el.textContent);
-            });
-            
-            // Neue cityname Klasse unterstützen
-            const cityNameElements = document.querySelectorAll('.cityname');
-            console.log(`${cityNameElements.length} cityname Elemente gefunden`);
-            cityNameElements.forEach((el, i) => {
-                console.log(`cityname ${i+1} vorher:`, el.textContent);
-                el.textContent = city;
-                console.log(`cityname ${i+1} nachher:`, el.textContent);
-            });
-        }
-        
-        // Stadt-Erkennung sofort ausführen
-        detectCity();
-        
-        // Nach einer kurzen Verzögerung nochmal ausführen (für dynamisch geladene Elemente)
-        setTimeout(detectCity, 500);
-        
-        // Nochmal nach längerer Verzögerung ausführen (für React-gerenderte Elemente)
-        setTimeout(detectCity, 1500);
-        
-        // Event-Listener für React Router Navigationsänderungen
-        window.addEventListener('popstate', function() {
-            setTimeout(detectCity, 300);
-        });
-      });
-    </script>
-  </body>
-</html>
+            // 
