@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -37,33 +38,33 @@ const cityToPLZ: Record<string, string> = {
   'Ihrer Stadt': '58135',
 };
 
-const AGB = () => {
+const Datenschutz = () => {
   const { city: routeCity } = useParams();
   const location = useLocation();
   const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
   
   useEffect(() => {
     const runCityDetection = async () => {
-      console.log("AGB: Stadt-Erkennung wird ausgeführt...");
+      console.log("Datenschutz: Stadt-Erkennung wird ausgeführt...");
       
       try {
         // Erst versuchen, Stadt aus URL-Parametern zu erkennen
         let detectedCity = await detectCity();
-        console.log("AGB: Stadt aus URL-Parametern:", detectedCity);
+        console.log("Datenschutz: Stadt aus URL-Parametern:", detectedCity);
         
         // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {
           const storedCity = sessionStorage.getItem('detectedCity');
           if (storedCity && storedCity !== "Ihrer Stadt") {
             detectedCity = storedCity;
-            console.log("AGB: Stadt aus sessionStorage übernommen:", detectedCity);
+            console.log("Datenschutz: Stadt aus sessionStorage übernommen:", detectedCity);
           }
         } else {
           // Stadt in sessionStorage speichern für andere Seiten
           sessionStorage.setItem('detectedCity', detectedCity);
         }
         
-        console.log("AGB: Finale erkannte Stadt:", detectedCity);
+        console.log("Datenschutz: Finale erkannte Stadt:", detectedCity);
         
         // PLZ für erkannte Stadt finden - mit mehreren Varianten
         let plz = DEFAULT_PLZ;
@@ -82,14 +83,14 @@ const AGB = () => {
           }
         }
         
-        console.log("AGB: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
+        console.log("Datenschutz: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
         
         setCityInfo({ 
           city: detectedCity, 
           plz 
         });
       } catch (error) {
-        console.error("AGB: Fehler bei der Stadt-Erkennung:", error);
+        console.error("Datenschutz: Fehler bei der Stadt-Erkennung:", error);
         setCityInfo({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
       }
     };
@@ -102,12 +103,12 @@ const AGB = () => {
     
     return () => clearTimeout(timeoutId);
   }, [routeCity, location]);
-  
+
   return (
     <>
       <Helmet>
-        <title>Allgemeine Geschäftsbedingungen - Kammerjäger Schneider</title>
-        <meta name="description" content={`Allgemeine Geschäftsbedingungen (AGB) für die Dienstleistungen von Kammerjäger Schneider in ${cityInfo.city}.`} />
+        <title>Datenschutzerklärung - Kammerjäger Schneider</title>
+        <meta name="description" content={`Datenschutzerklärung für die Dienstleistungen von Kammerjäger Schneider in ${cityInfo.city}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -115,84 +116,71 @@ const AGB = () => {
         
         <main className="flex-grow container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
-            <h1 className="text-3xl font-bold mb-8 text-[#1A1F2C]">Allgemeine Geschäftsbedingungen (AGB)</h1>
+            <h1 className="text-3xl font-bold mb-8 text-[#1A1F2C]">Datenschutzerklärung</h1>
             
             <section className="mb-8">
-              <div className="space-y-2 mb-6">
+              <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Verantwortlicher</h2>
+              <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
-                <p>Hauptstraße 26–36, {cityInfo.plz} {cityInfo.city}</p>
-                <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
+                <p>Hauptstraße 26–36</p>
+                <p>{cityInfo.plz} {cityInfo.city}</p>
+                <p>Deutschland</p>
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
+                <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
               </div>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§1 Geltungsbereich</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">1. Allgemeine Hinweise</h2>
               <p className="text-gray-700">
-                Diese AGB gelten für alle Verträge über Dienstleistungen im Bereich der Schädlingsbekämpfung, die zwischen Kammerjäger Schneider (nachfolgend „Dienstleister") und Kunden (Verbraucher und Unternehmer) abgeschlossen werden.
+                Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
               </p>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§2 Leistungen</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">2. Datenerfassung auf unserer Website</h2>
+              <h3 className="text-lg font-medium mb-2 text-[#1A1F2C]">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h3>
+              <p className="text-gray-700 mb-3">
+                Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.
+              </p>
+              <h3 className="text-lg font-medium mb-2 text-[#1A1F2C]">Wie erfassen wir Ihre Daten?</h3>
               <p className="text-gray-700">
-                Der Dienstleister bietet die Beseitigung von Schädlingen wie Insekten, Nagetieren, Bettwanzen, Wespen u. Ä. sowie präventive Maßnahmen an. Der genaue Leistungsumfang ergibt sich aus der individuellen Vereinbarung.
+                Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben oder bei einem Anruf übermitteln.
               </p>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§3 Auftragserteilung</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">3. Rechtsgrundlage für die Verarbeitung</h2>
               <p className="text-gray-700">
-                Die Beauftragung erfolgt telefonisch, per WhatsApp, E-Mail oder über andere Kontaktwege. Mit Annahme des Angebots gilt der Auftrag als verbindlich erteilt.
+                Die Verarbeitung Ihrer personenbezogenen Daten erfolgt auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
               </p>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§4 Preise und Zahlung</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">4. Ihre Rechte</h2>
               <p className="text-gray-700">
-                Die Preise richten sich nach Art, Umfang und Dringlichkeit der Dienstleistung und werden dem Kunden vor Beginn mitgeteilt. Zahlungen erfolgen – sofern nicht anders vereinbart – unmittelbar nach Leistungserbringung in bar oder per Überweisung.
+                Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung, Sperrung oder Löschung dieser Daten zu verlangen.
               </p>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§5 Terminvereinbarung und Stornierung</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">5. Server-Log-Dateien</h2>
               <p className="text-gray-700">
-                Vereinbarte Termine sind verbindlich. Bei kurzfristiger Stornierung (weniger als 24 Stunden vor dem Termin) kann eine Ausfallpauschale in Rechnung gestellt werden. Bei Nichterscheinen des Kunden behält sich der Dienstleister vor, den vollen Preis zu berechnen.
+                Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind: Browsertyp und Browserversion, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners, Uhrzeit der Serveranfrage und IP-Adresse.
               </p>
             </section>
             
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§6 Haftung</h2>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">6. Kontaktformular</h2>
               <p className="text-gray-700">
-                Der Dienstleister haftet nur bei Vorsatz oder grober Fahrlässigkeit. Eine Haftung für Folgeschäden durch unsachgemäße Nachbehandlung durch den Kunden ist ausgeschlossen.
+                Wenn Sie uns per Kontaktformular oder E-Mail Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
               </p>
             </section>
             
-            <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§7 Widerrufsrecht</h2>
+            <section>
+              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">7. Widerspruch gegen Werbe-E-Mails</h2>
               <p className="text-gray-700">
-                Bei Dienstleistungen, die auf ausdrücklichen Wunsch des Kunden kurzfristig (z. B. als Notfall) begonnen werden, erlischt das Widerrufsrecht gemäß § 356 Abs. 4 BGB mit vollständiger Vertragserfüllung.
-              </p>
-            </section>
-            
-            <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§8 Datenschutz</h2>
-              <p className="text-gray-700">
-                Die im Rahmen der Auftragsabwicklung erhobenen personenbezogenen Daten werden ausschließlich zur Vertragsabwicklung genutzt und nicht an Dritte weitergegeben. Weitere Infos siehe Datenschutzerklärung.
-              </p>
-            </section>
-            
-            <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§9 Gerichtsstand</h2>
-              <p className="text-gray-700">
-                Gerichtsstand ist – soweit gesetzlich zulässig – der Sitz des Dienstleisters.
-              </p>
-            </section>
-            
-            <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§10 Schlussbestimmungen</h2>
-              <p className="text-gray-700">
-                Sollten einzelne Bestimmungen dieser AGB ganz oder teilweise unwirksam sein, bleibt die Wirksamkeit der übrigen Regelungen unberührt.
+                Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen.
               </p>
             </section>
           </div>
@@ -208,4 +196,4 @@ const AGB = () => {
   );
 };
 
-export default AGB;
+export default Datenschutz;
