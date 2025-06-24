@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
@@ -36,7 +35,7 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
     "description": `Professionelle Schädlingsbekämpfung mit IHK-zertifizierten Experten in ${cityName}. 24/7 Notdienst verfügbar.`,
     "telephone": PHONE_NUMBER,
     "url": "https://kammerjaeger-adalbert.de",
-    "image": "/lovable-uploads/b662e3d0-b8bb-4a2d-81e4-c778522162ee.png",
+    "image": "/lovable-uploads/4ae74c53-cd9c-47d4-ba9e-e38058eef4e3.png",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "DE"
