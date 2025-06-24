@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -106,8 +107,8 @@ const Impressum = () => {
   return (
     <>
       <Helmet>
-        <title>Impressum - Kammerjäger Adalbert</title>
-        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Adalbert in ${cityInfo.city}.`} />
+        <title>Impressum - Kammerjäger Schneider</title>
+        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Schneider in ${cityInfo.city}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -120,7 +121,7 @@ const Impressum = () => {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Angaben gemäß § 5 TMG</h2>
               <div className="space-y-2">
-                <p>Kammerjäger Adalbert</p>
+                <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
                 <p>{cityInfo.plz} {cityInfo.city}</p>
                 <p>Deutschland</p>
@@ -131,7 +132,7 @@ const Impressum = () => {
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Kontakt</h2>
               <div className="space-y-2">
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
-                <p>E-Mail: <a href="mailto:info.kammerjaegeradalbert.de" className="text-[#9b87f5] hover:underline">info.kammerjaegeradalbert.de</a></p>
+                <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
               </div>
             </section>
             

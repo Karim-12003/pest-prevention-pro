@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -94,8 +93,8 @@ const AGB = () => {
   return (
     <>
       <Helmet>
-        <title>Allgemeine Geschäftsbedingungen - Kammerjäger Adalbert</title>
-        <meta name="description" content={`Allgemeine Geschäftsbedingungen (AGB) für die Dienstleistungen von Kammerjäger Adalbert in ${cityInfo.city}.`} />
+        <title>Allgemeine Geschäftsbedingungen - Kammerjäger Schneider</title>
+        <meta name="description" content={`Allgemeine Geschäftsbedingungen (AGB) für die Dienstleistungen von Kammerjäger Schneider in ${cityInfo.city}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -107,9 +106,9 @@ const AGB = () => {
             
             <section className="mb-8">
               <div className="space-y-2 mb-6">
-                <p>Kammerjäger Adalbert</p>
+                <p>Kammerjäger Schneider</p>
                 <p>Berliner Straße 26–36, {cityInfo.plz} {cityInfo.city}</p>
-                <p>E-Mail: <a href="mailto:info.kammerjaegeradalbert.de" className="text-[#9b87f5] hover:underline">info.kammerjaegeradalbert.de</a></p>
+                <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
               </div>
             </section>
@@ -117,7 +116,7 @@ const AGB = () => {
             <section className="mb-6">
               <h2 className="text-xl font-semibold mb-3 text-[#1A1F2C]">§1 Geltungsbereich</h2>
               <p className="text-gray-700">
-                Diese AGB gelten für alle Verträge über Dienstleistungen im Bereich der Schädlingsbekämpfung, die zwischen Kammerjäger Adalbert (nachfolgend „Dienstleister") und Kunden (Verbraucher und Unternehmer) abgeschlossen werden.
+                Diese AGB gelten für alle Verträge über Dienstleistungen im Bereich der Schädlingsbekämpfung, die zwischen Kammerjäger Schneider (nachfolgend „Dienstleister") und Kunden (Verbraucher und Unternehmer) abgeschlossen werden.
               </p>
             </section>
             
