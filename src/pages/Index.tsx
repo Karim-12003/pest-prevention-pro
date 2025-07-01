@@ -20,6 +20,13 @@ import SeoKeywords from '../components/seo/SeoKeywords';
 import { detectCityCached } from '../utils/hybridCityDetection';
 import { updateCityPlaceholders } from '../utils/modernCityDetection';
 
+// Declare gtag as a global function
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
@@ -73,8 +80,8 @@ const Index = () => {
       console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
       
       // Optional: Analytics Event senden
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'city_detected', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'city_detected', {
           'event_category': 'geolocation',
           'event_label': detectionSource,
           'custom_city': cityName
