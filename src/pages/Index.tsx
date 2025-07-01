@@ -17,40 +17,49 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { detectCity } from '../utils/modernCityDetection';
+import { detectCityCached } from '../utils/hybridCityDetection';
+import { updateCityPlaceholders } from '../utils/modernCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
+  const [detectionSource, setDetectionSource] = useState<string>('loading');
   
-  // Moderne Stadt-Erkennung mit dem neuen System
+  // Hybride Stadt-Erkennung mit Performance-Fokus
   useEffect(() => {
-    const runCityDetection = async () => {
-      console.log("Moderne Stadt-Erkennung wird ausgeführt...");
+    const runHybridDetection = async () => {
+      console.log("Hybride Stadt-Erkennung wird ausgeführt...");
       
       try {
-        const detectedCity = await detectCity();
-        console.log("Erkannte Stadt:", detectedCity);
-        setCityName(detectedCity);
+        const result = await detectCityCached();
+        console.log("Erkannte Stadt:", result.city, "via", result.source);
         
-        // Stadt im sessionStorage speichern für andere Seiten (z.B. Impressum)
-        if (detectedCity !== DEFAULT_CITY) {
-          sessionStorage.setItem('detectedCity', detectedCity);
-          console.log("Stadt im sessionStorage gespeichert:", detectedCity);
+        setCityName(result.city);
+        setDetectionSource(result.source);
+        
+        // Stadt-Platzhalter im DOM aktualisieren
+        updateCityPlaceholders(result.city);
+        
+        // Stadt im sessionStorage speichern für andere Seiten
+        if (result.city !== DEFAULT_CITY) {
+          sessionStorage.setItem('detectedCity', result.city);
+          sessionStorage.setItem('detectionSource', result.source);
+          console.log("Stadt im sessionStorage gespeichert:", result.city);
         }
       } catch (error) {
-        console.error("Fehler bei der Stadt-Erkennung:", error);
+        console.error("Fehler bei der hybriden Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
+        setDetectionSource('error');
       }
     };
     
-    // Sofort die Erkennung ausführen
-    runCityDetection();
+    // Sofort ausführen
+    runHybridDetection();
     
-    // Und nach kurzer Verzögerung nochmals (falls Script später lädt)
-    const timeoutId = setTimeout(runCityDetection, 500);
+    // Fallback nach kurzer Verzögerung für dynamisch nachgeladene Parameter
+    const timeoutId = setTimeout(runHybridDetection, 500);
     
     return () => clearTimeout(timeoutId);
   }, []);
@@ -58,12 +67,21 @@ const Index = () => {
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
-  // Debug-Toast anzeigen, wenn eine Stadt erkannt wurde
+  // Debug-Info für Performance-Monitoring
   useEffect(() => {
     if (cityName !== DEFAULT_CITY) {
-      console.log("Stadt erkannt und im Zustand gespeichert:", cityName);
+      console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
+      
+      // Optional: Analytics Event senden
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'city_detected', {
+          'event_category': 'geolocation',
+          'event_label': detectionSource,
+          'custom_city': cityName
+        });
+      }
     }
-  }, [cityName]);
+  }, [cityName, detectionSource]);
 
   return (
     <>
