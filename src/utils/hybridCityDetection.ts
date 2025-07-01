@@ -1,40 +1,41 @@
 
-// Hybrid City Detection - Kombiniert URL-Parameter + IP-Geolocation
+// Simplified Hybrid City Detection - nur kw Parameter + MaxMind IP
 import { detectCity as detectCityFromURL } from './modernCityDetection';
 import { detectCityViaMaxMind, validateNRWCity } from './maxmindCityDetection';
 
 export interface HybridDetectionResult {
   city: string;
-  source: 'url-params' | 'ip-geolocation' | 'fallback';
+  source: 'url-kw' | 'ip-geolocation' | 'fallback';
   confidence: 'high' | 'medium' | 'low';
 }
 
 /**
- * Hybride Stadt-Erkennung mit maximaler Performance
- * Priority 1: URL-Parameter (Google Ads)
+ * Vereinfachte hybride Stadt-Erkennung mit maximaler Performance
+ * Priority 1: URL kw-Parameter 
  * Priority 2: IP-Geolocation (MaxMind)
  * Priority 3: Fallback
  */
 export async function detectCityHybrid(): Promise<HybridDetectionResult> {
-  console.log('[Hybrid] Starting hybrid city detection...');
+  console.log('[Hybrid] Starting simplified hybrid city detection...');
   
-  // Priority 1: URL-Parameter Detection
+  // Priority 1: URL kw-Parameter Detection
   try {
     const urlCity = await detectCityFromURL();
     if (urlCity && urlCity !== 'Ihrer Stadt') {
-      console.log('[Hybrid] City detected from URL parameters:', urlCity);
+      console.log('[Hybrid] City detected from URL kw parameter:', urlCity);
       return {
         city: urlCity,
-        source: 'url-params',
+        source: 'url-kw',
         confidence: 'high'
       };
     }
   } catch (error) {
-    console.error('[Hybrid] URL detection failed:', error);
+    console.error('[Hybrid] URL kw detection failed:', error);
   }
 
   // Priority 2: IP-Geolocation via MaxMind
   try {
+    console.log('[Hybrid] URL kw parameter not found, trying MaxMind IP geolocation...');
     const maxmindResult = await detectCityViaMaxMind();
     if (maxmindResult.success) {
       // Validiere gegen NRW-Datenbank

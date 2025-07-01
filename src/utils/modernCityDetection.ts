@@ -1,5 +1,5 @@
 
-// ─── Modern City Detection System ───────────────────────────────────────────
+// ─── Simplified City Detection System ───────────────────────────────────────────
 
 // URL der Mapping-Tabelle
 const MAPPING_URL = "/geoIdToCity_vollstaendig_nrw.json";
@@ -9,7 +9,6 @@ interface CityMapping {
 }
 
 let cityMapping: CityMapping = {};
-let idToCity: Record<string, string> = {}; // Hilfs-Mapping für schnelle ID → Stadt-Suche
 
 // Lade das Mapping einmalig
 async function loadCityMapping(): Promise<void> {
@@ -25,16 +24,6 @@ async function loadCityMapping(): Promise<void> {
     
     cityMapping = await response.json();
     console.log('[ModernCityDetection] City mapping loaded successfully:', Object.keys(cityMapping).length, 'cities');
-    
-    // Hilfsmapping erstellen: ID → Stadt für schnelle Rückwärts-Suche
-    idToCity = {};
-    for (const [stadt, ids] of Object.entries(cityMapping)) {
-      ids.forEach(id => {
-        idToCity[id] = stadt;
-      });
-    }
-    
-    console.log('[ModernCityDetection] ID mapping created:', Object.keys(idToCity).length, 'IDs');
   } catch (error) {
     console.error('[ModernCityDetection] Failed to load city mapping:', error);
     throw error;
@@ -68,9 +57,9 @@ function isPlaceholder(value: string | null): boolean {
   return value.includes('{') || value.includes('}');
 }
 
-// Core-Funktion zur Stadterkennung
+// Vereinfachte Core-Funktion zur Stadterkennung
 export async function detectCity(): Promise<string> {
-  console.log('[ModernCityDetection] Starting city detection...');
+  console.log('[ModernCityDetection] Starting simplified city detection...');
   
   // Debug: Alle Parameter ausgeben
   debugAllParams();
@@ -83,61 +72,12 @@ export async function detectCity(): Promise<string> {
   }
   
   const kwParam = getParam('kw');
-  
-  // Haupt-Location-Parameter prüfen (Priorität: city_id > loc > loc_physical_ms)
-  let locId = getParam('city_id');
-  console.log('[ModernCityDetection] Checking city_id parameter:', locId);
-  
-  if (!locId || isPlaceholder(locId)) {
-    console.log('[ModernCityDetection] city_id parameter empty or placeholder, checking loc...');
-    locId = getParam('loc');
-    console.log('[ModernCityDetection] loc parameter:', locId);
-  }
-  
-  if (!locId || isPlaceholder(locId)) {
-    console.log('[ModernCityDetection] loc parameter empty or placeholder, checking loc_physical_ms...');
-    locId = getParam('loc_physical_ms');
-    console.log('[ModernCityDetection] loc_physical_ms parameter:', locId);
-  }
-  
-  // *** WICHTIG: Prüfen ob der Location-Parameter ein Platzhalter ist ***
-  if (isPlaceholder(locId)) {
-    console.log('[ModernCityDetection] WARNUNG: Location-Parameter enthält Platzhalter:', locId);
-    console.log('[ModernCityDetection] Google Ads hat den Parameter nicht ersetzt!');
-    locId = null; // Als ungültig behandeln
-  }
-  
-  // Alternative Parameter-Namen prüfen falls alle Haupt-Parameter leer sind
-  if (!locId) {
-    console.log('[ModernCityDetection] Haupt-Location-Parameter sind leer oder Platzhalter, prüfe Alternativen...');
-    
-    // Verschiedene mögliche Parameter-Namen testen
-    const alternativeParams = [
-      'location_target_id',
-      'locationtargetid', 
-      'loc_id',
-      'location_id',
-      'target_id',
-      'geo_id',
-      'location'
-    ];
-    
-    for (const paramName of alternativeParams) {
-      const value = getParam(paramName);
-      if (!isPlaceholder(value)) {
-        console.log(`[ModernCityDetection] Alternative Parameter gefunden: ${paramName} = ${value}`);
-        locId = value;
-        break;
-      }
-    }
-  }
-  
   let city: string | null = null;
 
-  // 1) Keyword-Pfad: Suche Stadt im 'kw' oder 'city' Parameter
-  if (kwParam) {
+  // Priorität 1: Keyword-Parameter Suche
+  if (kwParam && !isPlaceholder(kwParam)) {
     const decoded = decodeURIComponent(kwParam);
-    console.log('[ModernCityDetection] Checking keyword:', decoded);
+    console.log('[ModernCityDetection] Checking keyword parameter:', decoded);
 
     // Direkte Suche in den Stadtnamen
     for (const cityName of Object.keys(cityMapping)) {
@@ -147,52 +87,29 @@ export async function detectCity(): Promise<string> {
         break;
       }
     }
+  } else {
+    console.log('[ModernCityDetection] No valid kw parameter found or parameter is placeholder');
   }
 
-  // 2) Geo-ID Lookup (mit dem gefundenen locId)
-  if (!city && locId && idToCity[locId]) {
-    city = idToCity[locId];
-    console.log('[ModernCityDetection] Found city via Geo-ID:', locId, '→', city);
-  } else if (locId) {
-    console.log('[ModernCityDetection] Geo-ID not found in mapping:', locId);
-    
-    // Debug: Zeige verfügbare IDs für diese Stadt falls möglich
-    console.log('[ModernCityDetection] Available city mappings sample:', Object.keys(idToCity).slice(0, 10));
-  }
-
-  // 3) Optional: Suche Stadt im URL-Pfad
-  if (!city) {
-    const pathCity = Object.keys(cityMapping).find(
-      stadt => window.location.pathname.toLowerCase().includes(stadt.toLowerCase())
-    );
-    if (pathCity) {
-      city = pathCity;
-      console.log('[ModernCityDetection] Found city in URL path:', city);
-    }
-  }
-
-  // 4) Fallback mit detaillierter Problemanalyse
+  // Fallback falls keine Stadt gefunden
   if (!city) {
     city = 'Ihrer Stadt';
-    console.log('[ModernCityDetection] Using fallback:', city);
+    console.log('[ModernCityDetection] No city found in URL parameters, using fallback:', city);
     
     // Detaillierte Problemanalyse
-    const cityIdParam = getParam('city_id');
-    const locParam = getParam('loc');
-    const locPhysical = getParam('loc_physical_ms');
+    const kwValue = getParam('kw');
     const gclid = getParam('gclid');
     
     console.log('[ModernCityDetection] ===== PROBLEMANALYSE =====');
-    console.log('[ModernCityDetection] city_id:', cityIdParam);
-    console.log('[ModernCityDetection] loc:', locParam);
-    console.log('[ModernCityDetection] loc_physical_ms:', locPhysical);
+    console.log('[ModernCityDetection] kw parameter:', kwValue);
     console.log('[ModernCityDetection] gclid:', gclid);
     
-    if (isPlaceholder(cityIdParam) || isPlaceholder(locParam) || isPlaceholder(locPhysical)) {
-      console.log('[ModernCityDetection] HAUPTPROBLEM: Google Ads Parameter wurde nicht ersetzt!');
+    if (isPlaceholder(kwValue)) {
+      console.log('[ModernCityDetection] PROBLEM: kw Parameter ist ein Platzhalter!');
       console.log('[ModernCityDetection] LÖSUNG: Prüfen Sie Ihre Google Ads Tracking-Template Konfiguration');
-    } else if (!cityIdParam && !locParam && !locPhysical && !kwParam) {
-      console.log('[ModernCityDetection] PROBLEM: Keine Stadt-Parameter gefunden');
+    } else if (!kwValue) {
+      console.log('[ModernCityDetection] PROBLEM: Kein kw Parameter gefunden');
+      console.log('[ModernCityDetection] INFO: MaxMind IP-Geolocation wird als Fallback verwendet');
     }
     console.log('[ModernCityDetection] =========================');
   }
