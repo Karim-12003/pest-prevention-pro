@@ -1,3 +1,4 @@
+
 // Modern City Detection - URL Parameter
 const DEFAULT_CITY = "Ihrer Stadt";
 
@@ -60,7 +61,7 @@ async function validateCity(cityName: string): Promise<string> {
   if (database && Object.keys(database).length > 0) {
     if (database[cityName]) {
       console.log(`[ModernCityDetection] City "${cityName}" found in database.`);
-      return cityName;
+      return cityName; // Return the actual city name, not the fallback!
     } else {
       console.warn(`[ModernCityDetection] City "${cityName}" not found in database. Using fallback.`);
       return DEFAULT_CITY;
@@ -103,7 +104,7 @@ export async function detectCity(): Promise<string> {
     const kwParam = urlParams.get('kw');
     if (kwParam && !isPlaceholder(kwParam)) {
       console.log(`[ModernCityDetection] Found kw parameter: ${kwParam}`);
-      const validatedCity = validateCity(kwParam);
+      const validatedCity = await validateCity(kwParam);
       console.log(`[ModernCityDetection] Validated city from kw: ${validatedCity}`);
       return validatedCity;
     } else if (kwParam) {
