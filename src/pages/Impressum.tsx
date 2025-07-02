@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -45,14 +44,14 @@ const Impressum = () => {
   
   useEffect(() => {
     const runCityDetection = async () => {
-      console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
+      console.log("Impressum: Moderne Stadt-Erkennung wird ausgeführt...");
       
       try {
-        // Erst versuchen, Stadt aus URL-Parametern zu erkennen
+        // Verwende das moderne Stadt-Erkennungssystem
         let detectedCity = await detectCity();
-        console.log("Impressum: Stadt aus URL-Parametern:", detectedCity);
+        console.log("Impressum: Stadt aus modernem System:", detectedCity);
         
-        // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
+        // Falls keine Stadt erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {
           const storedCity = sessionStorage.getItem('detectedCity');
           if (storedCity && storedCity !== "Ihrer Stadt") {

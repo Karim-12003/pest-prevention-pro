@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -17,8 +16,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { detectCityCached } from '../utils/hybridCityDetection';
-import { updateCityPlaceholders } from '../utils/modernCityDetection';
+import { detectCity, updateCityPlaceholders } from '../utils/modernCityDetection';
 
 // Declare gtag as a global function
 declare global {
@@ -34,39 +32,39 @@ const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   const [detectionSource, setDetectionSource] = useState<string>('loading');
   
-  // Optimized hybrid city detection with physical location
+  // Verwende das moderne Stadt-Erkennungssystem
   useEffect(() => {
-    const runOptimizedDetection = async () => {
-      console.log("Optimized hybrid city detection starting...");
+    const runModernDetection = async () => {
+      console.log("Index: Moderne Stadt-Erkennung wird gestartet...");
       
       try {
-        const result = await detectCityCached();
-        console.log("Detected city:", result.city, "via", result.source);
+        const detectedCity = await detectCity();
+        console.log("Index: Erkannte Stadt:", detectedCity);
         
-        setCityName(result.city);
-        setDetectionSource(result.source);
+        setCityName(detectedCity);
+        setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         
         // Update city placeholders in DOM
-        updateCityPlaceholders(result.city);
+        updateCityPlaceholders(detectedCity);
         
         // Store city in sessionStorage for other pages
-        if (result.city !== DEFAULT_CITY) {
-          sessionStorage.setItem('detectedCity', result.city);
-          sessionStorage.setItem('detectionSource', result.source);
-          console.log("City stored in sessionStorage:", result.city);
+        if (detectedCity !== DEFAULT_CITY) {
+          sessionStorage.setItem('detectedCity', detectedCity);
+          sessionStorage.setItem('detectionSource', 'url-parameter');
+          console.log("Index: Stadt in sessionStorage gespeichert:", detectedCity);
         }
       } catch (error) {
-        console.error("Error in optimized city detection:", error);
+        console.error("Index: Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
         setDetectionSource('error');
       }
     };
     
     // Execute immediately
-    runOptimizedDetection();
+    runModernDetection();
     
     // Fallback execution after short delay for dynamic parameters
-    const timeoutId = setTimeout(runOptimizedDetection, 500);
+    const timeoutId = setTimeout(runModernDetection, 500);
     
     return () => clearTimeout(timeoutId);
   }, []);
@@ -77,7 +75,7 @@ const Index = () => {
   // Performance monitoring for new detection system
   useEffect(() => {
     if (cityName !== DEFAULT_CITY) {
-      console.log(`[Performance] City detected: ${cityName} via ${detectionSource}`);
+      console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
       
       // Optional: Analytics event
       if (typeof window.gtag !== 'undefined') {
