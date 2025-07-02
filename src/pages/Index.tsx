@@ -34,39 +34,39 @@ const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   const [detectionSource, setDetectionSource] = useState<string>('loading');
   
-  // Hybride Stadt-Erkennung mit Performance-Fokus
+  // Optimized hybrid city detection with physical location
   useEffect(() => {
-    const runHybridDetection = async () => {
-      console.log("Hybride Stadt-Erkennung wird ausgeführt...");
+    const runOptimizedDetection = async () => {
+      console.log("Optimized hybrid city detection starting...");
       
       try {
         const result = await detectCityCached();
-        console.log("Erkannte Stadt:", result.city, "via", result.source);
+        console.log("Detected city:", result.city, "via", result.source);
         
         setCityName(result.city);
         setDetectionSource(result.source);
         
-        // Stadt-Platzhalter im DOM aktualisieren
+        // Update city placeholders in DOM
         updateCityPlaceholders(result.city);
         
-        // Stadt im sessionStorage speichern für andere Seiten
+        // Store city in sessionStorage for other pages
         if (result.city !== DEFAULT_CITY) {
           sessionStorage.setItem('detectedCity', result.city);
           sessionStorage.setItem('detectionSource', result.source);
-          console.log("Stadt im sessionStorage gespeichert:", result.city);
+          console.log("City stored in sessionStorage:", result.city);
         }
       } catch (error) {
-        console.error("Fehler bei der hybriden Stadt-Erkennung:", error);
+        console.error("Error in optimized city detection:", error);
         setCityName(DEFAULT_CITY);
         setDetectionSource('error');
       }
     };
     
-    // Sofort ausführen
-    runHybridDetection();
+    // Execute immediately
+    runOptimizedDetection();
     
-    // Fallback nach kurzer Verzögerung für dynamisch nachgeladene Parameter
-    const timeoutId = setTimeout(runHybridDetection, 500);
+    // Fallback execution after short delay for dynamic parameters
+    const timeoutId = setTimeout(runOptimizedDetection, 500);
     
     return () => clearTimeout(timeoutId);
   }, []);
@@ -74,12 +74,12 @@ const Index = () => {
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
-  // Debug-Info für Performance-Monitoring
+  // Performance monitoring for new detection system
   useEffect(() => {
     if (cityName !== DEFAULT_CITY) {
-      console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
+      console.log(`[Performance] City detected: ${cityName} via ${detectionSource}`);
       
-      // Optional: Analytics Event senden
+      // Optional: Analytics event
       if (typeof window.gtag !== 'undefined') {
         window.gtag('event', 'city_detected', {
           'event_category': 'geolocation',
