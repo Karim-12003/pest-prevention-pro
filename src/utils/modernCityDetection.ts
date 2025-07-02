@@ -144,12 +144,40 @@ export async function detectCity(): Promise<string> {
 }
 
 /**
- * Updates all placeholders in the DOM with the detected city
+ * Updates ALL placeholders in the DOM with the detected city - EXACTLY like physicalLocationDetection
  */
 export function updateCityPlaceholders(city: string): void {
-  const elements = document.querySelectorAll('.city-placeholder, .city-welcome');
-  elements.forEach(element => {
+  console.log(`Aktualisiere alle Stadt-Elemente mit: ${city}`);
+  
+  // city-placeholder Elemente aktualisieren
+  const cityPlaceholders = document.querySelectorAll('.city-placeholder');
+  console.log(`${cityPlaceholders.length} city-placeholder Elemente gefunden`);
+  cityPlaceholders.forEach((element, index) => {
+    const oldText = element.textContent;
+    console.log(`city-placeholder ${index + 1} vorher: ${oldText}`);
     element.textContent = city;
+    console.log(`city-placeholder ${index + 1} nachher: ${element.textContent}`);
   });
-  console.log(`[ModernCityDetection] Updated ${elements.length} city placeholders to: ${city}`);
+
+  // city-welcome Elemente aktualisieren  
+  const cityWelcomeElements = document.querySelectorAll('.city-welcome');
+  console.log(`${cityWelcomeElements.length} city-welcome Elemente gefunden`);
+  cityWelcomeElements.forEach((element, index) => {
+    const oldText = element.textContent;
+    console.log(`city-welcome ${index + 1} vorher: ${oldText}`);
+    element.textContent = city;
+    console.log(`city-welcome ${index + 1} nachher: ${element.textContent}`);
+  });
+
+  // cityname Elemente aktualisieren
+  const citynameElements = document.querySelectorAll('.cityname');
+  console.log(`${citynameElements.length} cityname Elemente gefunden`);
+  citynameElements.forEach((element, index) => {
+    const oldText = element.textContent;
+    console.log(`cityname ${index + 1} vorher: ${oldText}`);
+    element.textContent = city;
+    console.log(`cityname ${index + 1} nachher: ${element.textContent}`);
+  });
+
+  console.log(`[ModernCityDetection] Updated all city placeholders to: ${city}`);
 }

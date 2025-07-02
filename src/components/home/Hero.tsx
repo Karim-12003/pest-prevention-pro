@@ -1,8 +1,8 @@
+
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
 import HeroFeatures from './HeroFeatures';
-import { updateCityPlaceholders } from '../../utils/modernCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 
@@ -13,11 +13,6 @@ interface HeroProps {
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
   useEffect(() => {
     console.log("Hero wird gerendert mit cityName:", cityName);
-    
-    // Nur aktualisieren wenn die Stadt nicht der Fallback ist
-    if (cityName !== "Ihrer Stadt") {
-      updateCityPlaceholders(cityName);
-    }
   }, [cityName]);
 
   const structuredData = {

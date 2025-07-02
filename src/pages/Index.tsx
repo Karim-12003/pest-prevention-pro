@@ -44,14 +44,20 @@ const Index = () => {
         setCityName(detectedCity);
         setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         
-        // Update city placeholders in DOM only if city was detected
-        if (detectedCity !== DEFAULT_CITY) {
+        // WICHTIG: DOM-Updates IMMER ausführen, auch bei Fallback
+        setTimeout(() => {
           updateCityPlaceholders(detectedCity);
-        }
+        }, 100);
+        
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
         setDetectionSource('error');
+        
+        // Auch bei Fehler DOM aktualisieren
+        setTimeout(() => {
+          updateCityPlaceholders(DEFAULT_CITY);
+        }, 100);
       }
     };
     
