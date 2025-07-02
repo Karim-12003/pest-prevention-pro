@@ -1,10 +1,11 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { detectCity } from '../../utils/modernCityDetection';
 
 interface ReviewsProps {
   cityName?: string;
@@ -97,8 +98,47 @@ const ReviewCard = ({ review, index }: { review: typeof defaultReviews[0], index
   );
 };
 
-const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
+const Reviews = ({ cityName: propCityName }: ReviewsProps) => {
   const isMobile = useIsMobile();
+  const [detectedCityName, setDetectedCityName] = useState("Ihrer Stadt");
+  
+  // Verwende das moderne Stadt-Erkennungssystem
+  useEffect(() => {
+    const runModernDetection = async () => {
+      console.log("Reviews: Moderne Stadt-Erkennung wird gestartet...");
+      
+      try {
+        let cityFromDetection = await detectCity();
+        console.log("Reviews: Stadt aus modernem System:", cityFromDetection);
+        
+        // Falls keine Stadt erkannt wurde, prüfe sessionStorage
+        if (cityFromDetection === "Ihrer Stadt") {
+          const storedCity = sessionStorage.getItem('detectedCity');
+          if (storedCity && storedCity !== "Ihrer Stadt") {
+            cityFromDetection = storedCity;
+            console.log("Reviews: Stadt aus sessionStorage übernommen:", cityFromDetection);
+          }
+        }
+        
+        console.log("Reviews: Finale erkannte Stadt:", cityFromDetection);
+        setDetectedCityName(cityFromDetection);
+      } catch (error) {
+        console.error("Reviews: Fehler bei der Stadt-Erkennung:", error);
+        setDetectedCityName("Ihrer Stadt");
+      }
+    };
+    
+    // Sofort ausführen
+    runModernDetection();
+    
+    // Und nach Verzögerung nochmals
+    const timeoutId = setTimeout(runModernDetection, 500);
+    
+    return () => clearTimeout(timeoutId);
+  }, []);
+  
+  // Verwende die erkannte Stadt, prop hat Priorität falls vorhanden
+  const cityName = propCityName || detectedCityName;
   
   // Create a copy of the reviews with the dynamic city
   const reviews = defaultReviews.map(review => ({
