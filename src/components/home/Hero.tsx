@@ -11,21 +11,13 @@ interface HeroProps {
 }
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  // Effekt zur Aktualisierung der Stadt-Platzhalter mit dem neuen System
   useEffect(() => {
     console.log("Hero wird gerendert mit cityName:", cityName);
     
-    // Verwende das neue moderne System zur Aktualisierung aller Platzhalter
-    updateCityPlaceholders(cityName);
-    
-    // Nach kurzer Verzögerung nochmal ausführen für dynamisch nachgeladene Elemente
-    const timeoutId = setTimeout(() => updateCityPlaceholders(cityName), 300);
-    const longTimeoutId = setTimeout(() => updateCityPlaceholders(cityName), 1000);
-    
-    return () => {
-      clearTimeout(timeoutId);
-      clearTimeout(longTimeoutId);
-    };
+    // Nur aktualisieren wenn die Stadt nicht der Fallback ist
+    if (cityName !== "Ihrer Stadt") {
+      updateCityPlaceholders(cityName);
+    }
   }, [cityName]);
 
   const structuredData = {

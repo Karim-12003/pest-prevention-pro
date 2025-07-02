@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/layout/Navbar';
@@ -44,35 +45,18 @@ const Impressum = () => {
   
   useEffect(() => {
     const runCityDetection = async () => {
-      console.log("Impressum: Moderne Stadt-Erkennung wird ausgeführt...");
+      console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
       
       try {
-        // Verwende das moderne Stadt-Erkennungssystem
-        let detectedCity = await detectCity();
-        console.log("Impressum: Stadt aus modernem System:", detectedCity);
+        const detectedCity = await detectCity();
+        console.log("Impressum: Erkannte Stadt:", detectedCity);
         
-        // Falls keine Stadt erkannt wurde, prüfe sessionStorage
-        if (detectedCity === "Ihrer Stadt") {
-          const storedCity = sessionStorage.getItem('detectedCity');
-          if (storedCity && storedCity !== "Ihrer Stadt") {
-            detectedCity = storedCity;
-            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity);
-          }
-        } else {
-          // Stadt in sessionStorage speichern für andere Seiten
-          sessionStorage.setItem('detectedCity', detectedCity);
-        }
-        
-        console.log("Impressum: Finale erkannte Stadt:", detectedCity);
-        
-        // PLZ für erkannte Stadt finden - mit mehreren Varianten
+        // PLZ für erkannte Stadt finden
         let plz = DEFAULT_PLZ;
         
-        // Zuerst exakte Übereinstimmung
         if (cityToPLZ[detectedCity]) {
           plz = cityToPLZ[detectedCity];
         } else {
-          // Dann nach ähnlichen Namen suchen
           const cityKey = Object.keys(cityToPLZ).find(key => 
             key.toLowerCase().includes(detectedCity.toLowerCase()) ||
             detectedCity.toLowerCase().includes(key.toLowerCase())
@@ -85,7 +69,7 @@ const Impressum = () => {
         console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
         
         setCityInfo({ 
-          city: detectedCity, 
+          city: detectedCity !== "Ihrer Stadt" ? detectedCity : DEFAULT_CITY, 
           plz 
         });
       } catch (error) {
@@ -94,13 +78,8 @@ const Impressum = () => {
       }
     };
     
-    // Sofort ausführen
+    // Nur einmal ausführen
     runCityDetection();
-    
-    // Und nach Verzögerung nochmals
-    const timeoutId = setTimeout(runCityDetection, 500);
-    
-    return () => clearTimeout(timeoutId);
   }, [routeCity, location]);
 
   return (

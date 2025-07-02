@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
@@ -102,25 +101,13 @@ const Reviews = ({ cityName: propCityName }: ReviewsProps) => {
   const isMobile = useIsMobile();
   const [detectedCityName, setDetectedCityName] = useState("Ihrer Stadt");
   
-  // Verwende das moderne Stadt-Erkennungssystem
   useEffect(() => {
-    const runModernDetection = async () => {
-      console.log("Reviews: Moderne Stadt-Erkennung wird gestartet...");
+    const runCityDetection = async () => {
+      console.log("Reviews: Stadt-Erkennung wird ausgeführt...");
       
       try {
-        let cityFromDetection = await detectCity();
-        console.log("Reviews: Stadt aus modernem System:", cityFromDetection);
-        
-        // Falls keine Stadt erkannt wurde, prüfe sessionStorage
-        if (cityFromDetection === "Ihrer Stadt") {
-          const storedCity = sessionStorage.getItem('detectedCity');
-          if (storedCity && storedCity !== "Ihrer Stadt") {
-            cityFromDetection = storedCity;
-            console.log("Reviews: Stadt aus sessionStorage übernommen:", cityFromDetection);
-          }
-        }
-        
-        console.log("Reviews: Finale erkannte Stadt:", cityFromDetection);
+        const cityFromDetection = await detectCity();
+        console.log("Reviews: Erkannte Stadt:", cityFromDetection);
         setDetectedCityName(cityFromDetection);
       } catch (error) {
         console.error("Reviews: Fehler bei der Stadt-Erkennung:", error);
@@ -128,13 +115,8 @@ const Reviews = ({ cityName: propCityName }: ReviewsProps) => {
       }
     };
     
-    // Sofort ausführen
-    runModernDetection();
-    
-    // Und nach Verzögerung nochmals
-    const timeoutId = setTimeout(runModernDetection, 500);
-    
-    return () => clearTimeout(timeoutId);
+    // Nur einmal ausführen
+    runCityDetection();
   }, []);
   
   // Verwende die erkannte Stadt, prop hat Priorität falls vorhanden

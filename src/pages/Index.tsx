@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -32,10 +33,9 @@ const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   const [detectionSource, setDetectionSource] = useState<string>('loading');
   
-  // Verwende das moderne Stadt-Erkennungssystem
   useEffect(() => {
-    const runModernDetection = async () => {
-      console.log("Index: Moderne Stadt-Erkennung wird gestartet...");
+    const runCityDetection = async () => {
+      console.log("Index: Stadt-Erkennung wird ausgeführt...");
       
       try {
         const detectedCity = await detectCity();
@@ -44,14 +44,9 @@ const Index = () => {
         setCityName(detectedCity);
         setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         
-        // Update city placeholders in DOM
-        updateCityPlaceholders(detectedCity);
-        
-        // Store city in sessionStorage for other pages
+        // Update city placeholders in DOM only if city was detected
         if (detectedCity !== DEFAULT_CITY) {
-          sessionStorage.setItem('detectedCity', detectedCity);
-          sessionStorage.setItem('detectionSource', 'url-parameter');
-          console.log("Index: Stadt in sessionStorage gespeichert:", detectedCity);
+          updateCityPlaceholders(detectedCity);
         }
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
@@ -60,13 +55,8 @@ const Index = () => {
       }
     };
     
-    // Execute immediately
-    runModernDetection();
-    
-    // Fallback execution after short delay for dynamic parameters
-    const timeoutId = setTimeout(runModernDetection, 500);
-    
-    return () => clearTimeout(timeoutId);
+    // Nur einmal ausführen
+    runCityDetection();
   }, []);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;

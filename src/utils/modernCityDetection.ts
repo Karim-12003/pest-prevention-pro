@@ -8,6 +8,11 @@ export interface CityDetectionResult {
   confidence: 'high' | 'low';
 }
 
+// Cache für die erkannte Stadt um mehrfache API-Aufrufe zu vermeiden
+let cityCache: string | null = null;
+let cacheTimestamp: number = 0;
+const CACHE_DURATION = 5000; // 5 Sekunden Cache
+
 /**
  * Load city database from JSON file
  */
@@ -61,7 +66,7 @@ async function validateCity(cityName: string): Promise<string> {
   if (database && Object.keys(database).length > 0) {
     if (database[cityName]) {
       console.log(`[ModernCityDetection] City "${cityName}" found in database.`);
-      return cityName; // Return the actual city name, not the fallback!
+      return cityName;
     } else {
       console.warn(`[ModernCityDetection] City "${cityName}" not found in database. Using fallback.`);
       return DEFAULT_CITY;
@@ -73,54 +78,68 @@ async function validateCity(cityName: string): Promise<string> {
 }
 
 export async function detectCity(): Promise<string> {
-  console.log("[ModernCityDetection] Starting simplified city detection...");
+  // Prüfe Cache zuerst
+  const now = Date.now();
+  if (cityCache && (now - cacheTimestamp) < CACHE_DURATION) {
+    console.log("[ModernCityDetection] Returning cached city:", cityCache);
+    return cityCache;
+  }
+  
+  // Prüfe sessionStorage zuerst für konsistente Ergebnisse
+  const storedCity = sessionStorage.getItem('detectedCity');
+  if (storedCity && storedCity !== DEFAULT_CITY) {
+    console.log("[ModernCityDetection] Using stored city from sessionStorage:", storedCity);
+    cityCache = storedCity;
+    cacheTimestamp = now;
+    return storedCity;
+  }
+  
+  console.log("[ModernCityDetection] Starting city detection...");
   
   try {
-    // Get current URL
     const currentUrl = window.location.href;
-    console.log("[ModernCityDetection] === ALL URL PARAMETERS ===");
-    console.log("[ModernCityDetection] Full URL:", currentUrl);
-    
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Log all parameters for debugging
-    for (const [key, value] of urlParams.entries()) {
-      console.log(`[ModernCityDetection] Parameter: ${key} = ${value}`);
-    }
-    console.log("[ModernCityDetection] === END PARAMETERS ===");
-    
-    // Priority 1: Check for city_id parameter (new)
+    // Priority 1: Check for city_id parameter
     const cityIdParam = urlParams.get('city_id');
     if (cityIdParam) {
       console.log(`[ModernCityDetection] Found city_id parameter: ${cityIdParam}`);
       const cityFromId = await findCityByCityId(cityIdParam);
       if (cityFromId) {
         console.log(`[ModernCityDetection] Successfully resolved city_id ${cityIdParam} to: ${cityFromId}`);
+        // Store in sessionStorage and cache
+        sessionStorage.setItem('detectedCity', cityFromId);
+        cityCache = cityFromId;
+        cacheTimestamp = now;
         return cityFromId;
       }
     }
     
-    // Priority 2: Check for kw parameter (existing logic)
+    // Priority 2: Check for kw parameter
     const kwParam = urlParams.get('kw');
     if (kwParam && !isPlaceholder(kwParam)) {
       console.log(`[ModernCityDetection] Found kw parameter: ${kwParam}`);
       const validatedCity = await validateCity(kwParam);
-      console.log(`[ModernCityDetection] Validated city from kw: ${validatedCity}`);
-      return validatedCity;
+      if (validatedCity !== DEFAULT_CITY) {
+        console.log(`[ModernCityDetection] Validated city from kw: ${validatedCity}`);
+        // Store in sessionStorage and cache
+        sessionStorage.setItem('detectedCity', validatedCity);
+        cityCache = validatedCity;
+        cacheTimestamp = now;
+        return validatedCity;
+      }
     } else if (kwParam) {
       console.log("[ModernCityDetection] kw parameter found but is placeholder:", kwParam);
     }
 
-    console.log("[ModernCityDetection] No valid city_id or kw parameter found or parameter is placeholder");
-    
-    // Problem Analysis
-    console.log("[ModernCityDetection] Current URL:", currentUrl);
-    console.log("[ModernCityDetection] URL Parameters:", urlParams.toString());
-    console.log("[ModernCityDetection] No city detected, using fallback.");
+    console.log("[ModernCityDetection] No valid city_id or kw parameter found, using fallback");
   } catch (error) {
     console.error("[ModernCityDetection] Error in city detection:", error);
   }
   
+  // Cache the fallback too
+  cityCache = DEFAULT_CITY;
+  cacheTimestamp = now;
   return DEFAULT_CITY;
 }
 
