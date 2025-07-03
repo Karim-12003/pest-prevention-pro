@@ -28,47 +28,36 @@ declare global {
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
-// Einfache Stadt-Erkennung direkt hier
-const detectCityFromUrl = async (): Promise<string> => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const cityIdParam = urlParams.get('city_id');
-  
-  console.log("Stadt-Erkennung: city_id =", cityIdParam);
-  
-  if (cityIdParam === '1004625') {
-    console.log("Stadt-Erkennung: Erkannt als Essen");
-    return 'Essen';
-  }
-  
-  // Weitere city_ids hier hinzufügen wenn nötig
-  
-  console.log("Stadt-Erkennung: Fallback zu DEFAULT_CITY");
-  return DEFAULT_CITY;
-};
-
 const Index = () => {
-  const [cityName, setCityName] = useState<string>('Essen'); // Direkt auf Essen setzen
-  const [isLoading, setIsLoading] = useState(true);
+  const [cityName, setCityName] = useState<string | null>(null);
   
   useEffect(() => {
-    const loadCity = async () => {
-      console.log("Index: Stadt wird geladen...");
-      const detectedCity = await detectCityFromUrl();
-      console.log("Index: Erkannte Stadt:", detectedCity);
-      setCityName(detectedCity);
-      setIsLoading(false);
-      console.log("Index: Loading abgeschlossen mit Stadt:", detectedCity);
+    const detectCity = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cityIdParam = urlParams.get('city_id');
+      
+      console.log("Stadt-Erkennung: city_id =", cityIdParam);
+      
+      if (cityIdParam === '1004625') {
+        console.log("Stadt-Erkennung: Erkannt als Essen");
+        setCityName('Essen');
+        return;
+      }
+      
+      console.log("Stadt-Erkennung: Fallback zu DEFAULT_CITY");
+      setCityName(DEFAULT_CITY);
     };
     
-    loadCity();
-  }, []);
+    // Nur einmal ausführen beim Mount
+    if (cityName === null) {
+      detectCity();
+    }
+  }, [cityName]);
 
-  console.log("Index: Render - cityName:", cityName, "isLoading:", isLoading);
+  console.log("Index: Render - cityName:", cityName);
 
-  const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
-  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
-
-  if (isLoading) {
+  // Warten bis Stadt erkannt wurde
+  if (cityName === null) {
     return (
       <>
         <Helmet>
@@ -88,6 +77,9 @@ const Index = () => {
       </>
     );
   }
+
+  const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
+  const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   return (
     <>
