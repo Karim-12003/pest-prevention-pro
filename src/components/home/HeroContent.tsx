@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -14,6 +15,8 @@ interface HeroContentProps {
 }
 
 const HeroContent = ({ cityName }: HeroContentProps) => {
+  console.log("HeroContent: RENDER - cityName:", cityName);
+  
   return (
     <div className="w-full md:w-1/2 mb-6 sm:mb-8 md:mb-0 text-center md:text-left">
       <div className="flex justify-center md:justify-start mb-3 relative z-30">

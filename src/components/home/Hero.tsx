@@ -1,4 +1,5 @@
 
+
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
@@ -12,8 +13,13 @@ interface HeroProps {
 
 const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
   useEffect(() => {
-    console.log("Hero wird gerendert mit cityName:", cityName);
+    console.log("Hero: Component wird gerendert mit cityName:", cityName);
+    console.log("Hero: cityName type:", typeof cityName);
+    console.log("Hero: cityName length:", cityName?.length);
   }, [cityName]);
+
+  // Debug: Log every render
+  console.log("Hero: RENDER - cityName:", cityName);
 
   const structuredData = {
     "@context": "https://schema.org",

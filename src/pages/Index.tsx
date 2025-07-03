@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -32,34 +33,46 @@ const DEFAULT_CITY = "Ihrer Stadt";
 const Index = () => {
   const [cityName, setCityName] = useState(DEFAULT_CITY);
   const [detectionSource, setDetectionSource] = useState<string>('loading');
+  const [isDetectionComplete, setIsDetectionComplete] = useState(false);
   
   useEffect(() => {
     const runCityDetection = async () => {
       console.log("Index: Stadt-Erkennung wird ausgeführt...");
+      console.log("Index: Aktueller cityName vor Erkennung:", cityName);
       
       try {
         const detectedCity = await detectCity();
         console.log("Index: Erkannte Stadt:", detectedCity);
+        console.log("Index: Setze cityName auf:", detectedCity);
         
         setCityName(detectedCity);
         setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
+        setIsDetectionComplete(true);
+        
+        console.log("Index: State-Updates abgeschlossen");
         
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
         setDetectionSource('error');
+        setIsDetectionComplete(true);
       }
     };
     
     runCityDetection();
   }, []);
 
+  // Debug: Überwache cityName Änderungen
+  useEffect(() => {
+    console.log("Index: cityName hat sich geändert zu:", cityName);
+  }, [cityName]);
+
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
   // Performance monitoring for new detection system
   useEffect(() => {
-    if (cityName !== DEFAULT_CITY) {
+    if (cityName !== DEFAULT_CITY && isDetectionComplete) {
       console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
       
       // Optional: Analytics event
@@ -71,7 +84,9 @@ const Index = () => {
         });
       }
     }
-  }, [cityName, detectionSource]);
+  }, [cityName, detectionSource, isDetectionComplete]);
+
+  console.log("Index: Rendering mit cityName:", cityName, "isDetectionComplete:", isDetectionComplete);
 
   return (
     <>
