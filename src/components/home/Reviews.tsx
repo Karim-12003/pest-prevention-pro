@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+
+import React from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { Star, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { detectCity } from '../../utils/modernCityDetection';
 
 interface ReviewsProps {
   cityName?: string;
@@ -38,7 +38,7 @@ const defaultReviews = [
   {
     name: "Monika Becker",
     location: "Frankfurt",
-    rating: 5,
+    rating: 5,  
     text: "Sehr professionelles Unternehmen mit IHK-zertifizierten Fachkräften! Der Kammerjäger hat unser jahrelanges Taubenproblem auf dem Dachboden endlich gelöst. Er installierte tierschutzgerechte Vergrämungsmaßnahmen und beseitigte alle Nistplätze fachgerecht. Die telefonische Beratung war ausführlich und die Preise fair. Die präventiven Maßnahmen funktionieren bis heute einwandfrei. Großes Lob!",
   },
   {
@@ -97,30 +97,8 @@ const ReviewCard = ({ review, index }: { review: typeof defaultReviews[0], index
   );
 };
 
-const Reviews = ({ cityName: propCityName }: ReviewsProps) => {
+const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
   const isMobile = useIsMobile();
-  const [detectedCityName, setDetectedCityName] = useState("Ihrer Stadt");
-  
-  useEffect(() => {
-    const runCityDetection = async () => {
-      console.log("Reviews: Stadt-Erkennung wird ausgeführt...");
-      
-      try {
-        const cityFromDetection = await detectCity();
-        console.log("Reviews: Erkannte Stadt:", cityFromDetection);
-        setDetectedCityName(cityFromDetection);
-      } catch (error) {
-        console.error("Reviews: Fehler bei der Stadt-Erkennung:", error);
-        setDetectedCityName("Ihrer Stadt");
-      }
-    };
-    
-    // Nur einmal ausführen
-    runCityDetection();
-  }, []);
-  
-  // Verwende die erkannte Stadt, prop hat Priorität falls vorhanden
-  const cityName = propCityName || detectedCityName;
   
   // Create a copy of the reviews with the dynamic city
   const reviews = defaultReviews.map(review => ({
