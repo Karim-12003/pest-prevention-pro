@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
@@ -8,11 +7,11 @@ import HeroFeatures from './HeroFeatures';
 const PHONE_NUMBER = "+491782581987";
 
 interface HeroProps {
-  cityName: string; // Required, no default value
+  cityName: string;
 }
 
 const Hero = ({ cityName }: HeroProps) => {
-  console.log("Hero: Final render mit cityName:", cityName);
+  console.log("Hero: Render mit cityName:", cityName);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -66,4 +65,3 @@ const Hero = ({ cityName }: HeroProps) => {
 };
 
 export default Hero;
-

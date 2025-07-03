@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -11,11 +10,11 @@ import EmergencyWaspBadge from '../ui/EmergencyWaspBadge';
 const PHONE_NUMBER = "+491782581987";
 
 interface HeroContentProps {
-  cityName: string; // Required, no default value
+  cityName: string;
 }
 
 const HeroContent = ({ cityName }: HeroContentProps) => {
-  console.log("HeroContent: Final render mit cityName:", cityName);
+  console.log("HeroContent: Render mit cityName:", cityName);
   
   return (
     <div className="w-full md:w-1/2 mb-6 sm:mb-8 md:mb-0 text-center md:text-left">
@@ -84,4 +83,3 @@ const HeroContent = ({ cityName }: HeroContentProps) => {
 };
 
 export default HeroContent;
-

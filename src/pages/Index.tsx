@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -18,7 +17,6 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { detectCity } from '../utils/modernCityDetection';
 
 // Declare gtag as a global function
 declare global {
@@ -30,55 +28,47 @@ declare global {
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
+// Einfache Stadt-Erkennung direkt hier
+const detectCityFromUrl = async (): Promise<string> => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const cityIdParam = urlParams.get('city_id');
+  
+  console.log("Stadt-Erkennung: city_id =", cityIdParam);
+  
+  if (cityIdParam === '1004625') {
+    console.log("Stadt-Erkennung: Erkannt als Essen");
+    return 'Essen';
+  }
+  
+  // Weitere city_ids hier hinzufügen wenn nötig
+  
+  console.log("Stadt-Erkennung: Fallback zu DEFAULT_CITY");
+  return DEFAULT_CITY;
+};
+
 const Index = () => {
-  const [cityName, setCityName] = useState<string>(DEFAULT_CITY);
-  const [isDetectionComplete, setIsDetectionComplete] = useState(false);
+  const [cityName, setCityName] = useState<string>('Essen'); // Direkt auf Essen setzen
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    const runCityDetection = async () => {
-      console.log("Index: Stadt-Erkennung startet...");
-      
-      try {
-        const detectedCity = await detectCity();
-        console.log("Index: Stadt erkannt:", detectedCity);
-        
-        // Setze den State nur einmal und final
-        setCityName(detectedCity);
-        setIsDetectionComplete(true);
-        
-        console.log("Index: Stadt-Erkennung abgeschlossen mit:", detectedCity);
-        
-      } catch (error) {
-        console.error("Index: Fehler bei der Stadt-Erkennung:", error);
-        setCityName(DEFAULT_CITY);
-        setIsDetectionComplete(true);
-      }
+    const loadCity = async () => {
+      console.log("Index: Stadt wird geladen...");
+      const detectedCity = await detectCityFromUrl();
+      console.log("Index: Erkannte Stadt:", detectedCity);
+      setCityName(detectedCity);
+      setIsLoading(false);
+      console.log("Index: Loading abgeschlossen mit Stadt:", detectedCity);
     };
     
-    runCityDetection();
-  }, []); // Nur einmal ausführen
+    loadCity();
+  }, []);
 
-  console.log("Index: Rendering - cityName:", cityName, "isComplete:", isDetectionComplete);
+  console.log("Index: Render - cityName:", cityName, "isLoading:", isLoading);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
-  // Performance monitoring
-  useEffect(() => {
-    if (cityName !== DEFAULT_CITY && isDetectionComplete) {
-      console.log(`[Performance] Finale Stadt: ${cityName}`);
-      
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('event', 'city_detected', {
-          'event_category': 'geolocation',
-          'custom_city': cityName
-        });
-      }
-    }
-  }, [cityName, isDetectionComplete]);
-
-  // Warte bis die Stadt-Erkennung abgeschlossen ist
-  if (!isDetectionComplete) {
+  if (isLoading) {
     return (
       <>
         <Helmet>
@@ -139,4 +129,3 @@ const Index = () => {
 };
 
 export default Index;
-
