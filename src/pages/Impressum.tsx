@@ -38,7 +38,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
-                <p>{cityInfo.plz} {cityInfo.name}</p>
+                <p><span data-zip>{cityInfo.plz}</span> <span data-city>{cityInfo.name}</span></p>
                 <p>Deutschland</p>
               </div>
             </section>
