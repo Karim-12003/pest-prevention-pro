@@ -1,6 +1,6 @@
 
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroContent from './HeroContent';
 import HeroFeatures from './HeroFeatures';
@@ -8,18 +8,11 @@ import HeroFeatures from './HeroFeatures';
 const PHONE_NUMBER = "+491782581987";
 
 interface HeroProps {
-  cityName?: string;
+  cityName: string; // Required, no default value
 }
 
-const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
-  useEffect(() => {
-    console.log("Hero: Component wird gerendert mit cityName:", cityName);
-    console.log("Hero: cityName type:", typeof cityName);
-    console.log("Hero: cityName length:", cityName?.length);
-  }, [cityName]);
-
-  // Debug: Log every render
-  console.log("Hero: RENDER - cityName:", cityName);
+const Hero = ({ cityName }: HeroProps) => {
+  console.log("Hero: Final render mit cityName:", cityName);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -73,3 +66,4 @@ const Hero = ({ cityName = "Ihrer Stadt" }: HeroProps) => {
 };
 
 export default Hero;
+

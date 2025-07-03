@@ -11,11 +11,11 @@ import EmergencyWaspBadge from '../ui/EmergencyWaspBadge';
 const PHONE_NUMBER = "+491782581987";
 
 interface HeroContentProps {
-  cityName: string;
+  cityName: string; // Required, no default value
 }
 
 const HeroContent = ({ cityName }: HeroContentProps) => {
-  console.log("HeroContent: RENDER - cityName:", cityName);
+  console.log("HeroContent: Final render mit cityName:", cityName);
   
   return (
     <div className="w-full md:w-1/2 mb-6 sm:mb-8 md:mb-0 text-center md:text-left">
@@ -84,3 +84,4 @@ const HeroContent = ({ cityName }: HeroContentProps) => {
 };
 
 export default HeroContent;
+

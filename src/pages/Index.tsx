@@ -31,62 +31,73 @@ const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  const [cityName, setCityName] = useState(DEFAULT_CITY);
-  const [detectionSource, setDetectionSource] = useState<string>('loading');
+  const [cityName, setCityName] = useState<string>(DEFAULT_CITY);
   const [isDetectionComplete, setIsDetectionComplete] = useState(false);
   
   useEffect(() => {
     const runCityDetection = async () => {
-      console.log("Index: Stadt-Erkennung wird ausgeführt...");
-      console.log("Index: Aktueller cityName vor Erkennung:", cityName);
+      console.log("Index: Stadt-Erkennung startet...");
       
       try {
         const detectedCity = await detectCity();
-        console.log("Index: Erkannte Stadt:", detectedCity);
-        console.log("Index: Setze cityName auf:", detectedCity);
+        console.log("Index: Stadt erkannt:", detectedCity);
         
+        // Setze den State nur einmal und final
         setCityName(detectedCity);
-        setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         setIsDetectionComplete(true);
         
-        console.log("Index: State-Updates abgeschlossen");
+        console.log("Index: Stadt-Erkennung abgeschlossen mit:", detectedCity);
         
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
-        setDetectionSource('error');
         setIsDetectionComplete(true);
       }
     };
     
     runCityDetection();
-  }, []);
+  }, []); // Nur einmal ausführen
 
-  // Debug: Überwache cityName Änderungen
-  useEffect(() => {
-    console.log("Index: cityName hat sich geändert zu:", cityName);
-  }, [cityName]);
+  console.log("Index: Rendering - cityName:", cityName, "isComplete:", isDetectionComplete);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
 
-  // Performance monitoring for new detection system
+  // Performance monitoring
   useEffect(() => {
     if (cityName !== DEFAULT_CITY && isDetectionComplete) {
-      console.log(`[Performance] Stadt erkannt: ${cityName} via ${detectionSource}`);
+      console.log(`[Performance] Finale Stadt: ${cityName}`);
       
-      // Optional: Analytics event
       if (typeof window.gtag !== 'undefined') {
         window.gtag('event', 'city_detected', {
           'event_category': 'geolocation',
-          'event_label': detectionSource,
           'custom_city': cityName
         });
       }
     }
-  }, [cityName, detectionSource, isDetectionComplete]);
+  }, [cityName, isDetectionComplete]);
 
-  console.log("Index: Rendering mit cityName:", cityName, "isDetectionComplete:", isDetectionComplete);
+  // Warte bis die Stadt-Erkennung abgeschlossen ist
+  if (!isDetectionComplete) {
+    return (
+      <>
+        <Helmet>
+          <title>Kammerjäger Schneider - Lädt...</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        </Helmet>
+        
+        <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
+          <Navbar />
+          <main className="flex-grow pt-[83px] md:pt-28 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4"></div>
+              <p className="text-muted-foreground">Standort wird ermittelt...</p>
+            </div>
+          </main>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -128,3 +139,4 @@ const Index = () => {
 };
 
 export default Index;
+
