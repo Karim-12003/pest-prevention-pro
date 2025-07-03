@@ -36,6 +36,7 @@ async function loadCityDatabase(): Promise<Record<string, string[]>> {
  * Find city name by city_id in the database
  */
 async function findCityByCityId(cityId: string): Promise<string | null> {
+  console.log(`[ModernCityDetection] Looking up city_id: ${cityId}`);
   const database = await loadCityDatabase();
   
   for (const [cityName, cityIds] of Object.entries(database)) {
@@ -136,6 +137,8 @@ export async function detectCity(): Promise<string> {
         cityCache = cityFromId;
         cacheTimestamp = now;
         return cityFromId;
+      } else {
+        console.log(`[ModernCityDetection] Could not resolve city_id ${cityIdParam}, trying other methods`);
       }
     }
     
@@ -182,36 +185,36 @@ export async function detectCity(): Promise<string> {
  * Updates ALL placeholders in the DOM with the detected city - EXACTLY like physicalLocationDetection
  */
 export function updateCityPlaceholders(city: string): void {
-  console.log(`Aktualisiere alle Stadt-Elemente mit: ${city}`);
+  console.log(`[ModernCityDetection] Aktualisiere alle Stadt-Elemente mit: ${city}`);
   
   // city-placeholder Elemente aktualisieren
   const cityPlaceholders = document.querySelectorAll('.city-placeholder');
-  console.log(`${cityPlaceholders.length} city-placeholder Elemente gefunden`);
+  console.log(`[ModernCityDetection] ${cityPlaceholders.length} city-placeholder Elemente gefunden`);
   cityPlaceholders.forEach((element, index) => {
     const oldText = element.textContent;
-    console.log(`city-placeholder ${index + 1} vorher: ${oldText}`);
+    console.log(`[ModernCityDetection] city-placeholder ${index + 1} vorher: ${oldText}`);
     element.textContent = city;
-    console.log(`city-placeholder ${index + 1} nachher: ${element.textContent}`);
+    console.log(`[ModernCityDetection] city-placeholder ${index + 1} nachher: ${element.textContent}`);
   });
 
   // city-welcome Elemente aktualisieren  
   const cityWelcomeElements = document.querySelectorAll('.city-welcome');
-  console.log(`${cityWelcomeElements.length} city-welcome Elemente gefunden`);
+  console.log(`[ModernCityDetection] ${cityWelcomeElements.length} city-welcome Elemente gefunden`);
   cityWelcomeElements.forEach((element, index) => {
     const oldText = element.textContent;
-    console.log(`city-welcome ${index + 1} vorher: ${oldText}`);
+    console.log(`[ModernCityDetection] city-welcome ${index + 1} vorher: ${oldText}`);
     element.textContent = city;
-    console.log(`city-welcome ${index + 1} nachher: ${element.textContent}`);
+    console.log(`[ModernCityDetection] city-welcome ${index + 1} nachher: ${element.textContent}`);
   });
 
   // cityname Elemente aktualisieren
   const citynameElements = document.querySelectorAll('.cityname');
-  console.log(`${citynameElements.length} cityname Elemente gefunden`);
+  console.log(`[ModernCityDetection] ${citynameElements.length} cityname Elemente gefunden`);
   citynameElements.forEach((element, index) => {
     const oldText = element.textContent;
-    console.log(`cityname ${index + 1} vorher: ${oldText}`);
+    console.log(`[ModernCityDetection] cityname ${index + 1} vorher: ${oldText}`);
     element.textContent = city;
-    console.log(`cityname ${index + 1} nachher: ${element.textContent}`);
+    console.log(`[ModernCityDetection] cityname ${index + 1} nachher: ${element.textContent}`);
   });
 
   console.log(`[ModernCityDetection] Updated all city placeholders to: ${city}`);
