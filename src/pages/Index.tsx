@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -16,7 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { getCityFromParams } from '../utils/simpleCityMapping';
+import { getCityFromParams, updateDynamicCityTags } from '../utils/simpleCityMapping';
 
 // Declare gtag as a global function
 declare global {
@@ -39,8 +40,6 @@ const Index = () => {
 
   // Führe die DOM-Updates nach dem ersten Render aus
   useEffect(() => {
-    const { updateDynamicCityTags } = require('../utils/simpleCityMapping');
-    
     // Speichere in sessionStorage
     sessionStorage.setItem("detectedCity", cityData.name);
     sessionStorage.setItem("detectedZip", cityData.plz);
