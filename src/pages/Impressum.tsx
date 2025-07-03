@@ -38,7 +38,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
-                <p><span data-zip>{cityInfo.plz}</span> <span data-city>{cityInfo.name}</span></p>
+                <p>{cityInfo.plz} {cityInfo.name}</p>
                 <p>Deutschland</p>
               </div>
             </section>
@@ -47,7 +47,7 @@ const Impressum = () => {
               <h2 className="text-xl font-semibold mb-4 text-[#1A1F2C]">Kontakt</h2>
               <div className="space-y-2">
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
-                <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
+                <p>E-Mail: <a href="mailto:info@kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info@kammerjaegerschneider.de</a></p>
               </div>
             </section>
             

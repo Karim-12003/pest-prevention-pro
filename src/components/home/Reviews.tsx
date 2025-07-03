@@ -14,19 +14,19 @@ interface ReviewsProps {
 const defaultReviews = [
   {
     name: "Markus Schmidt",
-    location: "Hamburg",
+    location: "", // Wird dynamisch gefüllt
     rating: 5,
     text: "Fantastischer Service! Innerhalb von nur 24 Stunden war das Team bei mir vor Ort und hat den Wespenbefall in meinem Gartenhaus professionell beseitigt. Die Experten erklärten mir jeden Schritt genau und setzten dabei auf umweltfreundliche Methoden. Der Preis war absolut fair und transparent - keine versteckten Kosten.",
   },
   {
     name: "Sabine Müller",
-    location: "München", 
+    location: "", // Wird dynamisch gefüllt
     rating: 5,
     text: "Nach wochenlangem vergeblichem Kampf gegen Bettwanzen bin ich so froh, dass ich Kammerjäger Adalbert gefunden habe! Die Fachleute führten eine gründliche Hitzebehandlung durch, die alle Bettwanzen beseitigte. Seit 6 Monaten kein einziger Stich mehr! Die ausführliche Nachbetreuung und präventiven Tipps waren unbezahlbar. 100% Weiterempfehlung!",
   },
   {
     name: "Thomas Weber",
-    location: "Berlin",
+    location: "", // Wird dynamisch gefüllt
     rating: 5,
     text: "Absolut zuverlässiger und diskreter Service. Von der ersten Kontaktaufnahme bis zur vollständigen Beseitigung des Mäuseproblems in unserem Keller vergingen nur 48 Stunden. Der Techniker kam pünktlich zum vereinbarten Termin, arbeitete äußerst sorgfältig und hinterließ alles sauber. Die kostenlose Nachkontrolle nach 2 Wochen bestätigte: Problem dauerhaft gelöst!",
   },
@@ -38,13 +38,13 @@ const defaultReviews = [
   },
   {
     name: "Monika Becker",
-    location: "Frankfurt",
+    location: "", // Wird dynamisch gefüllt
     rating: 5,  
     text: "Sehr professionelles Unternehmen mit IHK-zertifizierten Fachkräften! Der Kammerjäger hat unser jahrelanges Taubenproblem auf dem Dachboden endlich gelöst. Er installierte tierschutzgerechte Vergrämungsmaßnahmen und beseitigte alle Nistplätze fachgerecht. Die telefonische Beratung war ausführlich und die Preise fair. Die präventiven Maßnahmen funktionieren bis heute einwandfrei. Großes Lob!",
   },
   {
     name: "Jürgen Hoffmann",
-    location: "", // Wird dynamisch gefüllt  
+    location: "", // Wird dynamisch gefüllt
     rating: 5,
     text: "Schneller und professioneller Service bei akutem Silberfischbefall in meiner Wohnung. Die kostenlose Anfahrt und die transparente Preisgestaltung waren ein großer Pluspunkt. Die Behandlung war wirkungsvoll und die Fachberatung sehr kompetent. Die Nachkontrolle wurde prompt und gründlich durchgeführt. Ich bin rundum zufrieden mit dem Service!",
   },
@@ -63,11 +63,10 @@ const Reviews = ({ cityName }: ReviewsProps) => {
   
   console.log("📝 REVIEWS - Empfange Stadt:", cityInfo.name);
   
-  // Dynamische Bewertungen mit data-city Attributen
+  // Alle Bewertungen verwenden jetzt die erkannte Stadt
   const reviews = defaultReviews.map((review, index) => ({
     ...review,
-    // Leere locations werden mit data-city gefüllt
-    location: review.location || ""
+    location: cityInfo.name // Alle Bewertungen zeigen die erkannte Stadt
   }));
   
   return (
@@ -125,7 +124,7 @@ const Reviews = ({ cityName }: ReviewsProps) => {
                   <div>
                     <h4 className="font-medium text-gray-800">{review.name}</h4>
                     <p className="text-xs text-gray-500 review-location">
-                      {review.location || <span data-city>{cityInfo.name}</span>}
+                      {review.location}
                     </p>
                   </div>
                 </div>
