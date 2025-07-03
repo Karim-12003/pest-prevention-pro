@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Bug, Clock, Award, Users2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -34,7 +33,7 @@ const AboutUs = () => {
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-primary mb-3">Über uns</h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            Seit über 20 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl in <span className="city-placeholder">Ihrer Stadt</span>.
+            Seit über 20 Jahren sind wir Ihr vertrauenswürdiger Partner für professionelle Schädlingsbekämpfung. Unsere Expertise und unser Engagement für Qualität machen uns zu Ihrer ersten Wahl in <span data-city>Ihrer Stadt</span>.
           </p>
         </div>
         

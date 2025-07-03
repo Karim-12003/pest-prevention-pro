@@ -56,4 +56,18 @@ export function getCityFromParams() {
   return { name: DEFAULT_CITY, plz: DEFAULT_ZIP };
 }
 
+export function updateDynamicCityTags(city: { name: string; plz: string }) {
+  document.querySelectorAll("[data-city]").forEach(el => {
+    el.textContent = city.name;
+  });
+
+  document.querySelectorAll("[data-city-pre]").forEach(el => {
+    el.textContent = `aus ${city.name}`;
+  });
+
+  document.querySelectorAll("[data-zip]").forEach(el => {
+    el.textContent = city.plz;
+  });
+}
+
 export { DEFAULT_CITY, DEFAULT_ZIP };
