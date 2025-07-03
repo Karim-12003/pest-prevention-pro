@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import PhoneButton from '../ui/PhoneButton';
@@ -14,8 +13,7 @@ interface HeroContentProps {
 }
 
 const HeroContent = ({ cityName }: HeroContentProps) => {
-  // Keine Stadt-Erkennung mehr hier - nur noch das empfangene cityName verwenden
-  console.log("🎯 HERO CONTENT - Verwende übergebene Stadt:", cityName);
+  console.log("🎯 HERO CONTENT - Empfange Stadt:", cityName);
   
   return (
     <div className="w-full md:w-1/2 mb-6 sm:mb-8 md:mb-0 text-center md:text-left">
@@ -27,8 +25,8 @@ const HeroContent = ({ cityName }: HeroContentProps) => {
         <span className="break-words mobile-text-boost">Professionelle Schädlingsbekämpfung</span>
       </div>
       
-      <h1 id="headline" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in mobile-spacing-boost" style={{ animationDelay: '100ms' }}>
-        Ihr Experte für effektive Schädlingsbekämpfung aus <span className="city-placeholder font-bold text-accent">{cityName}</span>
+      <h1 className="headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in mobile-spacing-boost" style={{ animationDelay: '100ms' }}>
+        Ihr Experte für effektive Schädlingsbekämpfung aus <span className="font-bold text-accent">{cityName}</span>
       </h1>
       
       {/* Wespen-Notdienst Badge direkt unter dem Haupttitel */}
@@ -36,8 +34,8 @@ const HeroContent = ({ cityName }: HeroContentProps) => {
         <EmergencyWaspBadge variant="hero" />
       </div>
       
-      <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-5 sm:mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in mobile-text-boost" style={{ animationDelay: '200ms' }}>
-        Zertifizierte Profis mit über 20 Jahren Erfahrung aus <span className="city-placeholder font-medium">{cityName}</span>. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
+      <p className="subheadline text-base sm:text-lg md:text-xl text-muted-foreground mb-5 sm:mb-6 max-w-xl mx-auto md:mx-0 animate-fade-in mobile-text-boost" style={{ animationDelay: '200ms' }}>
+        Zertifizierte Profis mit über 20 Jahren Erfahrung aus {cityName}. Wir bieten schnelle und diskrete Lösungen für Ihre Schädlingsprobleme.
       </p>
       
       <div className="flex flex-col gap-3 justify-center md:justify-start animate-fade-in" style={{ animationDelay: '300ms' }}>

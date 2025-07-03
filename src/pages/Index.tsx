@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -17,6 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
+import { getCityFromParams } from '../utils/simpleCityMapping';
 
 // Declare gtag as a global function
 declare global {
@@ -26,33 +27,16 @@ declare global {
 }
 
 const PHONE_NUMBER = "+491782581987";
-const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  // EINZIGE Stadt-Erkennung - wird nur einmal ausgeführt und nie wieder geändert
-  const [cityName] = useState<string>(() => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const cityIdParam = urlParams.get('city_id');
-      
-      console.log("=== EINMALIGE STADT-ERKENNUNG ===");
-      console.log("city_id Parameter:", cityIdParam);
-      
-      if (cityIdParam === '1004625') {
-        console.log("✅ ESSEN ERKANNT - WIRD GESETZT UND BLEIBT SO");
-        return 'Essen';
-      }
-      
-      console.log("❌ Kein bekannter city_id - verwende Fallback");
-      return DEFAULT_CITY;
-    } catch (error) {
-      console.error("Fehler bei Stadt-Erkennung:", error);
-      return DEFAULT_CITY;
-    }
+  // Einfache Stadt-Erkennung mit deinem Skript
+  const [cityData] = useState(() => {
+    const result = getCityFromParams();
+    console.log("🏙️ FINALE STADT-DATEN:", result);
+    return result;
   });
   
-  // Debug-Ausgabe bei jedem Render
-  console.log("🏙️ INDEX RENDER - Stadt ist und bleibt:", cityName);
+  const cityName = cityData.name;
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
@@ -72,7 +56,7 @@ const Index = () => {
           <Hero cityName={cityName} />
           <CityWelcomeBanner cityName={cityName} />
           <MovingLogoBanner />
-          <FeaturedImage cityName={cityName} defaultCity={DEFAULT_CITY} />
+          <FeaturedImage cityName={cityName} defaultCity="Ihrer Stadt" />
           <AboutUs />
           <SectionCTA phoneNumber={PHONE_NUMBER} text="Schnelle Hilfe benötigt? Rufen Sie uns an!" />
           <Services />
