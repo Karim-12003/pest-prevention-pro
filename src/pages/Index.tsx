@@ -29,54 +29,26 @@ const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  const [cityName, setCityName] = useState<string | null>(null);
-  
-  useEffect(() => {
-    const detectCity = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const cityIdParam = urlParams.get('city_id');
-      
-      console.log("Stadt-Erkennung: city_id =", cityIdParam);
-      
-      if (cityIdParam === '1004625') {
-        console.log("Stadt-Erkennung: Erkannt als Essen");
-        setCityName('Essen');
-        return;
-      }
-      
-      console.log("Stadt-Erkennung: Fallback zu DEFAULT_CITY");
-      setCityName(DEFAULT_CITY);
-    };
+  // Direkte Stadt-Erkennung ohne externe Funktionen
+  const getCityFromUrl = (): string => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cityIdParam = urlParams.get('city_id');
     
-    // Nur einmal ausführen beim Mount
-    if (cityName === null) {
-      detectCity();
+    console.log("Direkte Stadt-Erkennung: city_id =", cityIdParam);
+    
+    if (cityIdParam === '1004625') {
+      console.log("Direkte Stadt-Erkennung: Essen erkannt");
+      return 'Essen';
     }
-  }, [cityName]);
+    
+    console.log("Direkte Stadt-Erkennung: Fallback zu DEFAULT_CITY");
+    return DEFAULT_CITY;
+  };
 
-  console.log("Index: Render - cityName:", cityName);
-
-  // Warten bis Stadt erkannt wurde
-  if (cityName === null) {
-    return (
-      <>
-        <Helmet>
-          <title>Kammerjäger Schneider - Lädt...</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        </Helmet>
-        
-        <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
-          <Navbar />
-          <main className="flex-grow pt-[83px] md:pt-28 flex items-center justify-center">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Standort wird ermittelt...</p>
-            </div>
-          </main>
-        </div>
-      </>
-    );
-  }
+  // Stadt wird einmal erkannt und bleibt konstant
+  const [cityName] = useState<string>(() => getCityFromUrl());
+  
+  console.log("Index: Finale Stadt:", cityName);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
