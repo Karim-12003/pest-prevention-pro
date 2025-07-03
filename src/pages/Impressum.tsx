@@ -5,88 +5,25 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
-import { useParams, useLocation } from 'react-router-dom';
-import { detectCity } from '../utils/modernCityDetection';
+import { getCityFromParams, updateDynamicCityTags } from '../utils/simpleCityMapping';
 
 const PHONE_NUMBER = "+491782581987";
-const DEFAULT_CITY = "Hagen";
-const DEFAULT_PLZ = "58135";
-
-// Erweiterte PLZ-Zuordnung für bekannte Städte
-const cityToPLZ: Record<string, string> = {
-  'Essen': '45127',
-  'Dortmund': '44137',
-  'Duisburg': '47051',
-  'Bochum': '44787',
-  'Herne': '44623',
-  'Gelsenkirchen': '45879',
-  'Oberhausen': '46045',
-  'Bottrop': '46236',
-  'Mülheim': '45468',
-  'Hagen': '58135',
-  'Recklinghausen': '45657',
-  'Köln': '50667',
-  'Berlin': '10115',
-  'Hamburg': '20095',
-  'München': '80331',
-  'Frankfurt': '60311',
-  'Stuttgart': '70173',
-  'Altenessen-Nord': '45329',
-  'Altenessen Nord': '45329',
-  'Altenessen': '45329',
-  'Ihre Stadt': '58135',
-  'Ihrer Stadt': '58135',
-};
 
 const Impressum = () => {
-  const { city: routeCity } = useParams();
-  const location = useLocation();
-  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+  const [cityInfo, setCityInfo] = useState(() => getCityFromParams());
   
   useEffect(() => {
-    const runCityDetection = async () => {
-      console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
-      
-      try {
-        const detectedCity = await detectCity();
-        console.log("Impressum: Erkannte Stadt:", detectedCity);
-        
-        // PLZ für erkannte Stadt finden
-        let plz = DEFAULT_PLZ;
-        
-        if (cityToPLZ[detectedCity]) {
-          plz = cityToPLZ[detectedCity];
-        } else {
-          const cityKey = Object.keys(cityToPLZ).find(key => 
-            key.toLowerCase().includes(detectedCity.toLowerCase()) ||
-            detectedCity.toLowerCase().includes(key.toLowerCase())
-          );
-          if (cityKey) {
-            plz = cityToPLZ[cityKey];
-          }
-        }
-        
-        console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
-        
-        setCityInfo({ 
-          city: detectedCity !== "Ihrer Stadt" ? detectedCity : DEFAULT_CITY, 
-          plz 
-        });
-      } catch (error) {
-        console.error("Impressum: Fehler bei der Stadt-Erkennung:", error);
-        setCityInfo({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
-      }
-    };
+    console.log("Impressum: Verwende erkannte Stadt:", cityInfo);
     
-    // Nur einmal ausführen
-    runCityDetection();
-  }, [routeCity, location]);
+    // Aktualisiere DOM-Elemente auch hier
+    updateDynamicCityTags(cityInfo);
+  }, [cityInfo]);
 
   return (
     <>
       <Helmet>
         <title>Impressum - Kammerjäger Schneider</title>
-        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Schneider in ${cityInfo.city}.`} />
+        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Schneider in ${cityInfo.name}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -101,7 +38,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
-                <p>{cityInfo.plz} {cityInfo.city}</p>
+                <p><span data-zip>{cityInfo.plz}</span> <span data-city>{cityInfo.name}</span></p>
                 <p>Deutschland</p>
               </div>
             </section>
@@ -140,7 +77,6 @@ const Impressum = () => {
         
         <Footer />
         
-        {/* Fixed Buttons */}
         <PhoneButton phoneNumber={PHONE_NUMBER} variant="fixed" />
         <WhatsAppButton phoneNumber={PHONE_NUMBER} variant="fixed" />
       </div>

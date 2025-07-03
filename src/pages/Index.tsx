@@ -29,7 +29,7 @@ declare global {
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  // Einfache Stadt-Erkennung mit deinem Skript
+  // Stadt-Erkennung mit verbesserter Logik
   const [cityData] = useState(() => {
     const result = getCityFromParams();
     console.log("🏙️ FINALE STADT-DATEN:", result);
@@ -38,16 +38,18 @@ const Index = () => {
   
   const cityName = cityData.name;
 
-  // Führe die DOM-Updates nach dem ersten Render aus
+  // DOM-Updates nach dem ersten Render
   useEffect(() => {
-    // Speichere in sessionStorage
+    console.log("🔄 Führe DOM-Updates aus für:", cityData);
+    
+    // Speichere in sessionStorage für andere Komponenten
     sessionStorage.setItem("detectedCity", cityData.name);
     sessionStorage.setItem("detectedZip", cityData.plz);
     
-    // Update data-city Attribute
+    // Aktualisiere alle DOM-Elemente mit data-city Attributen
     updateDynamicCityTags(cityData);
     
-    console.log("🔄 DOM-Updates ausgeführt für:", cityData);
+    console.log("✅ DOM-Updates abgeschlossen");
   }, [cityData]);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
