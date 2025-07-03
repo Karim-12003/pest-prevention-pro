@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -44,10 +43,10 @@ const Index = () => {
         setCityName(detectedCity);
         setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         
-        // WICHTIG: DOM-Updates IMMER ausführen, auch bei Fallback
+        // WICHTIG: DOM-Updates NACH React-State-Updates
         setTimeout(() => {
           updateCityPlaceholders(detectedCity);
-        }, 100);
+        }, 300);
         
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
@@ -57,13 +56,22 @@ const Index = () => {
         // Auch bei Fehler DOM aktualisieren
         setTimeout(() => {
           updateCityPlaceholders(DEFAULT_CITY);
-        }, 100);
+        }, 300);
       }
     };
     
-    // Nur einmal ausführen
     runCityDetection();
   }, []);
+
+  // Zusätzlicher useEffect um sicherzustellen dass DOM nach React-Updates aktualisiert wird
+  useEffect(() => {
+    if (cityName !== DEFAULT_CITY) {
+      console.log(`[Index] City state updated to: ${cityName}, updating DOM...`);
+      setTimeout(() => {
+        updateCityPlaceholders(cityName);
+      }, 100);
+    }
+  }, [cityName]);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
