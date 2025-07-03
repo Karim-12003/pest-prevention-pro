@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -16,7 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { detectCity, updateCityPlaceholders } from '../utils/modernCityDetection';
+import { detectCity } from '../utils/modernCityDetection';
 
 // Declare gtag as a global function
 declare global {
@@ -43,35 +44,15 @@ const Index = () => {
         setCityName(detectedCity);
         setDetectionSource(detectedCity !== DEFAULT_CITY ? 'url-parameter' : 'fallback');
         
-        // WICHTIG: DOM-Updates NACH React-State-Updates
-        setTimeout(() => {
-          updateCityPlaceholders(detectedCity);
-        }, 300);
-        
       } catch (error) {
         console.error("Index: Fehler bei der Stadt-Erkennung:", error);
         setCityName(DEFAULT_CITY);
         setDetectionSource('error');
-        
-        // Auch bei Fehler DOM aktualisieren
-        setTimeout(() => {
-          updateCityPlaceholders(DEFAULT_CITY);
-        }, 300);
       }
     };
     
     runCityDetection();
   }, []);
-
-  // Zusätzlicher useEffect um sicherzustellen dass DOM nach React-Updates aktualisiert wird
-  useEffect(() => {
-    if (cityName !== DEFAULT_CITY) {
-      console.log(`[Index] City state updated to: ${cityName}, updating DOM...`);
-      setTimeout(() => {
-        updateCityPlaceholders(cityName);
-      }, 100);
-    }
-  }, [cityName]);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
