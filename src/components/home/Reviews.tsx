@@ -74,7 +74,7 @@ const ReviewCard = ({ review, index }: { review: typeof defaultReviews[0], index
           <div>
             <h4 className="font-medium text-gray-800">{review.name}</h4>
             {review.location && (
-              <p className="text-xs text-gray-500">{review.location}</p>
+              <p className="text-xs text-gray-500 review-location">{review.location}</p>
             )}
           </div>
         </div>
@@ -100,10 +100,12 @@ const ReviewCard = ({ review, index }: { review: typeof defaultReviews[0], index
 const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
   const isMobile = useIsMobile();
   
-  // Create a copy of the reviews with the dynamic city
+  console.log("📝 REVIEWS - Empfange Stadt:", cityName);
+  
+  // Create a copy of the reviews with the dynamic city - but only if it's not the default
   const reviews = defaultReviews.map(review => ({
     ...review,
-    location: cityName !== "Ihrer Stadt" ? cityName : review.location
+    location: cityName !== "Ihrer Stadt" && cityName ? cityName : review.location
   }));
   
   return (
@@ -132,7 +134,7 @@ const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
             </a>
           </div>
           <p className="section-subheading mb-0">
-            Erfahren Sie, was unsere Kunden über unsere Schädlingsbekämpfungsdienste {cityName !== "Ihrer Stadt" && `in ${cityName}`} sagen.
+            Erfahren Sie, was unsere Kunden über unsere Schädlingsbekämpfungsdienste {cityName !== "Ihrer Stadt" && cityName ? `in ${cityName}` : ''} sagen.
           </p>
         </div>
 
@@ -156,7 +158,7 @@ const Reviews = ({ cityName = "Ihrer Stadt" }: ReviewsProps) => {
               4.9/5 Durchschnittsbewertung
             </p>
             <p className="text-sm text-muted-foreground">
-              Basierend auf über 487 verifizierten Bewertungen {cityName !== "Ihrer Stadt" && `in ${cityName}`} auf ProvenExpert
+              Basierend auf über 487 verifizierten Bewertungen {cityName !== "Ihrer Stadt" && cityName ? `in ${cityName}` : ''} auf ProvenExpert
             </p>
           </div>
         </div>
