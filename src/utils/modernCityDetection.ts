@@ -50,6 +50,30 @@ async function findCityByCityId(cityId: string): Promise<string | null> {
 }
 
 /**
+ * Extract city name from keyword parameter
+ */
+async function extractCityFromKeyword(keyword: string): Promise<string | null> {
+  const database = await loadCityDatabase();
+  const cities = Object.keys(database);
+  
+  // Normalisiere das Keyword (lowercase, ersetze + durch Leerzeichen)
+  const normalizedKeyword = keyword.toLowerCase().replace(/\+/g, ' ');
+  console.log(`[ModernCityDetection] Searching for city in keyword: "${normalizedKeyword}"`);
+  
+  // Suche nach Städten im Keyword
+  for (const city of cities) {
+    const normalizedCity = city.toLowerCase();
+    if (normalizedKeyword.includes(normalizedCity)) {
+      console.log(`[ModernCityDetection] Found city "${city}" in keyword "${keyword}"`);
+      return city;
+    }
+  }
+  
+  console.log(`[ModernCityDetection] No city found in keyword: ${keyword}`);
+  return null;
+}
+
+/**
  * Checks if the given string is a placeholder
  */
 function isPlaceholder(str: string): boolean {
@@ -119,14 +143,25 @@ export async function detectCity(): Promise<string> {
     const kwParam = urlParams.get('kw');
     if (kwParam && !isPlaceholder(kwParam)) {
       console.log(`[ModernCityDetection] Found kw parameter: ${kwParam}`);
+      
+      // Erst prüfen ob es direkt ein Stadtname ist
       const validatedCity = await validateCity(kwParam);
       if (validatedCity !== DEFAULT_CITY) {
-        console.log(`[ModernCityDetection] Validated city from kw: ${validatedCity}`);
-        // Store in sessionStorage and cache
+        console.log(`[ModernCityDetection] kw parameter is direct city name: ${validatedCity}`);
         sessionStorage.setItem('detectedCity', validatedCity);
         cityCache = validatedCity;
         cacheTimestamp = now;
         return validatedCity;
+      }
+      
+      // Dann versuchen Stadt aus dem Keyword zu extrahieren
+      const cityFromKeyword = await extractCityFromKeyword(kwParam);
+      if (cityFromKeyword) {
+        console.log(`[ModernCityDetection] Extracted city from keyword: ${cityFromKeyword}`);
+        sessionStorage.setItem('detectedCity', cityFromKeyword);
+        cityCache = cityFromKeyword;
+        cacheTimestamp = now;
+        return cityFromKeyword;
       }
     } else if (kwParam) {
       console.log("[ModernCityDetection] kw parameter found but is placeholder:", kwParam);
