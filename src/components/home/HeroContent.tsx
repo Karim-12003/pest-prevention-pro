@@ -14,7 +14,8 @@ interface HeroContentProps {
 }
 
 const HeroContent = ({ cityName }: HeroContentProps) => {
-  console.log("HeroContent: Render mit cityName:", cityName);
+  // Keine Stadt-Erkennung mehr hier - nur noch das empfangene cityName verwenden
+  console.log("🎯 HERO CONTENT - Verwende übergebene Stadt:", cityName);
   
   return (
     <div className="w-full md:w-1/2 mb-6 sm:mb-8 md:mb-0 text-center md:text-left">

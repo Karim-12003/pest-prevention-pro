@@ -29,26 +29,30 @@ const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Ihrer Stadt";
 
 const Index = () => {
-  // Direkte Stadt-Erkennung ohne externe Funktionen
-  const getCityFromUrl = (): string => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const cityIdParam = urlParams.get('city_id');
-    
-    console.log("Direkte Stadt-Erkennung: city_id =", cityIdParam);
-    
-    if (cityIdParam === '1004625') {
-      console.log("Direkte Stadt-Erkennung: Essen erkannt");
-      return 'Essen';
+  // EINZIGE Stadt-Erkennung - wird nur einmal ausgeführt und nie wieder geändert
+  const [cityName] = useState<string>(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cityIdParam = urlParams.get('city_id');
+      
+      console.log("=== EINMALIGE STADT-ERKENNUNG ===");
+      console.log("city_id Parameter:", cityIdParam);
+      
+      if (cityIdParam === '1004625') {
+        console.log("✅ ESSEN ERKANNT - WIRD GESETZT UND BLEIBT SO");
+        return 'Essen';
+      }
+      
+      console.log("❌ Kein bekannter city_id - verwende Fallback");
+      return DEFAULT_CITY;
+    } catch (error) {
+      console.error("Fehler bei Stadt-Erkennung:", error);
+      return DEFAULT_CITY;
     }
-    
-    console.log("Direkte Stadt-Erkennung: Fallback zu DEFAULT_CITY");
-    return DEFAULT_CITY;
-  };
-
-  // Stadt wird einmal erkannt und bleibt konstant
-  const [cityName] = useState<string>(() => getCityFromUrl());
+  });
   
-  console.log("Index: Finale Stadt:", cityName);
+  // Debug-Ausgabe bei jedem Render
+  console.log("🏙️ INDEX RENDER - Stadt ist und bleibt:", cityName);
 
   const pageTitle = `Kammerjäger Schneider - Professionelle Schädlingsbekämpfung in ${cityName}`;
   const pageDescription = `Sofortige Hilfe bei Schädlingsbefall in ${cityName}. IHK-zertifizierte Schädlingsbekämpfer für Bettwanzen, Insekten, Ratten und mehr. 24/7 Notdienst & kostenlose Anfahrt.`;
