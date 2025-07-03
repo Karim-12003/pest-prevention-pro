@@ -5,25 +5,110 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
-import { getCityFromParams, updateDynamicCityTags } from '../utils/simpleCityMapping';
+import { useParams, useLocation } from 'react-router-dom';
+import { detectCity } from '../utils/modernCityDetection';
 
 const PHONE_NUMBER = "+491782581987";
+const DEFAULT_CITY = "Hagen";
+const DEFAULT_PLZ = "58135";
+
+// Erweiterte PLZ-Zuordnung für bekannte Städte
+const cityToPLZ: Record<string, string> = {
+  'Essen': '45127',
+  'Dortmund': '44137',
+  'Duisburg': '47051',
+  'Bochum': '44787',
+  'Herne': '44623',
+  'Gelsenkirchen': '45879',
+  'Oberhausen': '46045',
+  'Bottrop': '46236',
+  'Mülheim': '45468',
+  'Hagen': '58135',
+  'Recklinghausen': '45657',
+  'Köln': '50667',
+  'Berlin': '10115',
+  'Hamburg': '20095',
+  'München': '80331',
+  'Frankfurt': '60311',
+  'Stuttgart': '70173',
+  'Altenessen-Nord': '45329',
+  'Altenessen Nord': '45329',
+  'Altenessen': '45329',
+  'Ihre Stadt': '58135',
+  'Ihrer Stadt': '58135',
+};
 
 const Impressum = () => {
-  const [cityInfo, setCityInfo] = useState(() => getCityFromParams());
+  const { city: routeCity } = useParams();
+  const location = useLocation();
+  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
   
   useEffect(() => {
-    console.log("Impressum: Verwende erkannte Stadt:", cityInfo);
+    const runCityDetection = async () => {
+      console.log("Impressum: Stadt-Erkennung wird ausgeführt...");
+      
+      try {
+        // Erst versuchen, Stadt aus URL-Parametern zu erkennen
+        let detectedCity = await detectCity();
+        console.log("Impressum: Stadt aus URL-Parametern:", detectedCity);
+        
+        // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
+        if (detectedCity === "Ihrer Stadt") {
+          const storedCity = sessionStorage.getItem('detectedCity');
+          if (storedCity && storedCity !== "Ihrer Stadt") {
+            detectedCity = storedCity;
+            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity);
+          }
+        } else {
+          // Stadt in sessionStorage speichern für andere Seiten
+          sessionStorage.setItem('detectedCity', detectedCity);
+        }
+        
+        console.log("Impressum: Finale erkannte Stadt:", detectedCity);
+        
+        // PLZ für erkannte Stadt finden - mit mehreren Varianten
+        let plz = DEFAULT_PLZ;
+        
+        // Zuerst exakte Übereinstimmung
+        if (cityToPLZ[detectedCity]) {
+          plz = cityToPLZ[detectedCity];
+        } else {
+          // Dann nach ähnlichen Namen suchen
+          const cityKey = Object.keys(cityToPLZ).find(key => 
+            key.toLowerCase().includes(detectedCity.toLowerCase()) ||
+            detectedCity.toLowerCase().includes(key.toLowerCase())
+          );
+          if (cityKey) {
+            plz = cityToPLZ[cityKey];
+          }
+        }
+        
+        console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
+        
+        setCityInfo({ 
+          city: detectedCity, 
+          plz 
+        });
+      } catch (error) {
+        console.error("Impressum: Fehler bei der Stadt-Erkennung:", error);
+        setCityInfo({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+      }
+    };
     
-    // Aktualisiere DOM-Elemente auch hier
-    updateDynamicCityTags(cityInfo);
-  }, [cityInfo]);
+    // Sofort ausführen
+    runCityDetection();
+    
+    // Und nach Verzögerung nochmals
+    const timeoutId = setTimeout(runCityDetection, 500);
+    
+    return () => clearTimeout(timeoutId);
+  }, [routeCity, location]);
 
   return (
     <>
       <Helmet>
         <title>Impressum - Kammerjäger Schneider</title>
-        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Schneider in ${cityInfo.name}.`} />
+        <meta name="description" content={`Impressum und rechtliche Informationen zu Kammerjäger Schneider in ${cityInfo.city}.`} />
       </Helmet>
       
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -38,7 +123,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
-                <p><span data-zip>{cityInfo.plz}</span> <span data-city>{cityInfo.name}</span></p>
+                <p>{cityInfo.plz} {cityInfo.city}</p>
                 <p>Deutschland</p>
               </div>
             </section>
