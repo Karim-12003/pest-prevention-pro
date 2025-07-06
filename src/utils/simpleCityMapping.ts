@@ -1,3 +1,4 @@
+
 const DEFAULT_CITY = "Ihrer Stadt";
 const DEFAULT_ZIP = "00000";
 
@@ -44,6 +45,7 @@ const cityMapping: { [key: string]: { name: string; plz: string } } = {
   "102": { name: "Dortmund", plz: "44135" },
   "103": { name: "Duisburg", plz: "47051" },
   "104": { name: "Oberhausen", plz: "46045" },
+  "1003943": { name: "Freiburg im Breisgau", plz: "79098" },
   "1004625": { name: "Essen", plz: "45127" },
   
   // Baden-Württemberg Städte mit numerischen IDs
