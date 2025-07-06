@@ -22,7 +22,7 @@ const defaultReviews = [
     name: "Sabine Müller",
     location: "", // Wird dynamisch gefüllt
     rating: 5,
-    text: "Nach wochenlangem vergeblichem Kampf gegen Bettwanzen bin ich so froh, dass ich Kammerjäger Adalbert gefunden habe! Die Fachleute führten eine gründliche Hitzebehandlung durch, die alle Bettwanzen beseitigte. Seit 6 Monaten kein einziger Stich mehr! Die ausführliche Nachbetreuung und präventiven Tipps waren unbezahlbar. 100% Weiterempfehlung!",
+    text: "Nach wochenlangem vergeblichem Kampf gegen Bettwanzen bin ich so froh, dass ich diese professionelle Schädlingsbekämpfung gefunden habe! Die Fachleute führten eine gründliche Hitzebehandlung durch, die alle Bettwanzen beseitigte. Seit 6 Monaten kein einziger Stich mehr! Die ausführliche Nachbetreuung und präventiven Tipps waren unbezahlbar. 100% Weiterempfehlung!",
   },
   {
     name: "Thomas Weber",
