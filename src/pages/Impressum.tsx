@@ -6,7 +6,7 @@ import Footer from '../components/layout/Footer';
 import PhoneButton from '../components/ui/PhoneButton';
 import WhatsAppButton from '../components/ui/WhatsAppButton';
 import { useParams, useLocation } from 'react-router-dom';
-import { detectCity } from '../utils/modernCityDetection';
+import { getCityFromParams } from '../utils/cityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Hagen";
@@ -49,8 +49,9 @@ const Impressum = () => {
       
       try {
         // Erst versuchen, Stadt aus URL-Parametern zu erkennen
-        let detectedCity = await detectCity();
-        console.log("Impressum: Stadt aus URL-Parametern:", detectedCity);
+        let detectedCityData = getCityFromParams();
+        console.log("Impressum: Stadt aus URL-Parametern:", detectedCityData);
+        let detectedCity = detectedCityData.name;
         
         // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {

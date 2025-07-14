@@ -17,7 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { getCityFromParams, updateDynamicCityTags } from '../utils/simpleCityMapping';
+import { getCityFromParams, updateDynamicCityTags } from '../utils/cityDetection';
 
 // Declare gtag as a global function
 declare global {

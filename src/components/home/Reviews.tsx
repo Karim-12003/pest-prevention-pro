@@ -5,7 +5,7 @@ import { Star, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { getCityFromParams, updateDynamicCityTags } from '../../utils/simpleCityMapping';
+import { getCityFromParams, updateDynamicCityTags } from '../../utils/cityDetection';
 
 interface ReviewsProps {
   cityName?: string;
