@@ -8,22 +8,35 @@ export async function detectCity(): Promise<CityData> {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
 
+  console.log("🔍 DEBUG: Stadt-Erkennung startet mit URL:", window.location.search);
+  console.log("🔍 DEBUG: Gefundene ID:", id);
+
   if (!id) {
+    console.log("❌ DEBUG: Keine ID gefunden");
     return { name: "Ihrer Stadt", plz: "00000" };
   }
 
   try {
-    const response = await fetch(`/.netlify/functions/resolve-id?id=${id}`);
+    const apiUrl = `/.netlify/functions/resolve-id?id=${id}`;
+    console.log("🌐 DEBUG: API-Aufruf:", apiUrl);
+    
+    const response = await fetch(apiUrl);
     const data = await response.json();
+    
+    console.log("📥 DEBUG: API-Antwort:", data);
 
     if (data.stadt) {
       const cityData = { name: data.stadt, plz: "00000" };
+      console.log("✅ DEBUG: Stadt erkannt:", cityData);
+      
       sessionStorage.setItem("cityName", data.stadt);
       sessionStorage.setItem("cityData", JSON.stringify(cityData));
       return cityData;
+    } else {
+      console.log("❌ DEBUG: Keine Stadt in API-Antwort");
     }
   } catch (e) {
-    console.error("Stadt konnte nicht geladen werden", e);
+    console.error("❌ DEBUG: Fehler bei API-Aufruf:", e);
   }
 
   return { name: "Ihrer Stadt", plz: "00000" };
