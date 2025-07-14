@@ -31,7 +31,8 @@ exports.handler = async function (event, context) {
   // → Fallback: Anfrage an OpenDataSoft API mit PLZ (aus Mapping oder direkter ID)
   const plz = /^\d{5}$/.test(id) ? id : mapped;
 
-  const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-postleitzahl/records?where=plz=\"${plz}\"&limit=1`;
+ const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-postleitzahl/records?where=plz='${plz}'&limit=1`;
+
 
   try {
     const stadt = await new Promise((resolve, reject) => {
