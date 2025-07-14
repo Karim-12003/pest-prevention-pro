@@ -111,7 +111,7 @@
     <script>
       async function detectCity() {
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get("kw") || urlParams.get("loc_physical_ms");
+        const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
 
         if (!id) return;
 

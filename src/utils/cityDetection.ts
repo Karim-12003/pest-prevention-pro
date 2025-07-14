@@ -6,7 +6,7 @@ export interface CityData {
 
 export async function detectCity(): Promise<CityData> {
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms");
+  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
 
   if (!id) {
     return { name: "Ihrer Stadt", plz: "00000" };
@@ -38,7 +38,7 @@ export function getCityFromParams(): CityData {
 
   // Dann URL-Parameter prüfen
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms");
+  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
   
   if (id) {
     // Async Stadt-Erkennung starten
