@@ -26,8 +26,8 @@ exports.handler = async (event) => {
   let stadt = "";
   let typ = "";
 
-  // Wenn value eine PLZ ist (nur Zahlen, 5-stellig), hole Stadt von OpenPLZ
   if (/^\d{5}$/.test(value)) {
+    // Wert ist eine PLZ → nutze OpenPLZ API
     typ = "stadt-id";
 
     const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${value}`;
@@ -36,7 +36,7 @@ exports.handler = async (event) => {
       const response = await fetch(apiUrl);
       const data = await response.json();
 
-      stadt = data?.[0]?.locality || "";
+      stadt = data?.[0]?.name || "";
 
       if (!stadt) {
         return {
@@ -55,6 +55,7 @@ exports.handler = async (event) => {
     }
 
   } else {
+    // Stadtname liegt direkt vor
     typ = "direkt";
     stadt = value;
   }
