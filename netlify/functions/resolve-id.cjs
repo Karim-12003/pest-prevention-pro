@@ -1,11 +1,12 @@
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const fs = require("fs");
-const https = require("https");
+const path = require("path");
 
-const stadtMap = JSON.parse(fs.readFileSync(__dirname + "/stadt_map.json", "utf-8"));
+const stadtMapPath = path.join(__dirname, "stadt_map.json");
+const stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
 
-exports.handler = async function (event, context) {
-  const id = event.queryStringParameters.id;
-
+exports.handler = async (event) => {
+  const id = event.queryStringParameters?.id;
   if (!id) {
     return {
       statusCode: 400,
@@ -13,56 +14,53 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const result = { id };
+  const value = stadtMap[id];
 
-  // Prüfe, ob ID in der Mapping-Datei vorhanden ist
-  const mapped = stadtMap[id];
-
-  // Wenn vorhanden und KEINE PLZ (z. B. keine reine 5-stellige Zahl)
-  if (mapped && !/^\d{5}$/.test(mapped)) {
-    result.typ = "stadt-id";
-    result.stadt = mapped;
+  if (!value) {
     return {
-      statusCode: 200,
-      body: JSON.stringify(result),
+      statusCode: 404,
+      body: JSON.stringify({ error: "Unbekannte ID", id }),
     };
   }
 
-  // → Fallback: Anfrage an OpenDataSoft API mit PLZ (aus Mapping oder direkter ID)
-  const plz = /^\d{5}$/.test(id) ? id : mapped;
+  let stadt = "";
+  let typ = "";
 
- const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-postleitzahl/records?where=plz='${plz}'&limit=1`;
+  // Wenn value eine PLZ ist (nur Zahlen, 5-stellig), hole Stadt von OpenPLZ
+  if (/^\d{5}$/.test(value)) {
+    typ = "stadt-id";
 
+    const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${value}`;
 
-  try {
-    const stadt = await new Promise((resolve, reject) => {
-      https.get(apiUrl, (res) => {
-        let data = "";
-        res.on("data", (chunk) => (data += chunk));
-        res.on("end", () => {
-          try {
-            const parsed = JSON.parse(data);
-            const name = parsed.results?.[0]?.ort;
-            if (name) resolve(name);
-            else reject("Keine Stadt gefunden");
-          } catch (err) {
-            reject(err);
-          }
-        });
-      }).on("error", (err) => reject(err));
-    });
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-    result.typ = /^\d{5}$/.test(id) ? "plz-id" : "stadt-id";
-    result.stadt = stadt;
+      stadt = data?.[0]?.locality || "";
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(result),
-    };
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Stadt nicht gefunden", details: err.toString() }),
-    };
+      if (!stadt) {
+        return {
+          statusCode: 404,
+          body: JSON.stringify({
+            error: "Stadt nicht gefunden",
+            details: "Keine Stadt zu dieser PLZ in OpenPLZ",
+          }),
+        };
+      }
+    } catch (e) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "API-Fehler", details: e.message }),
+      };
+    }
+
+  } else {
+    typ = "direkt";
+    stadt = value;
   }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ id, typ, stadt }),
+  };
 };
