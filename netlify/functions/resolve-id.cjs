@@ -12,7 +12,8 @@ const direkteStadtMap = {
 
 // PLZ-Map für IDs die zu PLZ führen
 const plzMap = {
-  "9043934": "45141"  // Essen
+  "9043934": "45141", // Essen
+  "9044462": "63741"  // Aschaffenburg
 };
 
 exports.handler = async (event) => {
