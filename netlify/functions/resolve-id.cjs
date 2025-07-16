@@ -1,4 +1,3 @@
-// Stadt-Mapping direkt eingebettet (erweitert für die wichtigsten IDs)
 const stadtMap = {
   // Direkte Städte
   "1004625": "Essen",
@@ -8,12 +7,13 @@ const stadtMap = {
   "1004615": "Düsseldorf",
   "1004596": "Bochum",
   
-  // PLZ-Mappings (häufige IDs)
+  // PLZ-Mappings
   "9043934": "45141", // Essen
   "9044462": "63741", // Aschaffenburg  
   "9113395": "94121", // Passau
+  "9113385": "94545", // Moos (Niederbayern)
   
-  // Weitere aus der Map
+  // Weitere
   "9048141": "Aldenhoven",
   "9048146": "Alpen", 
   "9048151": "Altena"
@@ -30,77 +30,61 @@ exports.handler = async (event) => {
 
   const value = stadtMap[id];
 
-  // FALLBACK: Wenn ID unbekannt ist, versuche die ID selbst als PLZ
-   if (!value) {
-    console.log(`ID ${id} nicht in Map gefunden, versuche als PLZ...`);
-
-    // Wenn die ID selbst eine 5-stellige Zahl ist (also eine PLZ)
+  // 1. ID nicht bekannt, aber evtl. ist sie eine PLZ
+  if (!value) {
+    console.log(`ID ${id} nicht in Map – versuche ID selbst als PLZ`);
     if (/^\d{5}$/.test(id)) {
-      const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${id}`;
-      
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        const stadt = data?.[0]?.municipality?.name || data?.[0]?.name || "";
-
-        if (stadt) {
-          return {
-            statusCode: 200,
-            body: JSON.stringify({ id, typ: "plz-fallback", stadt, plz: id }),
-          };
-        }
-      } catch (e) {
-        console.error("PLZ-Fallback Fehler:", e);
-      }
+      return await fetchCityFromPLZ(id, id, "plz-fallback");
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: "Unbekannte ID", id }),
+      };
     }
+  }
 
+  // 2. value ist ein Stadtname
+  if (isNaN(value)) {
     return {
-      statusCode: 404,
-      body: JSON.stringify({ error: "Unbekannte ID", id }),
+      statusCode: 200,
+      body: JSON.stringify({ id, typ: "direkt", stadt: value }),
     };
   }
 
-  
-  let stadt = "";
-  let typ = "";
-
+  // 3. value ist eine PLZ → über OpenPLZ API auflösen
   if (/^\d{5}$/.test(value)) {
-    // Wert ist eine PLZ → nutze OpenPLZ API
-    typ = "plz-lookup";
-
-    const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${value}`;
-
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      stadt = data?.[0]?.name || "";
-
-      if (!stadt) {
-        return {
-          statusCode: 404,
-          body: JSON.stringify({
-            error: "Stadt nicht gefunden",
-            details: "Keine Stadt zu dieser PLZ in OpenPLZ",
-            plz: value
-          }),
-        };
-      }
-    } catch (e) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "API-Fehler", details: e.message }),
-      };
-    }
-
-  } else {
-    // Stadtname liegt direkt vor
-    typ = "direkt";
-    stadt = value;
+    return await fetchCityFromPLZ(id, value, "plz-lookup");
   }
 
+  // Fallback
   return {
-    statusCode: 200,
-    body: JSON.stringify({ id, typ, stadt, plz: typ === "plz-lookup" ? value : null }),
+    statusCode: 404,
+    body: JSON.stringify({ error: "Kein valider Mapping-Eintrag", id }),
   };
 };
+
+async function fetchCityFromPLZ(id, plz, typ) {
+  const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${plz}`;
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const stadt = data?.[0]?.municipality?.name || data?.[0]?.name || "";
+
+    if (stadt) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ id, typ, stadt, plz }),
+      };
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: "Stadt nicht gefunden", id, plz }),
+      };
+    }
+  } catch (e) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "API-Fehler", details: e.message }),
+    };
+  }
+}
