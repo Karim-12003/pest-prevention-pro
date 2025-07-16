@@ -1,4 +1,4 @@
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+// Netlify Functions haben bereits fetch verfügbar
 
 // PLZ-zu-Stadt-Mapping für häufige IDs (kann erweitert werden)
 const direkteStadtMap = {
