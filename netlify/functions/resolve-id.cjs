@@ -1,14 +1,18 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-// Stadt-Mapping direkt eingebettet für bessere Deployment-Kompatibilität
-const stadtMap = {
+// PLZ-zu-Stadt-Mapping für häufige IDs (kann erweitert werden)
+const direkteStadtMap = {
   "1004625": "Essen",
-  "1004576": "Aachen",
-  "1004577": "Ahaus",
-  "1004578": "Ahlen",
-  "1004579": "Alfter",
-  "1004580": "Alsdorf"
-  // Füge hier weitere Städte hinzu falls nötig
+  "1004576": "Aachen", 
+  "1004611": "Dortmund",
+  "1004612": "Duisburg",
+  "1004615": "Düsseldorf",
+  "1004596": "Bochum"
+};
+
+// PLZ-Map für IDs die zu PLZ führen
+const plzMap = {
+  "9043934": "45141"  // Essen
 };
 
 exports.handler = async (event) => {
@@ -20,7 +24,13 @@ exports.handler = async (event) => {
     };
   }
 
-  const value = stadtMap[id];
+  // Erst direkte Stadt-Map prüfen
+  let value = direkteStadtMap[id];
+  
+  // Falls nicht gefunden, PLZ-Map prüfen
+  if (!value) {
+    value = plzMap[id];
+  }
 
   if (!value) {
     return {
