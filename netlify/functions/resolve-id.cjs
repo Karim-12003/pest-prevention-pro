@@ -1,23 +1,8 @@
-const stadtMap = {
-  // Direkte Städte
-  "1004625": "Essen",
-  "1004576": "Aachen", 
-  "1004611": "Dortmund",
-  "1004612": "Duisburg",
-  "1004615": "Düsseldorf",
-  "1004596": "Bochum",
-  
-  // PLZ-Mappings
-  "9043934": "45141", // Essen
-  "9044462": "63741", // Aschaffenburg  
-  "9113395": "94121", // Passau
-  "9113385": "94545", // Moos (Niederbayern)
-  
-  // Weitere
-  "9048141": "Aldenhoven",
-  "9048146": "Alpen", 
-  "9048151": "Altena"
-};
+const fs = require("fs");
+const path = require("path");
+
+const mapPath = path.join(__dirname, "stadt_map.json");
+const stadtMap = JSON.parse(fs.readFileSync(mapPath, "utf-8"));
 
 exports.handler = async (event) => {
   const id = event.queryStringParameters?.id;
