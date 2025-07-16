@@ -30,7 +30,30 @@ exports.handler = async (event) => {
 
   const value = stadtMap[id];
 
+  // FALLBACK: Wenn ID unbekannt ist, versuche die ID selbst als PLZ
   if (!value) {
+    console.log(`ID ${id} nicht in Map gefunden, versuche als PLZ...`);
+    
+    // Versuche die ID direkt als PLZ
+    if (/^\d{5}$/.test(id)) {
+      const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${id}`;
+      
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const stadt = data?.[0]?.name || "";
+        
+        if (stadt) {
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ id, typ: "plz-fallback", stadt, plz: id }),
+          };
+        }
+      } catch (e) {
+        console.error("PLZ-Fallback Fehler:", e);
+      }
+    }
+    
     return {
       statusCode: 404,
       body: JSON.stringify({ error: "Unbekannte ID", id }),
