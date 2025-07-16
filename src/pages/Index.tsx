@@ -17,7 +17,7 @@ import MovingLogoBanner from '../components/home/MovingLogoBanner';
 import CityWelcomeBanner from '../components/home/CityWelcomeBanner';
 import FeaturedImage from '../components/home/FeaturedImage';
 import SeoKeywords from '../components/seo/SeoKeywords';
-import { getCityFromParams, updateDynamicCityTags } from '../utils/cityDetection';
+import { getCityFromParams, updateDynamicCityTags, detectAndUpdateCity, CityData } from '../utils/cityDetection';
 
 // Declare gtag as a global function
 declare global {
@@ -29,14 +29,27 @@ declare global {
 const PHONE_NUMBER = "+491782581987";
 
 const Index = () => {
-  // Stadt-Erkennung mit verbesserter Logik
-  const [cityData] = useState(() => {
+  // Stadt-Erkennung mit verbesserter Logik  
+  const [cityData, setCityData] = useState(() => {
     const result = getCityFromParams();
     console.log("🏙️ FINALE STADT-DATEN:", result);
     return result;
   });
   
   const cityName = cityData.name;
+
+  // Async Stadt-Erkennung starten
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasLocationId = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
+    
+    if (hasLocationId) {
+      detectAndUpdateCity().then(newCityData => {
+        console.log("🌟 Stadt asynchron erkannt:", newCityData);
+        setCityData(newCityData);
+      });
+    }
+  }, []);
 
   // DOM-Updates nach dem ersten Render
   useEffect(() => {

@@ -51,20 +51,20 @@ export function getCityFromParams(): CityData {
     return { name: storedCity, plz: "00000" };
   }
 
-  // Dann URL-Parameter prüfen
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
-  
-  if (id) {
-    // Async Stadt-Erkennung starten
-    detectCity().then(cityData => {
-      if (cityData.name !== "Ihrer Stadt") {
-        updateCityElements(cityData.name);
-      }
-    });
-  }
-
+  // Dann URL-Parameter prüfen und sofort returnen
   return { name: "Ihrer Stadt", plz: "00000" };
+}
+
+// Neue Funktion für asynchrone Stadt-Erkennung
+export async function detectAndUpdateCity(): Promise<CityData> {
+  const cityData = await detectCity();
+  
+  // Trigger custom event für React re-render
+  window.dispatchEvent(new CustomEvent('cityDetected', { 
+    detail: cityData 
+  }));
+  
+  return cityData;
 }
 
 export function updateCityElements(city: string): void {
