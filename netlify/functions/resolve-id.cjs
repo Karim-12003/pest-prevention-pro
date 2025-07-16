@@ -1,20 +1,23 @@
-// Netlify Functions haben bereits fetch verfügbar
+const fs = require("fs");
+const path = require("path");
 
-// PLZ-zu-Stadt-Mapping für häufige IDs (kann erweitert werden)
-const direkteStadtMap = {
-  "1004625": "Essen",
-  "1004576": "Aachen", 
-  "1004611": "Dortmund",
-  "1004612": "Duisburg",
-  "1004615": "Düsseldorf",
-  "1004596": "Bochum"
-};
-
-// PLZ-Map für IDs die zu PLZ führen
-const plzMap = {
-  "9043934": "45141", // Essen
-  "9044462": "63741"  // Aschaffenburg
-};
+// Lade die komplette Stadt-Map
+let stadtMap = {};
+try {
+  const stadtMapPath = path.join(__dirname, "stadt_map.json");
+  stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
+} catch (error) {
+  console.error("Error loading stadt_map.json:", error);
+  // Fallback für häufige Städte
+  stadtMap = {
+    "1004625": "Essen",
+    "1004576": "Aachen", 
+    "1004611": "Dortmund",
+    "1004612": "Duisburg",
+    "1004615": "Düsseldorf",
+    "1004596": "Bochum"
+  };
+}
 
 exports.handler = async (event) => {
   const id = event.queryStringParameters?.id;
@@ -25,13 +28,7 @@ exports.handler = async (event) => {
     };
   }
 
-  // Erst direkte Stadt-Map prüfen
-  let value = direkteStadtMap[id];
-  
-  // Falls nicht gefunden, PLZ-Map prüfen
-  if (!value) {
-    value = plzMap[id];
-  }
+  const value = stadtMap[id];
 
   if (!value) {
     return {
@@ -45,7 +42,7 @@ exports.handler = async (event) => {
 
   if (/^\d{5}$/.test(value)) {
     // Wert ist eine PLZ → nutze OpenPLZ API
-    typ = "stadt-id";
+    typ = "plz-lookup";
 
     const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${value}`;
 
@@ -61,6 +58,7 @@ exports.handler = async (event) => {
           body: JSON.stringify({
             error: "Stadt nicht gefunden",
             details: "Keine Stadt zu dieser PLZ in OpenPLZ",
+            plz: value
           }),
         };
       }
@@ -79,6 +77,6 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ id, typ, stadt }),
+    body: JSON.stringify({ id, typ, stadt, plz: typ === "plz-lookup" ? value : null }),
   };
 };

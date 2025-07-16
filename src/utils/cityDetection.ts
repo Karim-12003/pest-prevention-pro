@@ -45,13 +45,21 @@ export async function detectCity(): Promise<CityData> {
 }
 
 export function getCityFromParams(): CityData {
-  // Erst aus sessionStorage versuchen
+  // NICHT aus sessionStorage laden - immer frisch ermitteln
+  const urlParams = new URLSearchParams(window.location.search);
+  const hasLocationId = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
+  
+  if (hasLocationId) {
+    // Wenn ID vorhanden, erstmal Platzhalter zurückgeben
+    return { name: "Ihrer Stadt", plz: "00000" };
+  }
+  
+  // Nur wenn KEINE ID in URL, dann aus sessionStorage laden
   const storedCity = sessionStorage.getItem("cityName");
   if (storedCity && storedCity !== "Ihrer Stadt") {
     return { name: storedCity, plz: "00000" };
   }
 
-  // Dann URL-Parameter prüfen und sofort returnen
   return { name: "Ihrer Stadt", plz: "00000" };
 }
 
