@@ -1,23 +1,23 @@
-const fs = require("fs");
-const path = require("path");
-
-// Lade die komplette Stadt-Map
-let stadtMap = {};
-try {
-  const stadtMapPath = path.join(__dirname, "stadt_map.json");
-  stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
-} catch (error) {
-  console.error("Error loading stadt_map.json:", error);
-  // Fallback für häufige Städte
-  stadtMap = {
-    "1004625": "Essen",
-    "1004576": "Aachen", 
-    "1004611": "Dortmund",
-    "1004612": "Duisburg",
-    "1004615": "Düsseldorf",
-    "1004596": "Bochum"
-  };
-}
+// Stadt-Mapping direkt eingebettet (erweitert für die wichtigsten IDs)
+const stadtMap = {
+  // Direkte Städte
+  "1004625": "Essen",
+  "1004576": "Aachen", 
+  "1004611": "Dortmund",
+  "1004612": "Duisburg",
+  "1004615": "Düsseldorf",
+  "1004596": "Bochum",
+  
+  // PLZ-Mappings (häufige IDs)
+  "9043934": "45141", // Essen
+  "9044462": "63741", // Aschaffenburg  
+  "9113395": "94121", // Passau
+  
+  // Weitere aus der Map
+  "9048141": "Aldenhoven",
+  "9048146": "Alpen", 
+  "9048151": "Altena"
+};
 
 exports.handler = async (event) => {
   const id = event.queryStringParameters?.id;
