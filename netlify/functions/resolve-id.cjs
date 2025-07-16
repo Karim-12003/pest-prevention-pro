@@ -1,15 +1,15 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const fs = require("fs");
-const path = require("path");
 
-const stadtMapPath = path.join(__dirname, "stadt_map.json");
-let stadtMap;
-try {
-  stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
-} catch (error) {
-  console.error("Error loading stadt_map.json:", error);
-  stadtMap = {};
-}
+// Stadt-Mapping direkt eingebettet für bessere Deployment-Kompatibilität
+const stadtMap = {
+  "1004625": "Essen",
+  "1004576": "Aachen",
+  "1004577": "Ahaus",
+  "1004578": "Ahlen",
+  "1004579": "Alfter",
+  "1004580": "Alsdorf"
+  // Füge hier weitere Städte hinzu falls nötig
+};
 
 exports.handler = async (event) => {
   const id = event.queryStringParameters?.id;
