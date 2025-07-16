@@ -24,6 +24,8 @@ export async function detectCity(): Promise<CityData> {
     const data = await response.json();
     
     console.log("📥 DEBUG: API-Antwort:", data);
+    console.log("📥 DEBUG: data.stadt Wert:", data.stadt);
+    console.log("📥 DEBUG: Vollständige Response:", JSON.stringify(data, null, 2));
 
     if (data.stadt) {
       const cityData = { name: data.stadt, plz: "00000" };
