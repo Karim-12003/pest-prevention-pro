@@ -3,7 +3,13 @@ const fs = require("fs");
 const path = require("path");
 
 const stadtMapPath = path.join(__dirname, "stadt_map.json");
-const stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
+let stadtMap;
+try {
+  stadtMap = JSON.parse(fs.readFileSync(stadtMapPath, "utf8"));
+} catch (error) {
+  console.error("Error loading stadt_map.json:", error);
+  stadtMap = {};
+}
 
 exports.handler = async (event) => {
   const id = event.queryStringParameters?.id;
