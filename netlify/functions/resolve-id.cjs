@@ -35,7 +35,8 @@ exports.handler = async (event) => {
     console.log(`ID ${id} nicht in Map gefunden, versuche als PLZ...`);
     
     // Versuche die ID direkt als PLZ
-    if (/^\d{5}$/.test(id)) {
+    if (/^\d{5}$/.test(String(value))) {
+
       const apiUrl = `https://openplzapi.org/de/Localities?postalCode=${id}`;
       
       try {
