@@ -6,18 +6,32 @@ export interface CityData {
 
 export async function detectCity(): Promise<CityData> {
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("kw") || urlParams.get("loc_physical_ms") || urlParams.get("city_id");
+  const kw = urlParams.get("kw");
+  const locId = urlParams.get("loc_physical_ms") || urlParams.get("city_id");
 
   console.log("🔍 DEBUG: Stadt-Erkennung startet mit URL:", window.location.search);
-  console.log("🔍 DEBUG: Gefundene ID:", id);
+  console.log("🔍 DEBUG: kw parameter:", kw);
+  console.log("🔍 DEBUG: loc_physical_ms/city_id:", locId);
 
-  if (!id) {
-    console.log("❌ DEBUG: Keine ID gefunden");
+  // Wenn kw parameter vorhanden ist, direkt als Stadtname verwenden
+  if (kw) {
+    const cityName = decodeURIComponent(kw).replace(/\+/g, " ");
+    console.log("✅ DEBUG: Stadt direkt aus kw erkannt:", cityName);
+    const cityData = { name: cityName, plz: "00000" };
+    
+    sessionStorage.setItem("cityName", cityName);
+    sessionStorage.setItem("cityData", JSON.stringify(cityData));
+    return cityData;
+  }
+
+  // Wenn keine kw aber loc_physical_ms/city_id, dann API-Aufruf
+  if (!locId) {
+    console.log("❌ DEBUG: Keine Parameter gefunden");
     return { name: "Ihrer Stadt", plz: "00000" };
   }
 
   try {
-    const apiUrl = `/.netlify/functions/resolve-id?id=${id}`;
+    const apiUrl = `/.netlify/functions/resolve-id?id=${locId}`;
     console.log("🌐 DEBUG: API-Aufruf:", apiUrl);
     
     const response = await fetch(apiUrl);
