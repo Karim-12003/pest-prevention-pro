@@ -10,44 +10,11 @@ import { getCityFromParams } from '../utils/cityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Hagen";
-const DEFAULT_PLZ = "58135";
-
-// Erweiterte PLZ-Zuordnung für bekannte Städte
-const cityToPLZ: Record<string, string> = {
-  'Essen': '45127',
-  'Dortmund': '44137',
-  'Duisburg': '47051',
-  'Bochum': '44787',
-  'Herne': '44623',
-  'Gelsenkirchen': '45879',
-  'Oberhausen': '46045',
-  'Bottrop': '46236',
-  'Mülheim': '45468',
-  'Hagen': '58135',
-  'Recklinghausen': '45657',
-  'Köln': '50667',
-  'Berlin': '10115',
-  'Hamburg': '20095',
-  'München': '80331',
-  'Frankfurt': '60311',
-  'Stuttgart': '70173',
-  'Schweinfurt': '97421',
-  'Würzburg': '97070',
-  'Bamberg': '96047',
-  'Nürnberg': '90402',
-  'Augsburg': '86150',
-  'Regensburg': '93047',
-  'Altenessen-Nord': '45329',
-  'Altenessen Nord': '45329',
-  'Altenessen': '45329',
-  'Ihre Stadt': '58135',
-  'Ihrer Stadt': '58135',
-};
 
 const Impressum = () => {
   const { city: routeCity } = useParams();
   const location = useLocation();
-  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY });
   
   useEffect(() => {
     const runCityDetection = async () => {
@@ -58,16 +25,13 @@ const Impressum = () => {
         let detectedCityData = getCityFromParams();
         console.log("Impressum: Stadt aus URL-Parametern:", detectedCityData);
         let detectedCity = detectedCityData.name;
-        let detectedPlz = detectedCityData.plz;
         
         // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {
           const storedCity = sessionStorage.getItem('cityName');
-          const storedPlz = sessionStorage.getItem('cityPlz');
           if (storedCity && storedCity !== "Ihrer Stadt") {
             detectedCity = storedCity;
-            detectedPlz = storedPlz || DEFAULT_PLZ;
-            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity, detectedPlz);
+            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity);
           }
         } else {
           // Stadt in sessionStorage speichern für andere Seiten
@@ -76,46 +40,12 @@ const Impressum = () => {
         
         console.log("Impressum: Finale erkannte Stadt:", detectedCity);
         
-        // PLZ für erkannte Stadt finden
-        let plz = detectedPlz;
-        
-        // Debug-Info
-        console.log("Impressum: Erkannte Stadt:", detectedCity);
-        console.log("Impressum: PLZ aus Detection:", detectedPlz);
-        
-        // Wenn keine gültige PLZ aus der API kam, verwende die statische Tabelle
-        if (!plz || plz === "00000") {
-          // Zuerst exakte Übereinstimmung in statischer Tabelle
-          if (cityToPLZ[detectedCity]) {
-            plz = cityToPLZ[detectedCity];
-            console.log("Impressum: PLZ aus statischer Tabelle (exakt):", plz);
-          } else {
-            // Dann nach ähnlichen Namen suchen
-            const cityKey = Object.keys(cityToPLZ).find(key => 
-              key.toLowerCase().includes(detectedCity.toLowerCase()) ||
-              detectedCity.toLowerCase().includes(key.toLowerCase())
-            );
-            if (cityKey) {
-              plz = cityToPLZ[cityKey];
-              console.log("Impressum: PLZ aus statischer Tabelle (ähnlich):", plz, "für", cityKey);
-            } else {
-              plz = DEFAULT_PLZ;
-              console.log("Impressum: Fallback PLZ verwendet:", plz);
-            }
-          }
-        } else {
-          console.log("Impressum: API-PLZ verwendet:", plz);
-        }
-        
-        console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
-        
         setCityInfo({ 
-          city: detectedCity, 
-          plz 
+          city: detectedCity
         });
       } catch (error) {
         console.error("Impressum: Fehler bei der Stadt-Erkennung:", error);
-        setCityInfo({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+        setCityInfo({ city: DEFAULT_CITY });
       }
     };
     
@@ -147,7 +77,7 @@ const Impressum = () => {
               <div className="space-y-2">
                 <p>Kammerjäger Schneider</p>
                 <p>Hauptstraße 26–36</p>
-                <p>{cityInfo.plz} {cityInfo.city}</p>
+                <p>{cityInfo.city}</p>
                 <p>Deutschland</p>
               </div>
             </section>
