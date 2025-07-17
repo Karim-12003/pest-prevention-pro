@@ -18,7 +18,10 @@ export async function detectCity(): Promise<CityData> {
     const searchTerm = decodeURIComponent(kw).replace(/\+/g, " ");
     // Extrahiere die Stadt (meist das letzte Wort nach "kammerjaeger" etc.)
     const words = searchTerm.split(" ");
-    const cityName = words[words.length - 1]; // Letztes Wort ist meist die Stadt
+    let cityName = words[words.length - 1]; // Letztes Wort ist meist die Stadt
+    
+    // Ersten Buchstaben groß schreiben
+    cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1).toLowerCase();
     
     console.log("✅ DEBUG: Vollständiger Suchbegriff:", searchTerm);
     console.log("✅ DEBUG: Extrahierte Stadt:", cityName);
@@ -48,10 +51,12 @@ export async function detectCity(): Promise<CityData> {
     console.log("📥 DEBUG: Vollständige Response:", JSON.stringify(data, null, 2));
 
     if (data.stadt) {
-      const cityData = { name: data.stadt, plz: "00000" };
+      // Ersten Buchstaben groß schreiben
+      const capitalizedCity = data.stadt.charAt(0).toUpperCase() + data.stadt.slice(1).toLowerCase();
+      const cityData = { name: capitalizedCity, plz: "00000" };
       console.log("✅ DEBUG: Stadt erkannt:", cityData);
       
-      sessionStorage.setItem("cityName", data.stadt);
+      sessionStorage.setItem("cityName", capitalizedCity);
       sessionStorage.setItem("cityData", JSON.stringify(cityData));
       return cityData;
     } else {

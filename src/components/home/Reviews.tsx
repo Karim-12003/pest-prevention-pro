@@ -54,6 +54,20 @@ const Reviews = ({ cityName }: ReviewsProps) => {
   const isMobile = useIsMobile();
   const [cityInfo, setCityInfo] = useState(() => getCityFromParams());
   
+  // Event Listener für Stadt-Updates
+  useEffect(() => {
+    const handleCityDetected = (event: CustomEvent) => {
+      console.log("📝 REVIEWS - Stadt-Event empfangen:", event.detail);
+      setCityInfo(event.detail);
+    };
+
+    window.addEventListener('cityDetected', handleCityDetected as EventListener);
+    
+    return () => {
+      window.removeEventListener('cityDetected', handleCityDetected as EventListener);
+    };
+  }, []);
+  
   useEffect(() => {
     console.log("Reviews: Verwende erkannte Stadt:", cityInfo);
     
