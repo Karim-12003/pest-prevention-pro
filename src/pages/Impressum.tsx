@@ -31,6 +31,12 @@ const cityToPLZ: Record<string, string> = {
   'München': '80331',
   'Frankfurt': '60311',
   'Stuttgart': '70173',
+  'Schweinfurt': '97421',
+  'Würzburg': '97070',
+  'Bamberg': '96047',
+  'Nürnberg': '90402',
+  'Augsburg': '86150',
+  'Regensburg': '93047',
   'Altenessen-Nord': '45329',
   'Altenessen Nord': '45329',
   'Altenessen': '45329',
@@ -71,13 +77,18 @@ const Impressum = () => {
         console.log("Impressum: Finale erkannte Stadt:", detectedCity);
         
         // PLZ für erkannte Stadt finden
-        let plz = detectedPlz || DEFAULT_PLZ;
+        let plz = detectedPlz;
         
-        // Nur als Fallback die statische Tabelle verwenden, wenn keine PLZ erkannt wurde
-        if (plz === "00000" || !plz) {
+        // Debug-Info
+        console.log("Impressum: Erkannte Stadt:", detectedCity);
+        console.log("Impressum: PLZ aus Detection:", detectedPlz);
+        
+        // Wenn keine gültige PLZ aus der API kam, verwende die statische Tabelle
+        if (!plz || plz === "00000") {
           // Zuerst exakte Übereinstimmung in statischer Tabelle
           if (cityToPLZ[detectedCity]) {
             plz = cityToPLZ[detectedCity];
+            console.log("Impressum: PLZ aus statischer Tabelle (exakt):", plz);
           } else {
             // Dann nach ähnlichen Namen suchen
             const cityKey = Object.keys(cityToPLZ).find(key => 
@@ -86,10 +97,14 @@ const Impressum = () => {
             );
             if (cityKey) {
               plz = cityToPLZ[cityKey];
+              console.log("Impressum: PLZ aus statischer Tabelle (ähnlich):", plz, "für", cityKey);
             } else {
               plz = DEFAULT_PLZ;
+              console.log("Impressum: Fallback PLZ verwendet:", plz);
             }
           }
+        } else {
+          console.log("Impressum: API-PLZ verwendet:", plz);
         }
         
         console.log("Impressum: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
