@@ -13,10 +13,16 @@ export async function detectCity(): Promise<CityData> {
   console.log("🔍 DEBUG: kw parameter:", kw);
   console.log("🔍 DEBUG: loc_physical_ms/city_id:", locId);
 
-  // Wenn kw parameter vorhanden ist, direkt als Stadtname verwenden
+  // Wenn kw parameter vorhanden ist, Stadt aus dem Suchbegriff extrahieren
   if (kw) {
-    const cityName = decodeURIComponent(kw).replace(/\+/g, " ");
-    console.log("✅ DEBUG: Stadt direkt aus kw erkannt:", cityName);
+    const searchTerm = decodeURIComponent(kw).replace(/\+/g, " ");
+    // Extrahiere die Stadt (meist das letzte Wort nach "kammerjaeger" etc.)
+    const words = searchTerm.split(" ");
+    const cityName = words[words.length - 1]; // Letztes Wort ist meist die Stadt
+    
+    console.log("✅ DEBUG: Vollständiger Suchbegriff:", searchTerm);
+    console.log("✅ DEBUG: Extrahierte Stadt:", cityName);
+    
     const cityData = { name: cityName, plz: "00000" };
     
     sessionStorage.setItem("cityName", cityName);
