@@ -53,10 +53,12 @@ export async function detectCity(): Promise<CityData> {
     if (data.stadt) {
       // Ersten Buchstaben groß schreiben
       const capitalizedCity = data.stadt.charAt(0).toUpperCase() + data.stadt.slice(1).toLowerCase();
-      const cityData = { name: capitalizedCity, plz: "00000" };
+      const realPlz = data.plz || "00000"; // PLZ aus API verwenden
+      const cityData = { name: capitalizedCity, plz: realPlz };
       console.log("✅ DEBUG: Stadt erkannt:", cityData);
       
       sessionStorage.setItem("cityName", capitalizedCity);
+      sessionStorage.setItem("cityPlz", realPlz);
       sessionStorage.setItem("cityData", JSON.stringify(cityData));
       return cityData;
     } else {

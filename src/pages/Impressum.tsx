@@ -52,13 +52,16 @@ const Impressum = () => {
         let detectedCityData = getCityFromParams();
         console.log("Impressum: Stadt aus URL-Parametern:", detectedCityData);
         let detectedCity = detectedCityData.name;
+        let detectedPlz = detectedCityData.plz;
         
         // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {
-          const storedCity = sessionStorage.getItem('detectedCity');
+          const storedCity = sessionStorage.getItem('cityName');
+          const storedPlz = sessionStorage.getItem('cityPlz');
           if (storedCity && storedCity !== "Ihrer Stadt") {
             detectedCity = storedCity;
-            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity);
+            detectedPlz = storedPlz || DEFAULT_PLZ;
+            console.log("Impressum: Stadt aus sessionStorage übernommen:", detectedCity, detectedPlz);
           }
         } else {
           // Stadt in sessionStorage speichern für andere Seiten
@@ -67,20 +70,25 @@ const Impressum = () => {
         
         console.log("Impressum: Finale erkannte Stadt:", detectedCity);
         
-        // PLZ für erkannte Stadt finden - mit mehreren Varianten
-        let plz = DEFAULT_PLZ;
+        // PLZ für erkannte Stadt finden
+        let plz = detectedPlz || DEFAULT_PLZ;
         
-        // Zuerst exakte Übereinstimmung
-        if (cityToPLZ[detectedCity]) {
-          plz = cityToPLZ[detectedCity];
-        } else {
-          // Dann nach ähnlichen Namen suchen
-          const cityKey = Object.keys(cityToPLZ).find(key => 
-            key.toLowerCase().includes(detectedCity.toLowerCase()) ||
-            detectedCity.toLowerCase().includes(key.toLowerCase())
-          );
-          if (cityKey) {
-            plz = cityToPLZ[cityKey];
+        // Nur als Fallback die statische Tabelle verwenden, wenn keine PLZ erkannt wurde
+        if (plz === "00000" || !plz) {
+          // Zuerst exakte Übereinstimmung in statischer Tabelle
+          if (cityToPLZ[detectedCity]) {
+            plz = cityToPLZ[detectedCity];
+          } else {
+            // Dann nach ähnlichen Namen suchen
+            const cityKey = Object.keys(cityToPLZ).find(key => 
+              key.toLowerCase().includes(detectedCity.toLowerCase()) ||
+              detectedCity.toLowerCase().includes(key.toLowerCase())
+            );
+            if (cityKey) {
+              plz = cityToPLZ[cityKey];
+            } else {
+              plz = DEFAULT_PLZ;
+            }
           }
         }
         
