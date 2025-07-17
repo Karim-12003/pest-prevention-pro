@@ -9,38 +9,11 @@ import { getCityFromParams } from '../utils/cityDetection';
 
 const PHONE_NUMBER = "+491782581987";
 const DEFAULT_CITY = "Hagen";
-const DEFAULT_PLZ = "58135";
-
-// Erweiterte PLZ-Zuordnung für bekannte Städte
-const cityToPLZ: Record<string, string> = {
-  'Essen': '45127',
-  'Dortmund': '44137',
-  'Duisburg': '47051',
-  'Bochum': '44787',
-  'Herne': '44623',
-  'Gelsenkirchen': '45879',
-  'Oberhausen': '46045',
-  'Bottrop': '46236',
-  'Mülheim': '45468',
-  'Hagen': '58135',
-  'Recklinghausen': '45657',
-  'Köln': '50667',
-  'Berlin': '10115',
-  'Hamburg': '20095',
-  'München': '80331',
-  'Frankfurt': '60311',
-  'Stuttgart': '70173',
-  'Altenessen-Nord': '45329',
-  'Altenessen Nord': '45329',
-  'Altenessen': '45329',
-  'Ihre Stadt': '58135',
-  'Ihrer Stadt': '58135',
-};
 
 const AGB = () => {
   const { city: routeCity } = useParams();
   const location = useLocation();
-  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+  const [cityInfo, setCityInfo] = useState({ city: DEFAULT_CITY });
   
   useEffect(() => {
     const runCityDetection = async () => {
@@ -54,7 +27,7 @@ const AGB = () => {
         
         // Falls keine Stadt aus URL erkannt wurde, prüfe sessionStorage
         if (detectedCity === "Ihrer Stadt") {
-          const storedCity = sessionStorage.getItem('detectedCity');
+          const storedCity = sessionStorage.getItem('cityName');
           if (storedCity && storedCity !== "Ihrer Stadt") {
             detectedCity = storedCity;
             console.log("AGB: Stadt aus sessionStorage übernommen:", detectedCity);
@@ -66,32 +39,12 @@ const AGB = () => {
         
         console.log("AGB: Finale erkannte Stadt:", detectedCity);
         
-        // PLZ für erkannte Stadt finden - mit mehreren Varianten
-        let plz = DEFAULT_PLZ;
-        
-        // Zuerst exakte Übereinstimmung
-        if (cityToPLZ[detectedCity]) {
-          plz = cityToPLZ[detectedCity];
-        } else {
-          // Dann nach ähnlichen Namen suchen
-          const cityKey = Object.keys(cityToPLZ).find(key => 
-            key.toLowerCase().includes(detectedCity.toLowerCase()) ||
-            detectedCity.toLowerCase().includes(key.toLowerCase())
-          );
-          if (cityKey) {
-            plz = cityToPLZ[cityKey];
-          }
-        }
-        
-        console.log("AGB: Verwendete PLZ:", plz, "für Stadt:", detectedCity);
-        
         setCityInfo({ 
-          city: detectedCity, 
-          plz 
+          city: detectedCity
         });
       } catch (error) {
         console.error("AGB: Fehler bei der Stadt-Erkennung:", error);
-        setCityInfo({ city: DEFAULT_CITY, plz: DEFAULT_PLZ });
+        setCityInfo({ city: DEFAULT_CITY });
       }
     };
     
@@ -121,7 +74,7 @@ const AGB = () => {
             <section className="mb-8">
               <div className="space-y-2 mb-6">
                 <p>Kammerjäger Schneider</p>
-                <p>Hauptstraße 26–36, {cityInfo.plz} {cityInfo.city}</p>
+                <p>Hauptstraße 26–36, {cityInfo.city}</p>
                 <p>E-Mail: <a href="mailto:info.kammerjaegerschneider.de" className="text-[#9b87f5] hover:underline">info.kammerjaegerschneider.de</a></p>
                 <p>Telefon: <a href="tel:+491782581987" className="text-[#9b87f5] hover:underline">+49 178 2581987</a></p>
               </div>
